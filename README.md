@@ -4,6 +4,12 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 **Team:** Eric, Ethan, Gayatri, Aishani, Rylee, and Saurya.
 
+**Model plan:** Use Groq’s hosted Qwen for agent decisions. No teammate needs to run the town LLM locally. Build our own RAG and fine-tune a small DistilBERT interaction classifier in Colab; run embeddings and the classifier on a CPU backend.
+
+**Deployment plan:** Host React as a static website and FastAPI on a CPU server. Share one town across viewers. Eric selects hosting after checking backend memory use and the available budget; no paid service is assumed. Prepare a hosted preview by Day 6 when resources permit, and keep baseline/replay available for the demo.
+
+**Free quota:** All five residents use one request queue. Start at four model calls per minute across the town, with cached plans between calls. Movement continues without new LLM requests. Development, notebooks, evaluations and demos all consume the provider quota; reserve calls before a session.
+
 **Meetings:** Tuesdays and Thursdays, October 13–November 12, 2026. Each Day below is a meeting checkpoint. Complete its tasks by that meeting where possible; do the shared workshop together. Meeting times are TBD.
 
 ## Who does what
@@ -26,7 +32,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 - [ ] **Eric:** Create the MiniDavis GitHub repository and invite the five teammates.
 - [ ] **Saurya:** Sign in to GitHub, accept repo access, and open the shared Notion project.
 - [ ] **Rylee:** Sign in to GitHub, accept repo access, and confirm access to the shared Google Drive folder.
-- [ ] **Aishani:** Confirm LLM-provider account access with Eric; record the provider/model and agreed budget without posting keys.
+- [ ] **Aishani:** Set up Groq access with Eric; record the Qwen model, free quota and credential owner without posting keys.
 - [ ] **Ethan:** Create the shared MiniDavis Google Drive folder and give the team access.
 - [ ] **Gayatri:** Create an empty shared Colab notebook in that folder and confirm everyone can open it.
 
@@ -34,10 +40,10 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Day 1 — Thursday, 10/15: Run the starter
 
-- [ ] **Eric:** Create the project folders and shared configuration; connect frontend and backend.
+- [ ] **Eric:** Create the project folders and shared Groq configuration; connect frontend/backend and record the hosting budget.
 - [ ] **Saurya:** Set up React and render the 12×12 map with five residents.
 - [ ] **Rylee:** Set up FastAPI and implement `/health`, `/state`, and `/reset`.
-- [ ] **Aishani:** Create the baseline-agent notebook and return one valid decision per resident.
+- [ ] **Aishani:** Create the baseline-agent notebook and a Groq connection check; return valid baseline decisions without local LLM weights.
 - [ ] **Ethan:** Create the event store and memory notebook; save/read one sample event.
 - [ ] **Gayatri:** Add starter tests, run them, and save the pass/fail output.
 
@@ -56,12 +62,12 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Day 3 — Thursday, 10/22: MVP + agents together
 
-**Shared session:** Run the agent notebook, send an observation to the LLM, and inspect the returned action.
+**Shared session:** Run the agent notebook, send a short observation to Groq Qwen, and inspect its validated JSON action. Keep credentials in Colab Secrets or backend environment settings.
 
 - [ ] **Eric:** Complete the MVP integration and record a two-minute working run.
-- [ ] **Saurya:** Add the resident inspector and event log; check every resident.
+- [ ] **Saurya:** Add the inspector and event log; show live, waiting, baseline and fallback states for every resident.
 - [ ] **Rylee:** Add model-action validation and run the MVP safety tests.
-- [ ] **Aishani:** Implement the live LLM adapter and save five residents’ decisions.
+- [ ] **Aishani:** Implement Groq Qwen JSON decisions, a shared four-call/minute queue and cached plans; save one live decision per resident.
 - [ ] **Ethan:** Pass recent memories with real event IDs into the agent input.
 - [ ] **Gayatri:** Run three seeded 100-tick MVP checks and save the report.
 
@@ -75,7 +81,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 - [ ] **Saurya:** Display retrieved text and source event IDs in the inspector.
 - [ ] **Rylee:** Run cross-resident and cross-run memory isolation tests.
 - [ ] **Aishani:** Add retrieved memories to all five live agents’ prompts.
-- [ ] **Ethan:** Implement recent + relevant memory retrieval and run 10 retrieval checks.
+- [ ] **Ethan:** Implement recent + relevant retrieval with MiniLM CPU embeddings; run 10 checks and keep prompts within the token budget.
 - [ ] **Gayatri:** Compare decisions with memory enabled and disabled; save one example of each.
 
 **Finish:** Agents retrieve actual past events without leaking another resident’s private memory.
@@ -89,29 +95,29 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 - [ ] **Rylee:** Implement trade offers and acceptance; run duplicate-acceptance tests.
 - [ ] **Aishani:** Review examples 001–050 and correct wrong labels.
 - [ ] **Ethan:** Review examples 051–100 and check that scenario families stay in one data split.
-- [ ] **Gayatri:** Prepare the training notebook, review examples 101–200, train, and save the model and validation results.
+- [ ] **Gayatri:** Prepare the Colab training notebook, review examples 101–200, train DistilBERT, and export weights/tokenizer/config and validation results.
 
 **Finish:** Train on the fixed training split, choose using validation, and save a trained classifier. Keep test data untouched until Day 6. Fine-tune the classifier, not the main LLM.
 
 ## Day 6 — Tuesday, 11/03: Integrate and freeze features
 
-- [ ] **Eric:** Finish integration, run the whole app, and resolve blocking issues.
-- [ ] **Saurya:** Check shortage controls, trade status, memories, and classifier labels on screen.
-- [ ] **Rylee:** Finish atomic trading, shortage, reset, and replay; run their checks.
-- [ ] **Aishani:** Add timeout/invalid-output fallback and call limits; test live and failure modes.
-- [ ] **Ethan:** Update memories and relationships from actual completed interactions.
+- [ ] **Eric:** Finish integration; help deploy the static frontend and CPU backend preview within the agreed budget, or record the hosting blocker.
+- [ ] **Saurya:** Connect the frontend to the deployed API when available; check shortage, trades, memories, classifier labels and waiting states.
+- [ ] **Rylee:** Finish trading, shortage, reset and replay; package the CPU backend, load the classifier and measure RAM before deployment.
+- [ ] **Aishani:** Test Groq timeout, invalid output, missing key and quota errors; enforce shared request/token budgets and safe fallback.
+- [ ] **Ethan:** Update memories/relationships from completed interactions; verify persistent storage or document reset-on-restart preview behavior.
 - [ ] **Gayatri:** Evaluate the frozen classifier on held-out test data and run the integration checklist.
 
-**Integration gate:** Live agents, RAG, trades, shortage, classifier predictions, and frontend work together. Keep fixed relationship rules; the classifier supplies an observable label. Freeze new features after this meeting.
+**Integration gate:** Groq agents, our RAG, trades, shortage, CPU classifier and frontend work together. Check queue/budget limits and hosting readiness. Keep fixed relationship rules; the classifier supplies an observable label. Freeze new features after this meeting. A hosting blocker must be recorded and must not delay core integration.
 
 ## Day 7 — Thursday, 11/05: Stabilize and compare
 
 - [ ] **Eric:** Reproduce and fix bugs with the responsible teammate; help backend/frontend owners rerun checks.
-- [ ] **Saurya:** Run a 30-minute UI session and report slow rendering or broken controls.
+- [ ] **Saurya:** Run a 30-minute session with two viewers; confirm both see one town and do not multiply model calls.
 - [ ] **Rylee:** Run 1,000 baseline ticks and confirm no corrupted resources or positions.
-- [ ] **Aishani:** Run provider-failure checks and check repeated/invalid plans.
+- [ ] **Aishani:** Run mocked Groq failure/quota checks; verify cached plans, stale-result rejection and aggregate call/token caps.
 - [ ] **Ethan:** Rerun retrieval and memory-isolation checks.
-- [ ] **Gayatri:** Run matched baseline, LLM-only, and LLM + RAG comparisons; save metrics.
+- [ ] **Gayatri:** Run six matched comparison runs within the reserved Groq quota; save calls/tokens, latency, behavior and classifier metrics.
 
 **Finish:** Tested runs have no crashes or invariant failures; evaluation results are saved.
 
@@ -119,8 +125,8 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 - [ ] **Eric:** Prepare the five-minute script and lead two rehearsals.
 - [ ] **Saurya:** Operate the town and check projector readability.
-- [ ] **Rylee:** Check clean-machine startup and the known-good replay.
-- [ ] **Aishani:** Check live model access and labelled fallback.
+- [ ] **Rylee:** Check the deployed API or local CPU startup, restart behavior and known-good replay; confirm no local LLM is needed.
+- [ ] **Aishani:** Reserve the demo Groq quota, check the configured Qwen model and demonstrate labelled fallback.
 - [ ] **Ethan:** Prepare one real remembered-interaction example for the demo.
 - [ ] **Gayatri:** Check presentation numbers and record a local backup demo.
 
@@ -128,7 +134,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Day 9 — Thursday, 11/12: Demo and submit
 
-- [ ] **Eric:** Present MiniDavis and collect the final submission links.
+- [ ] **Eric:** Present MiniDavis and submit source, notebooks, model, reports, recording and hosted URL or hosting status.
 - [ ] **Saurya:** Run the frontend during the demo and save the final build.
 - [ ] **Rylee:** Run the backend smoke checks and support reset/replay.
 - [ ] **Aishani:** Explain agent decisions and fallback behavior.
@@ -143,4 +149,4 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 2. Everyone runs the shared ML topic together when scheduled.
 3. Eric assigns bug fixes to the responsible teammate and checks the next handoffs.
 
-If behind, cut extra artwork, house building, elections, and hosting. Protect the core town, shared ML sessions, testing, and demo practice.
+If behind, cut extra artwork, house building, elections and permanent hosting. Protect the core town, cloud model adapter, shared ML sessions, testing and demo practice. A local CPU app can still call Groq for live decisions.

@@ -4,6 +4,17 @@ Use [README.md](README.md) for who does what on each date. This guide defines th
 
 **Day 1:** Create the starter application, notebooks, fixtures, and test commands specified below. Run the commands after creating their corresponding files. Complete each checkbox only after observing the required result.
 
+## Model and hosting decision
+
+- **Agent LLM:** Groq-hosted Qwen; starting model ID `qwen/qwen3.8-27b`. All five residents share this service with separate observations, goals and memories. Verify availability in the project account on Day 1 and freeze the working model/config on Day 6. No local town LLM or Ollama installation is required.
+- **RAG:** Our SQLite event store, filtering and retrieval; `sentence-transformers/all-MiniLM-L6-v2` embeddings on CPU. Cache event embeddings. Use scoped recent/lexical retrieval if embedding loading fails and label the mode.
+- **Fine-tuning:** Train our four-label DistilBERT classifier in Colab and export the model/tokenizer/config. Load it on the CPU backend. This does not change the hosted Qwen weights. Hosting a future fine-tuned town LLM requires a separate checkpoint-compatible service and budget.
+- **App hosting:** Static React frontend plus a CPU FastAPI service. Render is a starting option; Eric/Rylee select a backend size only after measuring classifier + embeddings + app RAM. Groq runs the large LLM. No GPU server purchase is assumed.
+
+Groq currently lists Qwen at 30 requests/minute, 1,000 requests/day, 8,000 tokens/minute and 200,000 tokens/day on its free plan; actual account limits/model availability must be checked before use. Free quota is suitable for bounded development and demos, not an always-running town. See [Groq limits](https://console.groq.com/docs/rate-limits), [models](https://console.groq.com/docs/models), and [JSON schema support](https://console.groq.com/docs/structured-outputs).
+
+Training and runtime are separate: Colab produces the classifier files; the backend loads them for prediction. Use the provider API key only in server environment settings or Colab Secrets. Never put it in React configuration.
+
 ## 1. Fixed responsibilities
 
 | Person | Build and check | Collaboration |
@@ -25,7 +36,7 @@ Everyone participates in agents on Day 3, RAG on Day 4, and fine-tuning on Day 5
 - [ ] Add Ethan, Gayatri, Aishani, Rylee, and Saurya as collaborators using their actual usernames.
 - [ ] Grant the team access to the existing Notion project.
 - [ ] Record repo, Notion, Drive, and Colab links in one shared location.
-- [ ] Confirm the LLM provider/model and a project budget with Aishani.
+- [ ] Confirm Groq access, the Qwen model, the free quota and credential ownership with Aishani; record the hosting budget separately.
 
 ### Saurya
 
@@ -41,9 +52,9 @@ Everyone participates in agents on Day 3, RAG on Day 4, and fine-tuning on Day 5
 
 ### Aishani
 
-- [ ] Sign in to the agreed LLM-provider account or authorized project.
-- [ ] Confirm with Eric who controls the API credential and budget.
-- [ ] Record the provider/model name; keep the credential out of GitHub, Notion, and chat.
+- [ ] Sign in to Groq and confirm access to the authorized project.
+- [ ] Confirm with Eric who controls the Groq credential and shared development/demo quota.
+- [ ] Record `groq`, the available Qwen model and account limits; keep credentials out of GitHub, Notion and chat. Do not run inference today.
 
 ### Ethan
 
@@ -121,7 +132,7 @@ Ignore `.venv`, `.env`, `node_modules`, local SQLite files, and large model weig
 
 Use Python 3.11 and a supported Node.js LTS version meeting the frontend’s requirements. Vite currently documents Node 20.19+ or 22.12+; use Node 22.12+ or a newer supported LTS. Follow the committed lockfile rather than upgrading packages independently. See [Vite’s setup guide](https://vite.dev/guide/).
 
-Clone the team repository:
+Clone the project repository:
 
 ```bash
 git clone https://github.com/KTH-Sys/MiniDavis.git
@@ -165,11 +176,21 @@ Create the example environment files, then copy them to `backend/.env` and `fron
 ```dotenv
 # backend/.env — loaded by the application
 MINIDAVIS_MODE=baseline
-LLM_PROVIDER=
-LLM_MODEL=
+LLM_PROVIDER=groq
+LLM_MODEL=qwen/qwen3.8-27b
 LLM_API_KEY=
-LLM_TIMEOUT_SECONDS=8
-MAX_LLM_CALLS_PER_100_TICKS=80
+LLM_TIMEOUT_SECONDS=20
+LLM_MIN_AGENT_REPLAN_SECONDS=30
+LLM_MAX_REQUESTS_PER_MINUTE=4
+LLM_MAX_CALLS_PER_RUN=20
+LLM_MAX_CALLS_PER_DAY=500
+LLM_MAX_TOKENS_PER_DAY=160000
+LLM_MAX_INPUT_TOKENS=800
+LLM_MAX_COMPLETION_TOKENS=512
+EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+CLASSIFIER_MODEL_PATH=ml/artifacts/classifier
+MEMORY_DB_PATH=data/minidavis.sqlite
+FRONTEND_ORIGINS=http://localhost:5173
 ```
 
 ```dotenv
@@ -177,7 +198,17 @@ MAX_LLM_CALLS_PER_100_TICKS=80
 VITE_API_BASE_URL=http://127.0.0.1:8000
 ```
 
-Rylee makes baseline mode work with empty provider fields. Eric and Aishani fill the agreed provider settings locally before using live mode.
+These are configuration fields to implement in the starter, not evidence of an existing application. Rylee makes baseline mode work without a key. Eric/Aishani set `LLM_API_KEY` to a Groq key locally or in the hosting secret settings before live mode. Implement server-side environment loading; never return credentials through health/state/log endpoints.
+
+### Shared request and token budget
+
+- Aishani creates one Groq adapter using strict JSON schema and a short public explanation; Rylee still checks action legality, run and revision.
+- Queue at most four requests/minute across all five agents, spaced at least 15 seconds apart. Replan each resident no sooner than 30 seconds and only when needed; the shared queue means busy residents may wait longer. Show waiting state. Movement/BFS and animations use cached plans between calls.
+- Allow one in-flight model request; capture its observation revision, apply only if still valid, and discard stale results after reset. Do not freeze frontend rendering while waiting.
+- Enforce 20 calls/run, 500 calls/day and 160,000 total tokens/day as conservative application defaults, plus actual provider limits. Count retries and completion/reasoning tokens. Enforce input/output bounds and record measured usage, not just estimates.
+- On 429 honor `Retry-After`; avoid repeated immediate retries. On unavailable model, missing key, timeout or invalid output use labelled legal baseline/rest fallback. Budget exhaustion makes no further provider calls.
+- Provider limits include notebooks and all teammates’ development. Use mocked provider responses for routine tests. Reserve session/evaluation budgets in a shared tracker; use a central development adapter when available. Separate local counters do not enforce account-wide limits.
+- A typical five-minute demo may need about 20 calls, but token use must be measured. Reserve that allowance before the demo. Do not make extra live calls simply for more viewers.
 
 ### Starter acceptance checklist
 
@@ -259,7 +290,7 @@ python scripts/run_eval.py --mode baseline --seeds 11 --scenarios normal --ticks
 
 Open `ml/notebooks/01_agents.ipynb` in Colab. Run cells in order: imports → resident observation → baseline decision → live provider adapter → validation → failure examples. The notebook must support Colab Secrets/local environment settings without printing keys.
 
-Aishani implements structured plans with `run_id`, `agent_id`, `observation_revision`, action/target fields, and a short public explanation. Rylee validates them and rejects unknown actions, bad targets, missing resources, and obsolete run/revision values. Use an 8-second timeout, cached plans, and a run call cap. Use legal baseline/rest fallback for invalid or failed calls.
+Aishani implements structured plans with `run_id`, `agent_id`, `observation_revision`, action/target fields, and a short public explanation. Rylee validates them and rejects unknown actions, bad targets, missing resources, and obsolete run/revision values. Use the Groq adapter and shared queue above, a configurable 20-second timeout, cached plans and call/token caps. Strict JSON schema does not prove world legality. Use legal baseline/rest fallback for invalid or failed calls.
 
 - [ ] **Eric:** Save a two-minute MVP recording and assign failing cases to the responsible teammate.
 - [ ] **Saurya:** Click every resident; inspector and event log match the backend snapshot.
@@ -279,7 +310,7 @@ python scripts/run_eval.py --mode baseline --seeds 11 22 33 --scenarios normal -
 
 Open `ml/notebooks/02_rag.ipynb` in Colab. Run cells in order: store events → filter visible history → embed/rank events → retrieve sources → generate with/without memory → evaluate retrieval.
 
-Ethan implements SQLite events containing `event_id`, `run_id`, `tick`, `agent_id`, participants, visibility, event type, outcome, factual text, and optional embedding. Filter by run/agent/visibility and exclude future events **before** ranking. Return five recent events plus the top three relevant unique events with source IDs. Use scoped recent/lexical fallback if embeddings fail.
+Ethan implements SQLite events containing `event_id`, `run_id`, `tick`, `agent_id`, participants, visibility, event type, outcome, factual text, and optional embedding. Filter by run/agent/visibility and exclude future events **before** ranking. Use cached MiniLM CPU embeddings. Return up to five recent events plus the top three relevant unique events with source IDs, truncating factual text to the planner input budget. Use scoped recent/lexical fallback if embeddings fail.
 
 - [ ] **Eric:** Confirm retrieved evidence travels from memory service to the planner and inspector.
 - [ ] **Saurya:** Confirm the screen displays memory text, IDs, and retrieval mode.
@@ -341,21 +372,35 @@ python scripts/run_eval.py --mode rag --seeds 11 --scenarios normal shortage --t
 
 Require no invariant failures, an accepted bilateral trade demonstrated by a documented fixture/trace, source-backed memory retrieval, working shortage/fallback, and successful classifier loading. The UI labels fixture, baseline, live, fallback, and replay honestly. Freeze feature additions after this gate.
 
+### CPU deployment checklist — prepare Day 5, preview Day 6
+
+- [ ] **Eric:** Choose static frontend hosting and CPU backend hosting using measured RAM and the agreed budget. Record URLs/costs or a specific blocker; do not enable paid resources without an agreed budget.
+- [ ] **Rylee:** Package FastAPI, pinned dependencies and the exported classifier/tokenizer/config. Fetch model files during build or store them in an accessible artifact location. Load models once per process and measure peak memory; start with one backend worker and one shared town scheduler.
+- [ ] **Rylee:** Bind to `0.0.0.0` and the host-provided port. Configure readiness, frontend origins, Groq server secrets and classifier/database paths. Keep backend mutation controls restricted to the demo operator; viewers read the same town state.
+- [ ] **Saurya:** Build React with `VITE_API_BASE_URL` set to the HTTPS backend URL. Configure static hosting for `frontend/dist`; verify CORS and controls in the deployed build.
+- [ ] **Ethan:** Use a persistent disk for SQLite or adapt storage to a managed database. Verify memory/run isolation after restart. An ephemeral preview must explicitly reset on restart and export traces; do not describe it as durable storage.
+- [ ] **Gayatri:** Check real classifier loading, CPU inference latency and RAM, two viewers seeing one run, no added provider calls per viewer, reset/replay and missing-key/429 recovery.
+- [ ] **Eric/Aishani:** Check account-wide remaining request/token quota before the preview and reserve the demo allowance.
+
+Render offers static/frontend and Python web-service hosting, but free backend services sleep after inactivity and lose local SQLite files on restart; choose durable storage separately. A free backend must pass actual RAM/startup checks with both small models loaded. If it cannot, record the resource blocker and use a suitable CPU plan only within the agreed budget. See [Render service types](https://render.com/docs/your-first-deploy) and [free-service limits](https://render.com/docs/free).
+
+If hosting is blocked, preserve a local CPU frontend/backend that calls Groq. No teammate must install or serve the town LLM. Rehearse both the live route and a labelled baseline/replay/recording route. Permanent hosting is secondary to Day 6 integration and Days 7–9 stabilization.
+
 ## 9. Day 7 evaluation and stabilization
 
 Gayatri implements `run_eval.py` with modes `baseline`, `llm`, `rag`, fixed seeds, normal/shortage scenarios, configurable tick counts, and output directories. Aishani and Ethan connect the planner/retrieval modes. `llm` excludes episodic memory; `rag` includes it. Keep relationships, rules, initial state, model, prompts, and budgets identical for matching comparisons.
 
 ```bash
 python scripts/run_eval.py --mode baseline --seeds 11 --scenarios normal --ticks 1000 --out results/stress
-python scripts/run_eval.py --mode all --seeds 11 22 33 --scenarios normal shortage --ticks 100 --out results/comparison
+python scripts/run_eval.py --mode all --seeds 11 --scenarios normal shortage --ticks 100 --out results/comparison
 ```
 
-The comparison is 3 modes × 3 seeds × 2 scenarios = 18 runs. Apply shortage at tick 30 in every shortage episode. If the agreed provider budget is insufficient, use one matched seed across every mode/scenario (6 runs) and label results exploratory.
+Default to one matched seed (11) across three modes and two scenarios: six exploratory runs. Four of those runs use Groq, capped at 20 calls/run; baseline uses zero. Reserve calls/tokens first and pace all live requests through the shared queue. Apply shortage at tick 30 in every shortage episode. Expand to seeds 11/22/33 (18 runs) only when the shared quota permits; split over days while freezing model/prompt/config and record dates. A fast baseline stress test must not call Groq. Report budget-exhausted comparisons rather than treating fallback as live LLM behavior.
 
 - [ ] **Eric:** Collect reproducible bugs, fix them with their owners, and rerun affected checks.
 - [ ] **Saurya:** Complete a 30-minute UI session without freezing; show at most 200 recent events on screen.
 - [ ] **Rylee:** Complete 1,000 baseline ticks with legal state and verify reset afterward.
-- [ ] **Aishani:** Verify recovery and the 80-call/100-tick default cap; record actual calls and failures.
+- [ ] **Aishani:** Verify Groq recovery, the shared four-call/minute queue, 20-call/run cap and daily token budget; record actual usage including retries.
 - [ ] **Ethan:** Rerun retrieval hit-rate, isolation, and stale/future-event checks.
 - [ ] **Gayatri:** Save run IDs/configs, proposal validity, engine acceptance, fallback rate, trades, latency, tokens/calls, and classifier metrics.
 
@@ -367,8 +412,8 @@ Report actual denominators and observed behavior. Three seeds do not establish s
 
 - [ ] **Eric:** Present for five minutes: town → live decision → retrieved memory → shortage/trade → training/comparison results.
 - [ ] **Saurya:** Operate the UI and verify readability at 1280×720.
-- [ ] **Rylee:** Run the written startup steps on the demo machine and load a known replay.
-- [ ] **Aishani:** Confirm provider access and demonstrate labelled fallback on simulated failure.
+- [ ] **Rylee:** Check the deployed API or written local CPU startup, restart behavior and a known replay; no local town LLM is required.
+- [ ] **Aishani:** Reserve the Groq demo quota, confirm the configured Qwen model and demonstrate labelled fallback on simulated failure.
 - [ ] **Ethan:** Show a retrieved event and the interaction that actually created it.
 - [ ] **Gayatri:** Confirm every displayed result matches saved metrics; record a backup video that opens locally.
 
