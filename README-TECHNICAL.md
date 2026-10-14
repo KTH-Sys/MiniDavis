@@ -202,10 +202,11 @@ Use the following map, rules, and interfaces directly.
 - Forest: `(2,2)`; farm: `(9,3)`; market: `(5,5)`; town hall: `(6,5)`.
 - Houses: `(2,9)` and `(9,9)`; remaining tiles are traversable grass.
 - Coordinates are `(x,y)` with each component in 0–11. Residents may share a traversable tile.
-- Residents: Alice `(1,1)`, Bob `(8,3)`, Charlie `(5,4)`, Diana `(8,9)`, Emma `(2,8)`.
-- Starting coins: Alice 10, Bob 5, Charlie 15, Diana 8, Emma 6.
+- Agent IDs: `ethan`, `gayatri`, `aishani`, `rylee`, `saurya`. Use these consistently in state, actions, memories, and tests.
+- Residents: Ethan `(1,1)`, Gayatri `(8,3)`, Aishani `(5,4)`, Rylee `(8,9)`, Saurya `(2,8)`.
+- Starting coins: Ethan 10, Gayatri 5, Aishani 15, Rylee 8, Saurya 6.
 - Each starts with 3 food, 0 wood, and 100 energy. Farm has 30 food; forest has 40 wood.
-- Alice seeks wealth; Bob seeks supplies for shelter; Charlie trades food; Diana seeks cooperation; Emma helps others. Building and elections stay outside the core demo.
+- Ethan seeks wealth; Gayatri seeks supplies for shelter; Aishani trades food; Rylee seeks cooperation; Saurya helps others. Building and elections stay outside the core demo.
 
 ### Action rules
 

@@ -1,6 +1,6 @@
 # MiniDavis — Team Plan
 
-A 2D town with five AI residents. They move, gather food and wood, trade, talk, and remember interactions.
+A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saurya. They move, gather food and wood, trade, talk, and remember interactions.
 
 **Team:** Eric, Ethan, Gayatri, Aishani, Rylee, and Saurya.
 
