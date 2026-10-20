@@ -2,6 +2,31 @@
 
 A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saurya. They move, gather food and wood, trade, talk, and remember interactions.
 
+## Run the Day 1–2 starter
+
+The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. Live Groq decisions, RAG and classifier training remain upcoming work.
+
+Use Python 3.12 and Node 24 LTS. From the repository root:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r backend/requirements.txt
+python -m uvicorn backend.app.main:app --reload --port 8000
+```
+
+In a second terminal:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+Open **http://127.0.0.1:5173**. Backend API docs: **http://127.0.0.1:8000/docs**. Windows activation is in [the technical guide](README-TECHNICAL.md). No environment file is required for baseline defaults.
+
+See [Eric’s implementation notes](docs/eric-day1-day2.md) for checks and team handoffs, and [hosting/budget status](docs/hosting-budget.md) before choosing a cloud service.
+
 **Team:** Eric, Ethan, Gayatri, Aishani, Rylee, and Saurya.
 
 **Model plan:** Use Groq’s hosted Qwen for agent decisions. No teammate needs to run the town LLM locally. Build our own RAG and fine-tune a small DistilBERT interaction classifier in Colab; run embeddings and the classifier on a CPU backend.
@@ -40,7 +65,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Day 1 — Thursday, 10/15: Run the starter
 
-- [ ] **Eric:** Create the project folders and shared Groq configuration; connect frontend/backend and record the hosting budget.
+- [x] **Eric:** Create the project folders and shared Groq configuration; connect frontend/backend and record the hosting budget.
 - [ ] **Saurya:** Set up React and render the 12×12 map with five residents.
 - [ ] **Rylee:** Set up FastAPI and implement `/health`, `/state`, and `/reset`.
 - [ ] **Aishani:** Create the baseline-agent notebook and a Groq connection check; return valid baseline decisions without local LLM weights.
@@ -51,7 +76,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Day 2 — Tuesday, 10/20: Run the simulation
 
-- [ ] **Eric:** Connect the simulation loop and frontend controls to backend ticks.
+- [x] **Eric:** Connect the simulation loop and frontend controls to backend ticks.
 - [ ] **Saurya:** Add Play, Pause, Next Turn, and Reset using the real backend.
 - [ ] **Rylee:** Implement movement, gathering, eating, and resting; run 100 baseline ticks.
 - [ ] **Aishani:** Add baseline action selection and destination-following for all five residents.
