@@ -4,6 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
+from .memory import EventStore
 from .schemas import ResetRequest, StepRequest, WorldState
 from .world import Conflict, World
 
@@ -11,7 +12,7 @@ from .world import Conflict, World
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
     application = FastAPI(title="MiniDavis", version="0.1.0")
-    application.state.world = World()
+    application.state.world = World(store=EventStore(settings.memory_db_path))
     application.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,

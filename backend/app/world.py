@@ -6,6 +6,7 @@ from threading import Lock
 from uuid import uuid4
 
 from .agents import baseline_plan
+from .memory import EventStore
 from .schemas import Action, Event, Location, Resident, Resource, StepRequest, TownMap, WorldState
 
 
@@ -47,11 +48,12 @@ Planner = Callable[[Resident, WorldState], Action]
 
 
 class World:
-    def __init__(self, seed: int = 11, planner: Planner = baseline_plan):
+    def __init__(self, seed: int = 11, planner: Planner = baseline_plan, store: EventStore | None = None):
         self._lock = Lock()
         self._state = initial_state(seed)
         self._requests: OrderedDict[str, int] = OrderedDict()
         self._planner = planner
+        self._store = store
 
     def snapshot(self) -> WorldState:
         with self._lock:
@@ -81,7 +83,7 @@ class World:
                 # Give a planner detached observations, never mutable world objects.
                 action = self._planner(agent.model_copy(deep=True), state.model_copy(deep=True))
                 outcome, text = self._execute(agent, action)
-                state.events.append(Event(
+                event = Event(
                     event_id=f"{state.run_id}:{state.tick}:{agent.id}",
                     run_id=state.run_id,
                     tick=state.tick,
@@ -89,7 +91,10 @@ class World:
                     action=action.action,
                     outcome=outcome,
                     text=text,
-                ))
+                )
+                state.events.append(event)
+                if self._store:
+                    self._store.save(event)
             state.events = state.events[-200:]
             state.revision += 1
             self._requests[request.request_id] = request.expected_revision
