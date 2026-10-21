@@ -1,13 +1,19 @@
-import { GRID_SIZE, residents } from './data';
+import { GRID_SIZE, residents as defaultResidents, RESIDENT_COLORS } from './data';
 
 // Size of each grid tile in pixels
 const TILE = 48;
 
-function TownMap() {
+/**
+ * TownMap Component
+ *
+ * Renders a 12x12 grid of tiles with resident markers overlaid.
+ * Accepts `residents` array as a prop, falling back to defaultResidents from data.js.
+ */
+function TownMap({ residents = defaultResidents }) {
   // Total pixel dimensions for the 12x12 grid (12 * 48 = 576px)
   const mapSize = GRID_SIZE * TILE;
 
-  // Create an array with 144 items (GRID_SIZE * GRID_SIZE) to render each tile in the grid
+  // Create an array with 144 items (12 * 12) to render each grid tile
   const tiles = Array.from({ length: GRID_SIZE * GRID_SIZE });
 
   return (
@@ -49,52 +55,58 @@ function TownMap() {
       </div>
 
       {/* Residents: Drawn on top of the grid, absolutely positioned at (x * TILE, y * TILE) */}
-      {residents.map((resident) => (
-        <div
-          key={resident.id}
-          title={resident.name}
-          style={{
-            position: 'absolute',
-            left: `${resident.x * TILE}px`,
-            top: `${resident.y * TILE}px`,
-            width: `${TILE}px`,
-            height: `${TILE}px`,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
-        >
-          {/* Colored circle using the resident's assigned color */}
-          <div
-            style={{
-              width: `${TILE * 0.5}px`,
-              height: `${TILE * 0.5}px`,
-              borderRadius: '50%',
-              backgroundColor: resident.color,
-              border: '2px solid #ffffff',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.25)',
-              boxSizing: 'border-box',
-            }}
-          />
+      {residents.map((resident) => {
+        // Resolve color from resident object or lookup table
+        const color = resident.color || RESIDENT_COLORS[resident.id] || '#457b9d';
 
-          {/* Small text label displaying the resident's name underneath */}
-          <span
+        return (
+          <div
+            key={resident.id}
+            title={`${resident.name} (${resident.x}, ${resident.y})`}
             style={{
-              fontSize: '10px',
-              fontWeight: 600,
-              color: '#1b4332',
-              marginTop: '2px',
-              lineHeight: 1,
-              userSelect: 'none',
-              textShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
+              position: 'absolute',
+              left: `${resident.x * TILE}px`,
+              top: `${resident.y * TILE}px`,
+              width: `${TILE}px`,
+              height: `${TILE}px`,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'left 0.3s ease, top 0.3s ease', // Smooth movement between tiles
             }}
           >
-            {resident.name}
-          </span>
-        </div>
-      ))}
+            {/* Colored circle using the resident's assigned color */}
+            <div
+              style={{
+                width: `${TILE * 0.5}px`,
+                height: `${TILE * 0.5}px`,
+                borderRadius: '50%',
+                backgroundColor: color,
+                border: '2px solid #ffffff',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.25)',
+                boxSizing: 'border-box',
+              }}
+            />
+
+            {/* Small text label displaying the resident's name underneath */}
+            <span
+              style={{
+                fontSize: '10px',
+                fontWeight: 600,
+                color: '#1b4332',
+                marginTop: '2px',
+                lineHeight: 1,
+                userSelect: 'none',
+                textShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
+              }}
+            >
+              {resident.name}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 }

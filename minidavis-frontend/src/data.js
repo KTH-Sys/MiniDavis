@@ -2,6 +2,16 @@
 
 export const GRID_SIZE = 12;
 
+// Consistent visual colors for each resident ID
+export const RESIDENT_COLORS = {
+  ethan: '#e63946',
+  gayatri: '#2a9d8f',
+  aishani: '#f4a261',
+  rylee: '#457b9d',
+  saurya: '#9b5de5',
+};
+
+// Fallback mock residents used only when the backend is unreachable
 export const residents = [
   {
     id: 'ethan',
