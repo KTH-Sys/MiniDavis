@@ -29,3 +29,11 @@ class EventStore:
     def get(self, event_id: str) -> Event | None:
         row = self.db.execute(f"SELECT {','.join(FIELDS)} FROM events WHERE event_id = ?", (event_id,)).fetchone()
         return Event(**dict(zip(FIELDS, row))) if row else None
+
+    def recent(self, run_id: str, agent_id: str, limit: int = 5) -> list[Event]:
+        """One resident's newest events in this run, returned oldest first."""
+        rows = self.db.execute(
+            f"SELECT {','.join(FIELDS)} FROM events WHERE run_id = ? AND agent_id = ? ORDER BY tick DESC LIMIT ?",
+            (run_id, agent_id, limit),
+        ).fetchall()
+        return [Event(**dict(zip(FIELDS, row))) for row in reversed(rows)]

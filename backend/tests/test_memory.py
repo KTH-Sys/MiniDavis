@@ -37,3 +37,19 @@ def test_world_saves_every_event_with_its_outcome(tmp_path):
     assert (gather.action, gather.outcome) == ("gather", "accepted")
     assert (bad_move.action, bad_move.outcome) == ("move", "rejected")
     assert all(reopened.get(f"{run_id}:1:{agent}") for agent in ["aishani", "rylee", "saurya"])
+
+
+def test_recent_returns_last_five_real_events_for_one_resident_and_run(tmp_path):
+    store = EventStore(tmp_path / "memory.sqlite")
+    world = World(store=store)
+    run_id = world.snapshot().run_id
+    for tick in range(7):
+        world.step(StepRequest(run_id=run_id, expected_revision=tick, request_id=f"step-{tick}"))
+    store.save(Event(event_id="old:1:ethan", run_id="old", tick=99, agent_id="ethan",
+                     action="rest", outcome="accepted", text="Old run."))
+
+    recent = store.recent(run_id, "ethan")
+
+    assert [event.tick for event in recent] == [3, 4, 5, 6, 7]  # oldest first, reads like a story
+    assert all(event.agent_id == "ethan" and event.run_id == run_id for event in recent)
+    assert all(store.get(event.event_id) == event for event in recent)  # every ID really exists
