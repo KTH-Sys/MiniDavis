@@ -4,7 +4,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Run MiniDavis
 
-The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. Select any resident to inspect its decision and the retrieved source events. Keyword retrieval is connected; live Groq decisions, semantic embeddings and classifier training remain upcoming work.
+The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a light, terminal-style feed beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events. Conversations and trades will appear once the backend records those actions. Keyword retrieval is connected; live Groq decisions, semantic embeddings and classifier training remain upcoming work. See the [town artwork and animation notes](frontend/public/art/README.md).
 
 Use Python 3.12 and Node 24 LTS. From the repository root:
 

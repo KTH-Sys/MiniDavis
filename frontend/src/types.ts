@@ -30,6 +30,8 @@ export interface WorldState {
     run_id: string;
     tick: number;
     agent_id: string;
+    target_agent_id?: string;
+    participants?: string[];
     action: string;
     outcome: 'accepted' | 'rejected';
     text: string;
