@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-24",
+  "mode": "baseline",
+  "retrieval_mode": "lexical",
+  "recording_seconds": 123.76,
+  "residents_checked": 5,
+  "controls": "passed",
+  "source_ids_match_backend": true,
+  "reset_clears_inspector": true,
+  "mobile_width": 390,
+  "page_errors": [],
+  "provider_calls": 0
+}

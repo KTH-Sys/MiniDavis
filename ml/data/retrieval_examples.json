@@ -1,0 +1,12 @@
+[
+  {"query": "forest", "text": "Ethan gathered wood beside the forest.", "action": "gather", "outcome": "accepted"},
+  {"query": "farm", "text": "Ethan collected food from the farm.", "action": "gather", "outcome": "accepted"},
+  {"query": "lunch", "text": "Ethan ate lunch and recovered energy.", "action": "eat", "outcome": "accepted"},
+  {"query": "house", "text": "Ethan rested near the west house.", "action": "rest", "outcome": "accepted"},
+  {"query": "market", "text": "Ethan moved past the market.", "action": "move", "outcome": "accepted"},
+  {"query": "hall", "text": "Ethan moved to the town hall.", "action": "move", "outcome": "accepted"},
+  {"query": "border", "text": "Ethan's move beyond the border was rejected.", "action": "move", "outcome": "rejected"},
+  {"query": "logs", "text": "Ethan gathered two logs for shelter.", "action": "gather", "outcome": "accepted"},
+  {"query": "exhaustion", "text": "Ethan took a break after exhaustion.", "action": "rest", "outcome": "accepted"},
+  {"query": "eastern", "text": "Ethan carried supplies along the eastern path.", "action": "move", "outcome": "accepted"}
+]

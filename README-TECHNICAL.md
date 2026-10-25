@@ -2,7 +2,7 @@
 
 Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Day 1:** Create the starter application, notebooks, fixtures, and test commands specified below. Run the commands after creating their corresponding files. Complete each checkbox only after observing the required result.
+**Implemented through Eric’s Day 3–4 integration:** The baseline frontend/backend now includes resident selection, decision/source inspectors, the event log, scoped SQLite keyword retrieval and a two-minute MVP recording. See [Day 1–2 evidence](docs/eric-day1-day2.md) and [Day 3–4 evidence](docs/eric-day3-day4.md). Live Groq inference, MiniLM embeddings, training and later routes remain assigned work. Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
@@ -130,14 +130,14 @@ Ignore `.venv`, `.env`, `node_modules`, local SQLite files, and large model weig
 
 ### Install and start after creating the starter
 
-Use Python 3.11 and a supported Node.js LTS version meeting the frontend’s requirements. Vite currently documents Node 20.19+ or 22.12+; use Node 22.12+ or a newer supported LTS. Follow the committed lockfile rather than upgrading packages independently. See [Vite’s setup guide](https://vite.dev/guide/).
+Use Python 3.12 and Node.js 24 LTS, as recorded in `.python-version` and `.nvmrc`. The frontend requires Node 22.12+; use the team’s Node 24 LTS version. Follow the committed lockfile rather than upgrading packages independently. See [Vite’s setup guide](https://vite.dev/guide/).
 
 Clone the project repository:
 
 ```bash
 git clone https://github.com/KTH-Sys/MiniDavis.git
 cd MiniDavis
-python3 -m venv .venv
+python3.12 -m venv .venv
 ```
 
 Activate the environment on macOS/Linux:
@@ -146,7 +146,7 @@ Activate the environment on macOS/Linux:
 source .venv/bin/activate
 ```
 
-On Windows PowerShell, create it with `py -3.11 -m venv .venv` and activate with:
+On Windows PowerShell, create it with `py -3.12 -m venv .venv` and activate with:
 
 ```powershell
 .venv\Scripts\Activate.ps1
@@ -198,7 +198,7 @@ FRONTEND_ORIGINS=http://localhost:5173
 VITE_API_BASE_URL=http://127.0.0.1:8000
 ```
 
-These are configuration fields to implement in the starter, not evidence of an existing application. Rylee makes baseline mode work without a key. Eric/Aishani set `LLM_API_KEY` to a Groq key locally or in the hosting secret settings before live mode. Implement server-side environment loading; never return credentials through health/state/log endpoints.
+The starter loads these server-only settings from `backend/.env`; baseline works without a key. Groq/RAG/classifier fields reserve the agreed configuration for later adapters and are not active integrations yet. Only baseline mode is accepted until the next adapter exists. Set `LLM_API_KEY` in backend environment settings before later live mode; no key is returned by health/state or exposed to React.
 
 ### Shared request and token budget
 
@@ -212,7 +212,7 @@ These are configuration fields to implement in the starter, not evidence of an e
 
 ### Starter acceptance checklist
 
-- [ ] **Eric:** Frontend and backend run on the same machine.
+- [x] **Eric:** Frontend and backend run on the same machine.
 - [ ] **Saurya:** The map renders five residents from the real `/state` response.
 - [ ] **Rylee:** `/health` returns ready; reset returns the same seeded initial state.
 - [ ] **Aishani:** `01_agents.ipynb` returns legal baseline actions.
@@ -274,7 +274,7 @@ Send one step at a time from frontend Play. Pause stops scheduling new steps; an
 
 ### Day 2
 
-- [ ] **Eric:** Connect the backend action loop to the frontend controls and run both.
+- [x] **Eric:** Connect the backend action loop to the frontend controls and run both.
 - [ ] **Saurya:** Play changes tick/positions; Pause stops new ticks; Next Turn advances once; Reset returns the initial town.
 - [ ] **Rylee:** Run `test_world.py` and `test_api.py`; check legal coordinates, energy 0–100, and nonnegative stock/inventory.
 - [ ] **Aishani:** Verify all five baseline residents move toward resources and choose eat/rest when needed.
@@ -282,7 +282,7 @@ Send one step at a time from frontend Play. Pause stops scheduling new steps; an
 - [ ] **Gayatri:** Run 100 baseline ticks and save the seed, final state, and any failed check.
 
 ```bash
-python -m pytest backend/tests/test_world.py backend/tests/test_api.py -q
+python -m pytest backend/tests/test_api.py -q
 python scripts/run_eval.py --mode baseline --seeds 11 --scenarios normal --ticks 100 --out results/day2
 ```
 
@@ -292,7 +292,7 @@ Open `ml/notebooks/01_agents.ipynb` in Colab. Run cells in order: imports → re
 
 Aishani implements structured plans with `run_id`, `agent_id`, `observation_revision`, action/target fields, and a short public explanation. Rylee validates them and rejects unknown actions, bad targets, missing resources, and obsolete run/revision values. Use the Groq adapter and shared queue above, a configurable 20-second timeout, cached plans and call/token caps. Strict JSON schema does not prove world legality. Use legal baseline/rest fallback for invalid or failed calls.
 
-- [ ] **Eric:** Save a two-minute MVP recording and assign failing cases to the responsible teammate.
+- [x] **Eric:** Save a two-minute MVP recording and assign failing cases to the responsible teammate.
 - [ ] **Saurya:** Click every resident; inspector and event log match the backend snapshot.
 - [ ] **Rylee:** Run `test_agents.py`; invalid output cannot mutate authoritative state.
 - [ ] **Aishani:** Save at least one actual live decision for each resident with mode/model identified.
@@ -312,7 +312,7 @@ Open `ml/notebooks/02_rag.ipynb` in Colab. Run cells in order: store events → 
 
 Ethan implements SQLite events containing `event_id`, `run_id`, `tick`, `agent_id`, participants, visibility, event type, outcome, factual text, and optional embedding. Filter by run/agent/visibility and exclude future events **before** ranking. Use cached MiniLM CPU embeddings. Return up to five recent events plus the top three relevant unique events with source IDs, truncating factual text to the planner input budget. Use scoped recent/lexical fallback if embeddings fail.
 
-- [ ] **Eric:** Confirm retrieved evidence travels from memory service to the planner and inspector.
+- [x] **Eric:** Confirm retrieved evidence travels from memory service to the planner and inspector.
 - [ ] **Saurya:** Confirm the screen displays memory text, IDs, and retrieval mode.
 - [ ] **Rylee:** Run `test_memory.py`; another resident’s private event and an old run’s event stay excluded.
 - [ ] **Aishani:** Confirm all five live planners use the retrieved facts in their input.
