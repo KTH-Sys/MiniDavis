@@ -1,16 +1,15 @@
-# React + Vite
+# Frontend moved to `frontend/`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MiniDavis uses one frontend in [`../frontend/`](../frontend/). Saurya's Day 1–2 React setup, 12×12 resident map and backend playback controls are consolidated there with the current animated town and terminal feed. The original work remains in Git history in commits `03356da` and `80e7caa`.
 
-Currently, two official plugins are available:
+From this directory:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+cd ../frontend
+npm ci
+npm run dev
+```
 
-## React Compiler
+Use `VITE_API_BASE_URL` to change the backend URL. The earlier `VITE_API_URL` setting is also accepted when `VITE_API_BASE_URL` is unset. The shared app uses actual backend state and provides a reconnect action if the backend is unavailable.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Run tests and build from `frontend/` with `npm test` and `npm run build`. See the [project startup instructions](../README.md#run-minidavis).

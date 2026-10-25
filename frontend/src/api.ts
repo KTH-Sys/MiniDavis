@@ -1,6 +1,7 @@
 import type { WorldState } from './types';
 
-const base = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
+// Accept the original frontend setting while keeping the shared setting primary.
+const base = (import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
 
 export class ApiError extends Error {
   constructor(public readonly status: number, message: string) {
