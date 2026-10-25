@@ -2,7 +2,7 @@
 
 Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Implemented through Eric’s Day 3–4 integration:** The baseline frontend/backend now includes resident selection, decision/source inspectors, the event log, scoped SQLite keyword retrieval and a two-minute MVP recording. See [Day 1–2 evidence](docs/eric-day1-day2.md) and [Day 3–4 evidence](docs/eric-day3-day4.md). Live Groq inference, MiniLM embeddings, training and later routes remain assigned work. Complete checkboxes only after observing results.
+**Implemented through Eric’s Day 3–4 integration:** The baseline frontend/backend now includes resident selection, decision/source inspectors, the event log, scoped SQLite keyword retrieval and a two-minute MVP recording. See [Day 1–2 evidence](docs/eric-day1-day2.md) and [Day 3–4 evidence](docs/eric-day3-day4.md). The Day 1–3 audit adds the optional nonblocking Groq adapter, shared persistent budgets, cached destinations, explicit planner states and runnable agent/memory notebooks. Real Groq evidence awaits an API key. MiniLM embeddings, training and later routes remain assigned work. See [audit and setup](docs/day1-day3-audit.md). Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
@@ -198,7 +198,7 @@ FRONTEND_ORIGINS=http://localhost:5173
 VITE_API_BASE_URL=http://127.0.0.1:8000
 ```
 
-The starter loads these server-only settings from `backend/.env`; baseline works without a key. Groq/RAG/classifier fields reserve the agreed configuration for later adapters and are not active integrations yet. Only baseline mode is accepted until the next adapter exists. Set `LLM_API_KEY` in backend environment settings before later live mode; no key is returned by health/state or exposed to React.
+The starter loads these server-only settings from `backend/.env`; baseline works without a key. Set `MINIDAVIS_MODE=llm` and a server `LLM_API_KEY` to enable the implemented Groq adapter. Reset preserves the active mode unless an explicit mode is supplied. The adapter uses the existing scoped keyword memory; embeddings/classifier settings remain for later work. No key is returned by health/state or exposed to React. Run `python scripts/check_groq.py --live` to save actual per-resident evidence before claiming live verification.
 
 ### Shared request and token budget
 
@@ -213,11 +213,11 @@ The starter loads these server-only settings from `backend/.env`; baseline works
 ### Starter acceptance checklist
 
 - [x] **Eric:** Frontend and backend run on the same machine.
-- [ ] **Saurya:** The map renders five residents from the real `/state` response.
-- [ ] **Rylee:** `/health` returns ready; reset returns the same seeded initial state.
-- [ ] **Aishani:** `01_agents.ipynb` returns legal baseline actions.
-- [ ] **Ethan:** `02_rag.ipynb` stores and reads one event.
-- [ ] **Gayatri:** Starter tests pass using the command below.
+- [x] **Saurya:** The map renders five residents from the real `/state` response.
+- [x] **Rylee:** `/health` returns ready; reset returns the same seeded initial state.
+- [x] **Aishani:** `01_agents.ipynb` returns legal baseline actions.
+- [x] **Ethan:** `02_rag.ipynb` stores and reads one event.
+- [x] **Gayatri:** Starter tests pass using the command below.
 
 ```bash
 python -m pytest backend/tests -q
@@ -275,11 +275,11 @@ Send one step at a time from frontend Play. Pause stops scheduling new steps; an
 ### Day 2
 
 - [x] **Eric:** Connect the backend action loop to the frontend controls and run both.
-- [ ] **Saurya:** Play changes tick/positions; Pause stops new ticks; Next Turn advances once; Reset returns the initial town.
-- [ ] **Rylee:** Run `test_world.py` and `test_api.py`; check legal coordinates, energy 0–100, and nonnegative stock/inventory.
-- [ ] **Aishani:** Verify all five baseline residents move toward resources and choose eat/rest when needed.
-- [ ] **Ethan:** Inspect an accepted gather event and a rejected invalid-move event; check their outcomes differ.
-- [ ] **Gayatri:** Run 100 baseline ticks and save the seed, final state, and any failed check.
+- [x] **Saurya:** Play changes tick/positions; Pause stops new ticks; Next Turn advances once; Reset returns the initial town.
+- [x] **Rylee:** Run `test_world.py` and `test_api.py`; check legal coordinates, energy 0–100, and nonnegative stock/inventory.
+- [x] **Aishani:** Verify all five baseline residents move toward resources and choose eat/rest when needed.
+- [x] **Ethan:** Inspect an accepted gather event and a rejected invalid-move event; check their outcomes differ.
+- [x] **Gayatri:** Run 100 baseline ticks and save the seed, final state, and any failed check.
 
 ```bash
 python -m pytest backend/tests/test_api.py -q
@@ -293,11 +293,11 @@ Open `ml/notebooks/01_agents.ipynb` in Colab. Run cells in order: imports → re
 Aishani implements structured plans with `run_id`, `agent_id`, `observation_revision`, action/target fields, and a short public explanation. Rylee validates them and rejects unknown actions, bad targets, missing resources, and obsolete run/revision values. Use the Groq adapter and shared queue above, a configurable 20-second timeout, cached plans and call/token caps. Strict JSON schema does not prove world legality. Use legal baseline/rest fallback for invalid or failed calls.
 
 - [x] **Eric:** Save a two-minute MVP recording and assign failing cases to the responsible teammate.
-- [ ] **Saurya:** Click every resident; inspector and event log match the backend snapshot.
-- [ ] **Rylee:** Run `test_agents.py`; invalid output cannot mutate authoritative state.
-- [ ] **Aishani:** Save at least one actual live decision for each resident with mode/model identified.
-- [ ] **Ethan:** Check that recent memories cite existing event IDs.
-- [ ] **Gayatri:** Run seeds 11, 22, and 33 for 100 baseline ticks each.
+- [x] **Saurya:** Click every resident; inspector and event log match the backend snapshot.
+- [x] **Rylee:** Run `test_agents.py`; invalid output cannot mutate authoritative state.
+- [ ] **Aishani:** Save at least one actual live decision for each resident with mode/model identified. Implementation passes mocked checks; real provider evidence awaits the server key.
+- [x] **Ethan:** Check that recent memories cite existing event IDs.
+- [x] **Gayatri:** Run seeds 11, 22, and 33 for 100 baseline ticks each.
 
 ```bash
 python -m pytest backend/tests/test_agents.py -q

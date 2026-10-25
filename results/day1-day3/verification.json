@@ -1,0 +1,107 @@
+{
+  "audit_date": "2026-10-24",
+  "base_commit": "6e4e1b6b8b7941d036f08a5c00786a2879042c49",
+  "backend": {
+    "tests": 61,
+    "failures": 0
+  },
+  "frontend": {
+    "tests": 21,
+    "passed": 21,
+    "failed": 0,
+    "production_build": "passed"
+  },
+  "notebooks": [
+    {
+      "notebook": "01_agents.ipynb",
+      "code_cells_executed": 6,
+      "status": "passed",
+      "live_provider_calls": 0
+    },
+    {
+      "notebook": "02_rag.ipynb",
+      "code_cells_executed": 4,
+      "status": "passed",
+      "live_provider_calls": 0
+    }
+  ],
+  "baseline_runs": [
+    {
+      "seed": 11,
+      "mode": "baseline",
+      "scenario": "normal",
+      "ticks": 100,
+      "invariant_failures": 0,
+      "provider_calls": 0,
+      "actions_seen": [
+        "eat",
+        "gather",
+        "move",
+        "rest"
+      ]
+    },
+    {
+      "seed": 22,
+      "mode": "baseline",
+      "scenario": "normal",
+      "ticks": 100,
+      "invariant_failures": 0,
+      "provider_calls": 0,
+      "actions_seen": [
+        "eat",
+        "gather",
+        "move",
+        "rest"
+      ]
+    },
+    {
+      "seed": 33,
+      "mode": "baseline",
+      "scenario": "normal",
+      "ticks": 100,
+      "invariant_failures": 0,
+      "provider_calls": 0,
+      "actions_seen": [
+        "eat",
+        "gather",
+        "move",
+        "rest"
+      ]
+    }
+  ],
+  "browser": {
+    "status": "passed",
+    "mode": "baseline",
+    "provider_calls": 0,
+    "residents_checked": 5,
+    "tick": "7",
+    "checks": [
+      "Play/Pause/Next/Reset",
+      "authoritative positions",
+      "all five inspectors",
+      "exact memory IDs",
+      "black pixel UI",
+      "mobile no overflow",
+      "reduced motion"
+    ]
+  },
+  "live_provider": {
+    "status": "pending_user_api_key",
+    "key_configured": false,
+    "live_verified": false,
+    "real_calls_during_audit": 0,
+    "command": "python scripts/check_groq.py --live"
+  },
+  "tasks": {
+    "total": 18,
+    "verified": 17,
+    "remaining": [
+      {
+        "owner": "Aishani",
+        "day": 3,
+        "implementation": "complete",
+        "verification": "Save five real executed Groq decisions after adding the server API key"
+      }
+    ]
+  }
+}

@@ -103,14 +103,16 @@ def test_snapshots_do_not_expose_mutable_world_objects():
     assert world.snapshot().agents[0].coins == 10
 
 
-def test_credentials_are_server_only_and_future_modes_fail_clearly():
+def test_credentials_are_server_only_and_live_mode_is_explicit():
     settings = Settings(_env_file=None, llm_api_key="test-only-secret-value")
     with TestClient(create_app(settings)) as connection:
         health = connection.get("/health")
         assert health.json() == {"status": "ok", "mode": "baseline", "live_llm_enabled": False}
         for path in ["/health", "/state", "/openapi.json"]:
             assert "test-only-secret-value" not in connection.get(path).text
-        assert connection.post("/reset", json={"seed": 11, "mode": "llm"}).status_code == 422
+        assert connection.post("/reset", json={"seed": 11, "mode": "llm"}).json()["mode"] == "llm"
+        assert connection.get("/health").json()["live_llm_enabled"] is True
+        assert connection.post("/reset", json={"seed": 11, "mode": "rag"}).status_code == 422
         assert connection.post("/reset", json={"seed": -1}).status_code == 422
         assert connection.post("/step", json={}).status_code == 422
 

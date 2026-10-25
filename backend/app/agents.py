@@ -3,7 +3,18 @@
 This is baseline logic, not an LLM or a trained policy. The engine owns mutations.
 """
 
+from dataclasses import dataclass
+
 from .schemas import Action, MemoryContext, Resident, WorldState
+
+
+@dataclass
+class PlannedStep:
+    action: Action
+    mode: str
+    memory: MemoryContext
+    model_explanation: str | None = None
+    model_observation_revision: int | None = None
 
 
 def baseline_with_memory(agent: Resident, state: WorldState, memory: MemoryContext) -> Action:

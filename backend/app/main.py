@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
 from .memory import EventStore
+from .groq_planner import LivePlanner
 from .schemas import AgentInspector, ResetRequest, StepRequest, WorldState
 from .world import Conflict, World
 
@@ -14,16 +15,18 @@ from .world import Conflict, World
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
     store = EventStore(settings.memory_db_path)
+    planner = LivePlanner(settings)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         try:
             yield
         finally:
+            planner.close()
             store.close()
 
     application = FastAPI(title="MiniDavis", version="0.2.0", lifespan=lifespan)
-    application.state.world = World(store=store)
+    application.state.world = World(store=store, live_planner=planner, mode=settings.minidavis_mode)
     application.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,
@@ -33,7 +36,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @application.get("/health")
     def health():
-        return {"status": "ok", "mode": "baseline", "live_llm_enabled": False}
+        mode = application.state.world.snapshot().mode
+        return {"status": "ok", "mode": mode,
+                "live_llm_enabled": mode == "llm" and bool(settings.llm_api_key.get_secret_value())}
 
     @application.get("/state", response_model=WorldState)
     def state():
@@ -50,7 +55,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @application.post("/reset", response_model=WorldState)
     def reset(request: ResetRequest):
-        return application.state.world.reset(request.seed)
+        return application.state.world.reset(request.seed, request.mode)
 
     @application.post("/step", response_model=WorldState)
     def step(request: StepRequest):

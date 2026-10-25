@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "mode": "baseline",
+  "provider_calls": 0,
+  "residents_checked": 5,
+  "tick": "7",
+  "checks": [
+    "Play/Pause/Next/Reset",
+    "authoritative positions",
+    "all five inspectors",
+    "exact memory IDs",
+    "black pixel UI",
+    "mobile no overflow",
+    "reduced motion"
+  ]
+}

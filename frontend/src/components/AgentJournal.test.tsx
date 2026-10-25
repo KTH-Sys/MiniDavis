@@ -68,4 +68,21 @@ describe('resident journal', () => {
     expect(screen.queryByText(decision.explanation)).toBeNull();
     expect(screen.getByText(/Advance a turn to see my first action/)).toBeTruthy();
   });
+
+  it('labels waiting, live and fallback states separately from executed actions', () => {
+    const view = render(<AgentJournal agent={agent} decision={decision} events={[]}
+      runtime={{ status: 'waiting', detail: 'Waiting for the shared Groq queue', pending: true }} />);
+    expect(screen.getByRole('status').textContent).toContain('WAITING');
+    view.rerender(<AgentJournal agent={agent} decision={{ ...decision, planner_mode: 'live',
+      model_explanation: 'Wood supports my goal.', model_observation_revision: 1 }} events={[]}
+      runtime={{ status: 'live', detail: 'Cached Groq plan', pending: false }} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Decision' }));
+    expect(screen.getByText(decision.explanation)).toBeTruthy();
+    expect(screen.getByText(/Model’s explanation: Wood supports my goal/)).toBeTruthy();
+    expect(screen.getByRole('status').textContent).toContain('LIVE');
+    view.rerender(<AgentJournal agent={agent} events={[]}
+      runtime={{ status: 'fallback', detail: 'Missing server API key', pending: false }} />);
+    expect(screen.getByRole('status').textContent).toContain('FALLBACK');
+    expect(screen.queryByText(/Model’s explanation/)).toBeNull();
+  });
 });

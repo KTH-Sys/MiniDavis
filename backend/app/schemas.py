@@ -64,11 +64,28 @@ class MemoryContext(Contract):
 class DecisionRecord(Contract):
     tick: int
     observation_revision: int
-    planner_mode: Literal["baseline", "custom"]
+    planner_mode: Literal["baseline", "custom", "live", "cached", "waiting", "fallback"]
     action: str
     explanation: str
     memory: MemoryContext
     event_id: str
+    model_explanation: str | None = None
+    model_observation_revision: int | None = None
+
+
+class AgentRuntime(Contract):
+    status: Literal["baseline", "live", "waiting", "fallback"] = "baseline"
+    detail: str = "Baseline rules"
+    pending: bool = False
+    plan_target: str | None = None
+
+
+class ProviderUsage(Contract):
+    calls_run: int = 0
+    calls_day: int = 0
+    tokens_day: int = 0
+    reserved_tokens_day: int = 0
+    cooldown_seconds: int = 0
 
 
 class WorldState(Contract):
@@ -76,12 +93,14 @@ class WorldState(Contract):
     tick: int = 0
     revision: int = 0
     seed: int
-    mode: Literal["baseline"] = "baseline"
+    mode: Literal["baseline", "llm"] = "baseline"
     map: TownMap
     agents: list[Resident]
     resources: list[Resource]
     events: list[Event] = Field(default_factory=list)
     decisions: dict[str, DecisionRecord] = Field(default_factory=dict)
+    agent_runtime: dict[str, AgentRuntime] = Field(default_factory=dict)
+    provider_usage: ProviderUsage = Field(default_factory=ProviderUsage)
 
 
 class Action(Contract):
@@ -98,7 +117,7 @@ class StepRequest(Contract):
 
 class ResetRequest(Contract):
     seed: int = Field(default=11, ge=0, le=2**31 - 1, strict=True)
-    mode: Literal["baseline"] = "baseline"
+    mode: Literal["baseline", "llm"] | None = None
 
 
 class AgentInspector(Contract):

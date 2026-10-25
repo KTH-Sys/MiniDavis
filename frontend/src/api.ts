@@ -43,5 +43,5 @@ export const townApi: TownApi = {
     expected_revision: state.revision,
     request_id: requestId,
   }),
-  reset: (seed, signal) => request('/reset', signal, { seed, mode: 'baseline' }),
+  reset: (seed, signal) => request('/reset', signal, { seed }),
 };
