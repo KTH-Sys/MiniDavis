@@ -36,10 +36,12 @@ export default function App() {
         <div className="resident-picker" aria-label="Choose a resident">{state?.agents.map((agent) => <button key={agent.id}
           className="resident-choice" aria-label={`Select ${agent.name}`} aria-pressed={selectedId === agent.id} onClick={() => setSelectedId(agent.id)}>
           <span aria-hidden="true">[</span>{agent.name}<span aria-hidden="true">]</span>
+          <small className={`resident-mode mode-${state?.agent_runtime?.[agent.id]?.status ?? 'baseline'}`}>{state?.agent_runtime?.[agent.id]?.status ?? 'baseline'}</small>
         </button>)}</div>
-        {selected && <AgentJournal agent={selected} decision={state?.decisions?.[selected.id]} events={state?.events ?? []} agents={state?.agents} />}
+        {selected && <AgentJournal agent={selected} decision={state?.decisions?.[selected.id]} events={state?.events ?? []} agents={state?.agents} runtime={state?.agent_runtime?.[selected.id]} />}
+        {state?.mode === 'llm' && <p className="provider-budget">Groq calls: {state.provider_usage?.calls_run ?? 0} this run · {state.provider_usage?.calls_day ?? 0} today</p>}
       </aside>
     </div>
-    <footer><span>MINIDAVIS / A SHARED WORLD IN MOTION</span><span>Baseline rules · Five autonomous residents</span></footer>
+    <footer><span>MINIDAVIS / A SHARED WORLD IN MOTION</span><span>{state?.mode === 'llm' ? 'Groq planning + safe fallback' : 'Baseline rules'} · Five autonomous residents</span></footer>
   </main>;
 }

@@ -5,7 +5,7 @@ from collections.abc import Callable
 from threading import Lock
 from uuid import uuid4
 
-from .agents import baseline_plan, baseline_with_memory
+from .agents import PlannedStep, baseline_plan, baseline_with_memory
 from .memory import EventStore
 from .schemas import (Action, AgentInspector, DecisionRecord, Event, Location,
                       MemoryContext, Resident, Resource, StepRequest, TownMap, WorldState)
@@ -51,9 +51,13 @@ ContextPlanner = Callable[[Resident, WorldState, MemoryContext], Action]
 
 class World:
     def __init__(self, seed: int = 11, planner: Planner = baseline_plan, store: EventStore | None = None,
-                 context_planner: ContextPlanner | None = None):
+                 context_planner: ContextPlanner | None = None, live_planner=None, mode: str = "baseline"):
         self._lock = Lock()
         self._state = initial_state(seed)
+        self._state.mode = mode
+        self.live_planner = live_planner
+        if live_planner:
+            live_planner.reset(self._state.run_id)
         self._requests: OrderedDict[str, int] = OrderedDict()
         self._planner = planner
         self._store = store
@@ -83,13 +87,38 @@ class World:
 
     def snapshot(self) -> WorldState:
         with self._lock:
-            return self._state.model_copy(deep=True)
+            return self._snapshot()
 
-    def reset(self, seed: int) -> WorldState:
+    def _snapshot(self):
+        result = self._state.model_copy(deep=True)
+        if self.live_planner:
+            result.agent_runtime = self.live_planner.statuses(result)
+            result.provider_usage = self.live_planner.budget.usage(result.run_id)
+        return result
+
+    def planning_observation(self):
         with self._lock:
+            return self._state.model_copy(deep=True), {
+                agent.id: self._memory(agent, self._state.tick) for agent in self._state.agents}
+
+    def install_live(self, plan, run_id, agent_id, revision, memory):
+        with self._lock:
+            state = self._state
+            if state.mode != "llm" or state.run_id != run_id or state.revision != revision:
+                return False
+            agent = next(agent for agent in state.agents if agent.id == agent_id)
+            self.live_planner.install(plan, state, agent, memory, revision)
+            return True
+
+    def reset(self, seed: int, mode: str | None = None) -> WorldState:
+        with self._lock:
+            current_mode = mode or self._state.mode
             self._state = initial_state(seed)
+            self._state.mode = current_mode
+            if self.live_planner:
+                self.live_planner.reset(self._state.run_id)
             self._requests.clear()
-            return self._state.model_copy(deep=True)
+            return self._snapshot()
 
     def step(self, request: StepRequest) -> WorldState:
         with self._lock:
@@ -100,17 +129,20 @@ class World:
                 if self._requests[request.request_id] != request.expected_revision:
                     raise Conflict("Request ID was already used for a different revision.")
                 # Return the latest state, so a late retry cannot move the UI backwards.
-                return state.model_copy(deep=True)
+                return self._snapshot()
             if request.expected_revision != state.revision:
                 raise Conflict("Town state changed. Refresh before stepping again.")
 
             before = state.model_copy(deep=True)
             try:
-                return self._advance(request)
+                self._advance(request)
             except Exception:
                 # A planner or storage error cannot leave a half-applied turn.
                 self._state = before
                 raise
+        if self.live_planner:
+            self.live_planner.kick(self)
+        return self.snapshot()
 
     def _advance(self, request: StepRequest) -> WorldState:
         state = self._state
@@ -124,10 +156,15 @@ class World:
                                   if event.agent_id == agent.id and event.run_id == state.run_id
                                   and event.tick <= memory.as_of_tick]
             observation.decisions = {key: value for key, value in observation.decisions.items() if key == agent.id}
-            if self._context_planner:
+            if self.live_planner and state.mode == "llm":
+                action = self.live_planner.choose(agent.model_copy(deep=True), observation, memory.model_copy(deep=True))
+            elif self._context_planner:
                 action = self._context_planner(agent.model_copy(deep=True), observation, memory.model_copy(deep=True))
             else:
                 action = self._planner(agent.model_copy(deep=True), observation)
+            planned = action if isinstance(action, PlannedStep) else None
+            if planned:
+                action, memory = planned.action, planned.memory
             outcome, text = self._execute(agent, action)
             event = Event(
                 event_id=f"{state.run_id}:{state.tick}:{agent.id}",
@@ -142,8 +179,10 @@ class World:
             new_events.append(event)
             state.decisions[agent.id] = DecisionRecord(
                 tick=state.tick, observation_revision=state.revision,
-                planner_mode="baseline" if self._planner is baseline_plan and self._context_planner is baseline_with_memory else "custom",
+                planner_mode=planned.mode if planned else ("baseline" if self._planner is baseline_plan and self._context_planner is baseline_with_memory else "custom"),
                 action=action.action, explanation=text, memory=memory, event_id=event.event_id,
+                model_explanation=planned.model_explanation if planned else None,
+                model_observation_revision=planned.model_observation_revision if planned else None,
             )
         if self._store:
             self._store.save_many(new_events)

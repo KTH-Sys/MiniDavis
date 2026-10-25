@@ -4,7 +4,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Run MiniDavis
 
-The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a black hacker-terminal interface with green pixel text and yellow agent names beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events. Conversations and trades will appear once the backend records those actions. Keyword retrieval is connected; live Groq decisions, semantic embeddings and classifier training remain upcoming work. See the [town artwork and animation notes](frontend/public/art/README.md).
+The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a black hacker-terminal interface with green pixel text and yellow agent names beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events. Conversations and trades will appear once the backend records those actions. Keyword retrieval and the optional Groq planner are connected. Live account verification awaits a server API key; semantic embeddings and classifier training remain later work. See [Day 1–3 audit and setup](docs/day1-day3-audit.md). See the [town artwork and animation notes](frontend/public/art/README.md).
 
 Use Python 3.12 and Node 24 LTS. From the repository root:
 
@@ -68,22 +68,22 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 ## Day 1 — Thursday, 10/15: Run the starter
 
 - [x] **Eric:** Create the project folders and shared Groq configuration; connect frontend/backend and record the hosting budget.
-- [ ] **Saurya:** Set up React and render the 12×12 map with five residents.
-- [ ] **Rylee:** Set up FastAPI and implement `/health`, `/state`, and `/reset`.
-- [ ] **Aishani:** Create the baseline-agent notebook and a Groq connection check; return valid baseline decisions without local LLM weights.
-- [ ] **Ethan:** Create the event store and memory notebook; save/read one sample event.
-- [ ] **Gayatri:** Add starter tests, run them, and save the pass/fail output.
+- [x] **Saurya:** Set up React and render the 12×12 map with five residents.
+- [x] **Rylee:** Set up FastAPI and implement `/health`, `/state`, and `/reset`.
+- [x] **Aishani:** Create the baseline-agent notebook and a Groq connection check; return valid baseline decisions without local LLM weights.
+- [x] **Ethan:** Create the event store and memory notebook; save/read one sample event.
+- [x] **Gayatri:** Add starter tests, run them, and save the pass/fail output.
 
 **Finish:** Everyone can run their assigned part of the starter project.
 
 ## Day 2 — Tuesday, 10/20: Run the simulation
 
 - [x] **Eric:** Connect the simulation loop and frontend controls to backend ticks.
-- [ ] **Saurya:** Add Play, Pause, Next Turn, and Reset using the real backend.
-- [ ] **Rylee:** Implement movement, gathering, eating, and resting; run 100 baseline ticks.
-- [ ] **Aishani:** Add baseline action selection and destination-following for all five residents.
-- [ ] **Ethan:** Store completed actions as memories and mark rejected actions as rejected.
-- [ ] **Gayatri:** Add invalid-move and resource tests; report any negative inventory or crash.
+- [x] **Saurya:** Add Play, Pause, Next Turn, and Reset using the real backend.
+- [x] **Rylee:** Implement movement, gathering, eating, and resting; run 100 baseline ticks.
+- [x] **Aishani:** Add baseline action selection and destination-following for all five residents.
+- [x] **Ethan:** Store completed actions as memories and mark rejected actions as rejected.
+- [x] **Gayatri:** Add invalid-move and resource tests; report any negative inventory or crash.
 
 **Finish:** Five residents move and gather safely through the UI.
 
@@ -92,11 +92,11 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 **Shared session:** Run the agent notebook, send a short observation to Groq Qwen, and inspect its validated JSON action. Keep credentials in Colab Secrets or backend environment settings.
 
 - [x] **Eric:** Complete the MVP integration and record a two-minute working run.
-- [ ] **Saurya:** Add the inspector and event log; show live, waiting, baseline and fallback states for every resident.
-- [ ] **Rylee:** Add model-action validation and run the MVP safety tests.
-- [ ] **Aishani:** Implement Groq Qwen JSON decisions, a shared four-call/minute queue and cached plans; save one live decision per resident.
-- [ ] **Ethan:** Pass recent memories with real event IDs into the agent input.
-- [ ] **Gayatri:** Run three seeded 100-tick MVP checks and save the report.
+- [x] **Saurya:** Add the inspector and event log; show live, waiting, baseline and fallback states for every resident.
+- [x] **Rylee:** Add model-action validation and run the MVP safety tests.
+- [ ] **Aishani:** Groq JSON adapter, shared queue and cached plans are implemented and tested. Save one real live decision per resident after Eric adds the server API key; see the [live verification command](docs/day1-day3-audit.md#your-remaining-setup).
+- [x] **Ethan:** Pass recent memories with real event IDs into the agent input.
+- [x] **Gayatri:** Run three seeded 100-tick MVP checks and save the report.
 
 **MVP gate:** Town, five residents, controls, inspector, and log work. Baseline mode remains usable while live AI develops.
 

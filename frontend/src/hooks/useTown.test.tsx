@@ -134,4 +134,20 @@ describe('town controls', () => {
     await advance(100);
     expect(api.step).toHaveBeenCalledTimes(1);
   });
+
+  it('refreshes a pending plan while paused without advancing the town', async () => {
+    const api = apiMock();
+    const pending: WorldState = { ...initial(), mode: 'llm', agent_runtime: {
+      ethan: { status: 'waiting', detail: 'Waiting for Groq', pending: true } } };
+    const ready: WorldState = { ...pending, agent_runtime: {
+      ethan: { status: 'live', detail: 'Cached Groq plan', pending: false } } };
+    vi.mocked(api.state).mockResolvedValueOnce(pending).mockResolvedValue(ready);
+    const { result } = renderHook(() => useTown(api, 20));
+    await flush();
+    await advance(1000);
+    expect(result.current.state?.agent_runtime?.ethan.status).toBe('live');
+    expect(api.step).not.toHaveBeenCalled();
+    await advance(5000);
+    expect(api.state).toHaveBeenCalledTimes(2);
+  });
 });

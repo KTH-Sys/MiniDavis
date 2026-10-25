@@ -72,6 +72,13 @@ button.resident:hover:not(:disabled) { background:transparent; }
 .resident-choice>span { opacity:0; color:#42ff36; }
 .resident-choice[aria-pressed='true'] { color:#e4d34b; font-weight:600; }
 .resident-choice[aria-pressed='true']>span,.resident-choice:hover>span { opacity:1; }
+.resident-choice { position:relative; margin-bottom:11px; }
+.resident-mode { position:absolute; top:100%; left:0; width:100%; text-align:center; padding-top:5px; font-size:5px; color:#78ac64; font-weight:400; }
+.mode-live { color:#42ff36; }
+.mode-waiting { color:#e4d34b; }
+.mode-fallback { color:#ffbb76; }
+.planner-status,.provider-budget { font-size:7px; line-height:1.9; margin:0 0 13px 26px; overflow-wrap:anywhere; }
+.provider-budget { margin-top:12px; color:#78ac64; }
 .agent-journal { display:flex; flex-direction:column; flex:1; min-height:0; border-left:2px solid #1d7432; font-family:var(--mono); }
 .journal-person { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:20px 0 15px 26px; }
 .eyebrow { display:block; font-size:8px; color:#70a25e; letter-spacing:1.3px; margin-bottom:5px; }

@@ -14,9 +14,8 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # Fail clearly if a later mode is requested before its adapter exists.
-    minidavis_mode: Literal["baseline"] = "baseline"
-    llm_provider: str = "groq"
+    minidavis_mode: Literal["baseline", "llm"] = "baseline"
+    llm_provider: Literal["groq"] = "groq"
     llm_model: str = "qwen/qwen3.8-27b"
     llm_api_key: SecretStr = SecretStr("")
     llm_timeout_seconds: int = Field(default=20, gt=0)
@@ -25,7 +24,7 @@ class Settings(BaseSettings):
     llm_max_calls_per_run: int = Field(default=20, gt=0)
     llm_max_calls_per_day: int = Field(default=500, gt=0)
     llm_max_tokens_per_day: int = Field(default=160000, gt=0)
-    llm_max_input_tokens: int = Field(default=800, gt=0)
+    llm_max_input_tokens: int = Field(default=800, ge=256)
     llm_max_completion_tokens: int = Field(default=512, gt=0)
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     classifier_model_path: str = "ml/artifacts/classifier"

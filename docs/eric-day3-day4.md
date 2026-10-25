@@ -2,6 +2,8 @@
 
 Implemented October 24, 2026, on top of the team’s latest `main`. This preserves Ethan’s SQLite history and Rylee’s existing action validator and safety tests.
 
+These notes describe the original baseline integration. The subsequent [all-member Day 1–3 audit](day1-day3-audit.md) adds the optional Groq adapter and notebooks; real provider verification still awaits a key.
+
 ## Day 3: baseline MVP
 
 - Completed the UI/backend integration for resident selection, all five inspectors and a bounded event log. The roster, positions, resources, decisions and events come from one authoritative state response.

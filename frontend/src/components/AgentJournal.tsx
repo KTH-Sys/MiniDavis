@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { DecisionRecord, Resident, TownEvent } from '../types';
+import type { AgentRuntime, DecisionRecord, Resident, TownEvent } from '../types';
 
 const socialActions = new Set(['talk', 'offer_trade', 'accept_trade', 'reject_trade', 'trade', 'gift']);
 export function interactionsFor(events: TownEvent[], agentId: string): TownEvent[] {
@@ -24,8 +24,8 @@ function EventEntry({ event, name }: { event: TownEvent; name: string }) {
   </article>;
 }
 
-export function AgentJournal({ agent, decision, events, agents = [agent] }: {
-  agent: Resident; decision?: DecisionRecord; events: TownEvent[]; agents?: Resident[];
+export function AgentJournal({ agent, decision, events, agents = [agent], runtime }: {
+  agent: Resident; decision?: DecisionRecord; events: TownEvent[]; agents?: Resident[]; runtime?: AgentRuntime;
 }) {
   const [tab, setTab] = useState<'feed' | 'decision' | 'memory' | 'interactions'>('feed');
   const interactions = interactionsFor(events, agent.id);
@@ -40,6 +40,7 @@ export function AgentJournal({ agent, decision, events, agents = [agent] }: {
     <div className="journal-person"><div><span className="eyebrow">INSPECTING</span><h2>{agent.name}</h2></div>
       <span className="journal-turn">{decision ? `TURN ${String(decision.tick).padStart(2, '0')}` : 'WAITING FOR FIRST TURN'}<span className="terminal-cursor" aria-hidden="true">▋</span></span>
     </div>
+    <p className={`planner-status mode-${runtime?.status ?? 'baseline'}`} role="status">{(runtime?.status ?? 'baseline').toUpperCase()}{runtime?.pending ? ' · request in progress' : ''} · {runtime?.detail ?? 'Baseline rules'}</p>
     <div className="journal-tabs" role="tablist" aria-label="Resident information">
       {tabs.map((name, index) => <button key={name} role="tab" tabIndex={tab === name ? 0 : -1}
         id={`tab-${name}`} aria-selected={tab === name} aria-controls={`panel-${name}`} onClick={() => setTab(name)}
@@ -63,6 +64,9 @@ export function AgentJournal({ agent, decision, events, agents = [agent] }: {
       {tab === 'decision' && <>
         <article className="terminal-entry decision-entry"><div className="entry-heading"><span className="entry-glyph" aria-hidden="true">◆</span><strong>[ {agent.name} ]</strong><span>DECISION</span></div>
           <p className="decision-text"><span className="entry-branch" aria-hidden="true">└↳</span>{decision?.explanation ?? 'My day is just beginning. Advance a turn to see my first action.'}</p>
+          {decision && <small>Executed with: {decision.planner_mode}</small>}
+          {decision?.model_explanation && <p className="model-explanation">Model’s explanation: {decision.model_explanation}</p>}
+          {decision?.model_observation_revision != null && <small>Model observed revision {decision.model_observation_revision}</small>}
         </article>
         <div className="resident-summary"><h3>GOAL</h3><p>{agent.goal}</p><dl><div><dt>Food</dt><dd>{agent.food}</dd></div><div><dt>Wood</dt><dd>{agent.wood}</dd></div><div><dt>Coins</dt><dd>{agent.coins}</dd></div><div><dt>Energy</dt><dd>{agent.energy}/100</dd></div></dl></div>
         <div className="section-label"><h3>LATEST MEMORY</h3><button className="text-button" onClick={() => setTab('memory')}>View all →</button></div>
@@ -79,6 +83,6 @@ export function AgentJournal({ agent, decision, events, agents = [agent] }: {
           : <div className="terminal-empty"><span aria-hidden="true">&gt;_</span><h3>No interactions yet</h3><p>Conversations and trades between residents will appear here when the simulation records them.</p></div>}
       </>}
     </div>
-    <p className="journal-footnote"><span aria-hidden="true">●</span> Baseline rules · Keyword memory</p>
+    <p className="journal-footnote"><span aria-hidden="true">●</span> {runtime?.status === 'live' ? 'Groq plan' : runtime?.status === 'waiting' ? 'Queued for Groq' : runtime?.status === 'fallback' ? 'Baseline fallback' : 'Baseline rules'} · Keyword memory</p>
   </section>;
 }

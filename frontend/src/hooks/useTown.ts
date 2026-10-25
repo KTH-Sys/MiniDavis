@@ -89,6 +89,25 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     setRunning(true);
   }, [error]);
 
+  const refreshPlanning = useCallback(async () => {
+    if (active.current || runningRef.current) return;
+    active.current = true;
+    setBusy(true);
+    const generation = epoch.current;
+    const abort = new AbortController();
+    controller.current = abort;
+    try {
+      const next = await api.state(abort.signal);
+      if (generation === epoch.current) apply(next);
+    } catch (problem) {
+      if (generation === epoch.current && !abort.signal.aborted) {
+        setError(problem instanceof Error ? problem.message : 'Could not refresh planning status.');
+      }
+    } finally {
+      if (generation === epoch.current) { active.current = false; setBusy(false); }
+    }
+  }, [api, apply]);
+
   useEffect(() => {
     void replace();
     return () => {
@@ -107,6 +126,15 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     }, intervalMs);
     return () => window.clearTimeout(timer);
   }, [running, busy, error, state, step, intervalMs]);
+
+  // Read-only polling lets an in-flight plan finish visibly while paused.
+  // GET /state never schedules another provider call.
+  useEffect(() => {
+    if (running || busy || error || state?.mode !== 'llm'
+        || !Object.values(state.agent_runtime ?? {}).some((agent) => agent.pending)) return;
+    const timer = window.setTimeout(() => void refreshPlanning(), 1000);
+    return () => window.clearTimeout(timer);
+  }, [running, busy, error, state, refreshPlanning]);
 
   return {
     state, running, busy, replacing, error, play, pause,

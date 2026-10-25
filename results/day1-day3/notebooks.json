@@ -1,0 +1,14 @@
+[
+  {
+    "notebook": "01_agents.ipynb",
+    "code_cells_executed": 6,
+    "status": "passed",
+    "live_provider_calls": 0
+  },
+  {
+    "notebook": "02_rag.ipynb",
+    "code_cells_executed": 4,
+    "status": "passed",
+    "live_provider_calls": 0
+  }
+]

@@ -16,8 +16,10 @@ export interface WorldState {
   tick: number;
   revision: number;
   seed: number;
-  mode: 'baseline';
+  mode: 'baseline' | 'llm';
   decisions?: Record<string, DecisionRecord>;
+  agent_runtime?: Record<string, AgentRuntime>;
+  provider_usage?: { calls_run: number; calls_day: number; tokens_day: number; reserved_tokens_day: number; cooldown_seconds: number };
   map: {
     width: number;
     height: number;
@@ -51,9 +53,18 @@ export interface MemoryContext {
 export interface DecisionRecord {
   tick: number;
   observation_revision: number;
-  planner_mode: 'baseline' | 'custom';
+  planner_mode: 'baseline' | 'custom' | 'live' | 'cached' | 'waiting' | 'fallback';
   action: string;
   explanation: string;
   memory: MemoryContext;
   event_id: string;
+  model_explanation?: string | null;
+  model_observation_revision?: number | null;
+}
+
+export interface AgentRuntime {
+  status: 'baseline' | 'live' | 'waiting' | 'fallback';
+  detail: string;
+  pending: boolean;
+  plan_target?: string | null;
 }
