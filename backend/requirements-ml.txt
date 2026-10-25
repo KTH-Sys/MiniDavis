@@ -1,0 +1,3 @@
+# Optional Day 4 semantic memory. Without it, retrieval uses keyword search.
+-r requirements.txt
+sentence-transformers==5.1.1

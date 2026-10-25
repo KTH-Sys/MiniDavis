@@ -54,7 +54,7 @@ class Event(Contract):
 
 
 class MemoryContext(Contract):
-    mode: Literal["lexical", "recent-only"] = "lexical"
+    mode: Literal["semantic", "lexical", "recent-only"] = "lexical"
     query: str
     as_of_tick: int
     recent: list[Event] = Field(default_factory=list)
