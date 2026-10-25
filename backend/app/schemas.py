@@ -53,6 +53,24 @@ class Event(Contract):
     text: str
 
 
+class MemoryContext(Contract):
+    mode: Literal["lexical", "recent-only"] = "lexical"
+    query: str
+    as_of_tick: int
+    recent: list[Event] = Field(default_factory=list)
+    relevant: list[Event] = Field(default_factory=list)
+
+
+class DecisionRecord(Contract):
+    tick: int
+    observation_revision: int
+    planner_mode: Literal["baseline", "custom"]
+    action: str
+    explanation: str
+    memory: MemoryContext
+    event_id: str
+
+
 class WorldState(Contract):
     run_id: str
     tick: int = 0
@@ -63,6 +81,7 @@ class WorldState(Contract):
     agents: list[Resident]
     resources: list[Resource]
     events: list[Event] = Field(default_factory=list)
+    decisions: dict[str, DecisionRecord] = Field(default_factory=dict)
 
 
 class Action(Contract):
@@ -80,3 +99,12 @@ class StepRequest(Contract):
 class ResetRequest(Contract):
     seed: int = Field(default=11, ge=0, le=2**31 - 1, strict=True)
     mode: Literal["baseline"] = "baseline"
+
+
+class AgentInspector(Contract):
+    run_id: str
+    revision: int
+    tick: int
+    agent: Resident
+    decision: DecisionRecord | None
+    retrieval: MemoryContext

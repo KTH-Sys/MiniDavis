@@ -5,9 +5,10 @@ from collections.abc import Callable
 from threading import Lock
 from uuid import uuid4
 
-from .agents import baseline_plan
+from .agents import baseline_plan, baseline_with_memory
 from .memory import EventStore
-from .schemas import Action, Event, Location, Resident, Resource, StepRequest, TownMap, WorldState
+from .schemas import (Action, AgentInspector, DecisionRecord, Event, Location,
+                      MemoryContext, Resident, Resource, StepRequest, TownMap, WorldState)
 
 
 class Conflict(Exception):
@@ -45,15 +46,40 @@ def initial_state(seed: int) -> WorldState:
 
 
 Planner = Callable[[Resident, WorldState], Action]
+ContextPlanner = Callable[[Resident, WorldState, MemoryContext], Action]
 
 
 class World:
-    def __init__(self, seed: int = 11, planner: Planner = baseline_plan, store: EventStore | None = None):
+    def __init__(self, seed: int = 11, planner: Planner = baseline_plan, store: EventStore | None = None,
+                 context_planner: ContextPlanner | None = None):
         self._lock = Lock()
         self._state = initial_state(seed)
         self._requests: OrderedDict[str, int] = OrderedDict()
         self._planner = planner
         self._store = store
+        self._context_planner = context_planner or (baseline_with_memory if planner is baseline_plan else None)
+
+    def _memory(self, agent: Resident, as_of_tick: int) -> MemoryContext:
+        query = f"{agent.goal} food wood energy gather rejected"
+        if self._store:
+            return self._store.retrieve(self._state.run_id, agent.id, query, as_of_tick)
+        recent = [event for event in self._state.events
+                  if event.run_id == self._state.run_id and event.agent_id == agent.id and event.tick <= as_of_tick][-5:]
+        return MemoryContext(mode="recent-only", query=query, as_of_tick=as_of_tick, recent=recent)
+
+    def inspect(self, agent_id: str, run_id: str | None = None, revision: int | None = None) -> AgentInspector:
+        with self._lock:
+            state = self._state
+            if (run_id is not None and run_id != state.run_id) or (revision is not None and revision != state.revision):
+                raise Conflict("Town state changed. Refresh before inspecting again.")
+            agent = next((item for item in state.agents if item.id == agent_id), None)
+            if agent is None:
+                raise KeyError(agent_id)
+            decision = state.decisions.get(agent_id)
+            return AgentInspector(run_id=state.run_id, revision=state.revision, tick=state.tick,
+                                  agent=agent.model_copy(deep=True),
+                                  decision=decision.model_copy(deep=True) if decision else None,
+                                  retrieval=decision.memory.model_copy(deep=True) if decision else self._memory(agent, state.tick))
 
     def snapshot(self) -> WorldState:
         with self._lock:
@@ -78,29 +104,55 @@ class World:
             if request.expected_revision != state.revision:
                 raise Conflict("Town state changed. Refresh before stepping again.")
 
-            state.tick += 1
-            for agent in state.agents:
-                # Give a planner detached observations, never mutable world objects.
-                action = self._planner(agent.model_copy(deep=True), state.model_copy(deep=True))
-                outcome, text = self._execute(agent, action)
-                event = Event(
-                    event_id=f"{state.run_id}:{state.tick}:{agent.id}",
-                    run_id=state.run_id,
-                    tick=state.tick,
-                    agent_id=agent.id,
-                    action=action.action,
-                    outcome=outcome,
-                    text=text,
-                )
-                state.events.append(event)
-                if self._store:
-                    self._store.save(event)
-            state.events = state.events[-200:]
-            state.revision += 1
-            self._requests[request.request_id] = request.expected_revision
-            if len(self._requests) > 256:
-                self._requests.popitem(last=False)
-            return state.model_copy(deep=True)
+            before = state.model_copy(deep=True)
+            try:
+                return self._advance(request)
+            except Exception:
+                # A planner or storage error cannot leave a half-applied turn.
+                self._state = before
+                raise
+
+    def _advance(self, request: StepRequest) -> WorldState:
+        state = self._state
+        state.tick += 1
+        new_events = []
+        for agent in state.agents:
+            # Give a planner detached observations, never mutable world objects.
+            memory = self._memory(agent, state.tick - 1)
+            observation = state.model_copy(deep=True)
+            observation.events = [event for event in observation.events
+                                  if event.agent_id == agent.id and event.run_id == state.run_id
+                                  and event.tick <= memory.as_of_tick]
+            observation.decisions = {key: value for key, value in observation.decisions.items() if key == agent.id}
+            if self._context_planner:
+                action = self._context_planner(agent.model_copy(deep=True), observation, memory.model_copy(deep=True))
+            else:
+                action = self._planner(agent.model_copy(deep=True), observation)
+            outcome, text = self._execute(agent, action)
+            event = Event(
+                event_id=f"{state.run_id}:{state.tick}:{agent.id}",
+                run_id=state.run_id,
+                tick=state.tick,
+                agent_id=agent.id,
+                action=action.action,
+                outcome=outcome,
+                text=text,
+            )
+            state.events.append(event)
+            new_events.append(event)
+            state.decisions[agent.id] = DecisionRecord(
+                tick=state.tick, observation_revision=state.revision,
+                planner_mode="baseline" if self._planner is baseline_plan and self._context_planner is baseline_with_memory else "custom",
+                action=action.action, explanation=text, memory=memory, event_id=event.event_id,
+            )
+        if self._store:
+            self._store.save_many(new_events)
+        state.events = state.events[-200:]
+        state.revision += 1
+        self._requests[request.request_id] = request.expected_revision
+        if len(self._requests) > 256:
+            self._requests.popitem(last=False)
+        return state.model_copy(deep=True)
 
     def _execute(self, agent: Resident, action: Action) -> tuple[str, str]:
         if action.action == "move":

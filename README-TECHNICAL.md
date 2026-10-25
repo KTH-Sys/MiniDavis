@@ -2,7 +2,7 @@
 
 Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Implemented Day 1–2 foundation:** The repo now contains a runnable baseline frontend/backend, server configuration, API/control tests and a baseline evaluation command. See [evidence and handoffs](docs/eric-day1-day2.md). Groq inference, notebooks, RAG, training and later routes below remain assigned work; not every future file in the layout exists yet. Complete checkboxes only after observing results.
+**Implemented through Eric’s Day 3–4 integration:** The baseline frontend/backend now includes resident selection, decision/source inspectors, the event log, scoped SQLite keyword retrieval and a two-minute MVP recording. See [Day 1–2 evidence](docs/eric-day1-day2.md) and [Day 3–4 evidence](docs/eric-day3-day4.md). Live Groq inference, MiniLM embeddings, training and later routes remain assigned work. Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
@@ -292,7 +292,7 @@ Open `ml/notebooks/01_agents.ipynb` in Colab. Run cells in order: imports → re
 
 Aishani implements structured plans with `run_id`, `agent_id`, `observation_revision`, action/target fields, and a short public explanation. Rylee validates them and rejects unknown actions, bad targets, missing resources, and obsolete run/revision values. Use the Groq adapter and shared queue above, a configurable 20-second timeout, cached plans and call/token caps. Strict JSON schema does not prove world legality. Use legal baseline/rest fallback for invalid or failed calls.
 
-- [ ] **Eric:** Save a two-minute MVP recording and assign failing cases to the responsible teammate.
+- [x] **Eric:** Save a two-minute MVP recording and assign failing cases to the responsible teammate.
 - [ ] **Saurya:** Click every resident; inspector and event log match the backend snapshot.
 - [ ] **Rylee:** Run `test_agents.py`; invalid output cannot mutate authoritative state.
 - [ ] **Aishani:** Save at least one actual live decision for each resident with mode/model identified.
@@ -312,7 +312,7 @@ Open `ml/notebooks/02_rag.ipynb` in Colab. Run cells in order: store events → 
 
 Ethan implements SQLite events containing `event_id`, `run_id`, `tick`, `agent_id`, participants, visibility, event type, outcome, factual text, and optional embedding. Filter by run/agent/visibility and exclude future events **before** ranking. Use cached MiniLM CPU embeddings. Return up to five recent events plus the top three relevant unique events with source IDs, truncating factual text to the planner input budget. Use scoped recent/lexical fallback if embeddings fail.
 
-- [ ] **Eric:** Confirm retrieved evidence travels from memory service to the planner and inspector.
+- [x] **Eric:** Confirm retrieved evidence travels from memory service to the planner and inspector.
 - [ ] **Saurya:** Confirm the screen displays memory text, IDs, and retrieval mode.
 - [ ] **Rylee:** Run `test_memory.py`; another resident’s private event and an old run’s event stay excluded.
 - [ ] **Aishani:** Confirm all five live planners use the retrieved facts in their input.

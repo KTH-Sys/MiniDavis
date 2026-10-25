@@ -2,9 +2,9 @@
 
 A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saurya. They move, gather food and wood, trade, talk, and remember interactions.
 
-## Run the Day 1–2 starter
+## Run MiniDavis
 
-The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. Live Groq decisions, RAG and classifier training remain upcoming work.
+The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. Select any resident to inspect its decision and the retrieved source events. Keyword retrieval is connected; live Groq decisions, semantic embeddings and classifier training remain upcoming work.
 
 Use Python 3.12 and Node 24 LTS. From the repository root:
 
@@ -26,6 +26,8 @@ npm run dev
 Open **http://127.0.0.1:5173**. Backend API docs: **http://127.0.0.1:8000/docs**. Windows activation is in [the technical guide](README-TECHNICAL.md). No environment file is required for baseline defaults.
 
 See [Eric’s implementation notes](docs/eric-day1-day2.md) for checks and team handoffs, and [hosting/budget status](docs/hosting-budget.md) before choosing a cloud service.
+
+Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP recording, source-evidence contract and verification results.
 
 **Team:** Eric, Ethan, Gayatri, Aishani, Rylee, and Saurya.
 
@@ -89,7 +91,7 @@ See [Eric’s implementation notes](docs/eric-day1-day2.md) for checks and team 
 
 **Shared session:** Run the agent notebook, send a short observation to Groq Qwen, and inspect its validated JSON action. Keep credentials in Colab Secrets or backend environment settings.
 
-- [ ] **Eric:** Complete the MVP integration and record a two-minute working run.
+- [x] **Eric:** Complete the MVP integration and record a two-minute working run.
 - [ ] **Saurya:** Add the inspector and event log; show live, waiting, baseline and fallback states for every resident.
 - [ ] **Rylee:** Add model-action validation and run the MVP safety tests.
 - [ ] **Aishani:** Implement Groq Qwen JSON decisions, a shared four-call/minute queue and cached plans; save one live decision per resident.
@@ -102,7 +104,7 @@ See [Eric’s implementation notes](docs/eric-day1-day2.md) for checks and team 
 
 **Shared session:** Save an interaction, retrieve it, and use it in an agent decision.
 
-- [ ] **Eric:** Connect RAG to the backend and inspector; help Saurya and Rylee test it.
+- [x] **Eric:** Connect RAG to the backend and inspector; help Saurya and Rylee test it.
 - [ ] **Saurya:** Display retrieved text and source event IDs in the inspector.
 - [ ] **Rylee:** Run cross-resident and cross-run memory isolation tests.
 - [ ] **Aishani:** Add retrieved memories to all five live agents’ prompts.

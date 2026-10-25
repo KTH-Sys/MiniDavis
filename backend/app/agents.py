@@ -3,7 +3,16 @@
 This is baseline logic, not an LLM or a trained policy. The engine owns mutations.
 """
 
-from .schemas import Action, Resident, WorldState
+from .schemas import Action, MemoryContext, Resident, WorldState
+
+
+def baseline_with_memory(agent: Resident, state: WorldState, memory: MemoryContext) -> Action:
+    """Integration boundary for the future Groq planner.
+
+    This baseline receives retrieved evidence but still chooses by fixed rules.
+    Do not describe it as a live LLM or a measured memory-driven policy.
+    """
+    return baseline_plan(agent, state)
 
 
 def baseline_plan(agent: Resident, state: WorldState) -> Action:

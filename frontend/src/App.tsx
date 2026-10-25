@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Controls } from './components/Controls';
 import { TownMap } from './components/TownMap';
+import { ResidentInspector } from './components/ResidentInspector';
+import { EventLog } from './components/EventLog';
 import { useTown } from './hooks/useTown';
 import './styles.css';
 
 export default function App() {
   const town = useTown();
   const [seed, setSeed] = useState(11);
+  const [selectedId, setSelectedId] = useState('ethan');
   const state = town.state;
+  const selected = state?.agents.find((agent) => agent.id === selectedId);
   return <main>
     <header className="masthead">
       <a className="wordmark" href="/">✳ MiniDavis</a>
@@ -27,7 +31,7 @@ export default function App() {
     <div className="workspace">
       <section className="map-panel" aria-label="Town">
         <div className="panel-heading"><h2>The neighborhood</h2><span>12 × 12</span></div>
-        {state ? <TownMap state={state} /> : <div className="map-loading">{town.error ? 'Your town is offline.' : 'Opening the town…'}</div>}
+        {state ? <TownMap state={state} selectedId={selectedId} onSelect={setSelectedId} /> : <div className="map-loading">{town.error ? 'Your town is offline.' : 'Opening the town…'}</div>}
         <div className="map-legend"><span>♠ Forest</span><span>✿ Farm</span><span>▤ Market</span><span>⚑ Town hall</span><span>⌂ Homes</span></div>
         <Controls {...town} ready={!!state && !town.error} seed={seed} setSeed={setSeed} />
         <p className="control-note">Pause finishes the current turn. Reset starts a new town.</p>
@@ -36,14 +40,17 @@ export default function App() {
         <div className="panel-heading"><h2>Meet the residents</h2><span>05</span></div>
         {state?.agents.map((agent) => <article className="neighbor" key={agent.id}>
           <div className={`avatar resident-${agent.id}`}>{agent.name[0]}</div>
-          <div className="neighbor-content"><h3>{agent.name}</h3><p>{agent.goal}</p>
+          <div className="neighbor-content"><h3><button className="resident-select" aria-label={`Select ${agent.name}`}
+            aria-pressed={selectedId === agent.id} onClick={() => setSelectedId(agent.id)}>{agent.name}</button></h3><p>{agent.goal}</p>
             <div className="inventory"><span title="Food">Food {agent.food}</span><span title="Wood">Wood {agent.wood}</span><span>Energy {agent.energy}</span></div>
           </div>
         </article>)}
         <div className="resources"><h3>Town supplies</h3>{state?.resources.map((resource) =>
           <div key={resource.id}><span>{resource.kind === 'food' ? 'Farm food' : 'Forest wood'}</span><strong>{resource.stock}</strong></div>)}</div>
-        <p className="baseline-note">Baseline mode uses simple rules. Live AI and remembered interactions arrive in the next milestones.</p>
+        <p className="baseline-note">Select a resident to inspect its decision and retrieved history. Baseline rules are active; live AI is pending.</p>
       </aside>
+      {selected && <ResidentInspector agent={selected} decision={state?.decisions?.[selected.id]} />}
+      <EventLog events={state?.events ?? []} />
     </div>
     <footer><span>MiniDavis · Built together, one turn at a time.</span><span>{state ? `Seed ${state.seed} · ${state.agents.length} residents` : 'Connect the backend to begin'}</span></footer>
   </main>;
