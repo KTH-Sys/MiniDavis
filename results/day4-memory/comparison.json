@@ -1,0 +1,1243 @@
+{
+  "seed": 11,
+  "ticks": 10,
+  "mode": "baseline",
+  "provider_calls": 0,
+  "decisions_compared": 50,
+  "same_action": 50,
+  "different_action": 0,
+  "note": "Baseline uses fixed rules; it receives memory but does not reason over it. No behavioral change from memory is claimed.",
+  "example_memory_on": {
+    "tick": 10,
+    "agent_id": "ethan",
+    "action": "gather",
+    "outcome_text": "Ethan gathered 2 wood.",
+    "memory": "on",
+    "recent_ids": [
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan",
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan",
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan",
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:ethan",
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:ethan"
+    ],
+    "relevant_ids": [
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:ethan",
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:ethan",
+      "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan"
+    ]
+  },
+  "example_memory_off": {
+    "tick": 10,
+    "agent_id": "ethan",
+    "action": "gather",
+    "outcome_text": "Ethan gathered 2 wood.",
+    "memory": "off",
+    "recent_ids": [],
+    "relevant_ids": []
+  },
+  "memory_on": [
+    {
+      "tick": 1,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (6, 4).",
+      "memory": "on",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "ethan",
+      "action": "move",
+      "outcome_text": "Ethan moved to (2, 1).",
+      "memory": "on",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (7, 3).",
+      "memory": "on",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 9).",
+      "memory": "on",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (3, 8).",
+      "memory": "on",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (7, 4).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:aishani"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "ethan",
+      "action": "move",
+      "outcome_text": "Ethan moved to (2, 2).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:ethan"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (6, 3).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:gayatri"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 8).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:rylee"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (4, 8).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya"
+      ]
+    },
+    {
+      "tick": 3,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (8, 4).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:aishani"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:ethan"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (5, 3).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:gayatri"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 7).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:rylee"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (5, 8).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya"
+      ]
+    },
+    {
+      "tick": 4,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (9, 4).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:aishani"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan"
+      ]
+    },
+    {
+      "tick": 4,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (4, 3).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:gayatri"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 6).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:rylee"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (6, 8).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya"
+      ]
+    },
+    {
+      "tick": 5,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (9, 3).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:aishani"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan"
+      ]
+    },
+    {
+      "tick": 5,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (3, 3).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:gayatri"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 5).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:rylee"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (7, 8).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya"
+      ]
+    },
+    {
+      "tick": 6,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:aishani"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan"
+      ]
+    },
+    {
+      "tick": 6,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (2, 3).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:gayatri"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 4).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:rylee"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (8, 8).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:1:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya"
+      ]
+    },
+    {
+      "tick": 7,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:aishani"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:aishani"
+      ]
+    },
+    {
+      "tick": 7,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan"
+      ]
+    },
+    {
+      "tick": 7,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (2, 2).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:gayatri"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 7,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 3).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:rylee"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 7,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 8).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:2:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya"
+      ]
+    },
+    {
+      "tick": 8,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:aishani"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:aishani"
+      ]
+    },
+    {
+      "tick": 8,
+      "agent_id": "ethan",
+      "action": "eat",
+      "outcome_text": "Ethan ate and recovered energy.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan"
+      ]
+    },
+    {
+      "tick": 8,
+      "agent_id": "gayatri",
+      "action": "gather",
+      "outcome_text": "Gayatri gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:gayatri"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 8,
+      "agent_id": "rylee",
+      "action": "gather",
+      "outcome_text": "Rylee gathered 2 food.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:rylee"
+      ],
+      "relevant_ids": []
+    },
+    {
+      "tick": 8,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 7).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:3:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya"
+      ]
+    },
+    {
+      "tick": 9,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:aishani"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:aishani"
+      ]
+    },
+    {
+      "tick": 9,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:ethan"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan"
+      ]
+    },
+    {
+      "tick": 9,
+      "agent_id": "gayatri",
+      "action": "gather",
+      "outcome_text": "Gayatri gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:gayatri"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:gayatri"
+      ]
+    },
+    {
+      "tick": 9,
+      "agent_id": "rylee",
+      "action": "gather",
+      "outcome_text": "Rylee gathered 2 food.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:rylee"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:rylee"
+      ]
+    },
+    {
+      "tick": 9,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 6).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:4:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:saurya"
+      ]
+    },
+    {
+      "tick": 10,
+      "agent_id": "aishani",
+      "action": "eat",
+      "outcome_text": "Aishani ate and recovered energy.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:aishani"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:aishani",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:aishani"
+      ]
+    },
+    {
+      "tick": 10,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:ethan"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:ethan",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:ethan"
+      ]
+    },
+    {
+      "tick": 10,
+      "agent_id": "gayatri",
+      "action": "gather",
+      "outcome_text": "Gayatri gathered 2 wood.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:gayatri"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:gayatri",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:gayatri"
+      ]
+    },
+    {
+      "tick": 10,
+      "agent_id": "rylee",
+      "action": "gather",
+      "outcome_text": "Rylee gathered 2 food.",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:rylee"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:rylee",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:rylee"
+      ]
+    },
+    {
+      "tick": 10,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 5).",
+      "memory": "on",
+      "recent_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:5:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:6:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:saurya"
+      ],
+      "relevant_ids": [
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:9:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:8:saurya",
+        "c8d2efb0-75c1-4b11-9bf2-53394203aeec:7:saurya"
+      ]
+    }
+  ],
+  "memory_off": [
+    {
+      "tick": 1,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (6, 4).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "ethan",
+      "action": "move",
+      "outcome_text": "Ethan moved to (2, 1).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (7, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 9).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 1,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (3, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (7, 4).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "ethan",
+      "action": "move",
+      "outcome_text": "Ethan moved to (2, 2).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (6, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 2,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (4, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (8, 4).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (5, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 7).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 3,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (5, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (9, 4).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (4, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 6).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 4,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (6, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "aishani",
+      "action": "move",
+      "outcome_text": "Aishani moved to (9, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (3, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 5).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 5,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (7, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (2, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 4).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 6,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (8, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 7,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 7,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 7,
+      "agent_id": "gayatri",
+      "action": "move",
+      "outcome_text": "Gayatri moved to (2, 2).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 7,
+      "agent_id": "rylee",
+      "action": "move",
+      "outcome_text": "Rylee moved to (9, 3).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 7,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 8).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 8,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 8,
+      "agent_id": "ethan",
+      "action": "eat",
+      "outcome_text": "Ethan ate and recovered energy.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 8,
+      "agent_id": "gayatri",
+      "action": "gather",
+      "outcome_text": "Gayatri gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 8,
+      "agent_id": "rylee",
+      "action": "gather",
+      "outcome_text": "Rylee gathered 2 food.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 8,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 7).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 9,
+      "agent_id": "aishani",
+      "action": "gather",
+      "outcome_text": "Aishani gathered 2 food.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 9,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 9,
+      "agent_id": "gayatri",
+      "action": "gather",
+      "outcome_text": "Gayatri gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 9,
+      "agent_id": "rylee",
+      "action": "gather",
+      "outcome_text": "Rylee gathered 2 food.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 9,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 6).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 10,
+      "agent_id": "aishani",
+      "action": "eat",
+      "outcome_text": "Aishani ate and recovered energy.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 10,
+      "agent_id": "ethan",
+      "action": "gather",
+      "outcome_text": "Ethan gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 10,
+      "agent_id": "gayatri",
+      "action": "gather",
+      "outcome_text": "Gayatri gathered 2 wood.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 10,
+      "agent_id": "rylee",
+      "action": "gather",
+      "outcome_text": "Rylee gathered 2 food.",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    },
+    {
+      "tick": 10,
+      "agent_id": "saurya",
+      "action": "move",
+      "outcome_text": "Saurya moved to (9, 5).",
+      "memory": "off",
+      "recent_ids": [],
+      "relevant_ids": []
+    }
+  ]
+}
