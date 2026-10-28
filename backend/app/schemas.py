@@ -87,6 +87,15 @@ class ProviderUsage(Contract):
     reserved_tokens_day: int = 0
     cooldown_seconds: int = 0
 
+class TradeOffer(Contract):
+    offer_id: str
+    proposer_id: str
+    recipient_id: str
+    give_resource: Literal["food", "wood", "coins"]
+    give_amount: int = Field(gt=0)
+    receive_resource: Literal["food", "wood", "coins"]
+    receive_amount: int = Field(gt=0)
+    status: Literal["pending", "accepted", "rejected"] = "pending"
 
 class WorldState(Contract):
     run_id: str
@@ -98,15 +107,22 @@ class WorldState(Contract):
     agents: list[Resident]
     resources: list[Resource]
     events: list[Event] = Field(default_factory=list)
+    trade_offers: list[TradeOffer] = Field(default_factory=list)
     decisions: dict[str, DecisionRecord] = Field(default_factory=dict)
     agent_runtime: dict[str, AgentRuntime] = Field(default_factory=dict)
     provider_usage: ProviderUsage = Field(default_factory=ProviderUsage)
 
 
 class Action(Contract):
-    action: Literal["move", "gather", "eat", "rest"]
+    action: Literal["move", "gather", "eat", "rest", "offer_trade", "accept_trade"]
     x: int | None = None
     y: int | None = None
+    offer_id: str | None = None
+    recipient_id: str | None = None
+    give_resource: Literal["food", "wood", "coins"] | None = None
+    give_amount: int | None = None
+    receive_resource: Literal["food", "wood", "coins"] | None = None
+    receive_amount: int | None = None
 
 
 class StepRequest(Contract):

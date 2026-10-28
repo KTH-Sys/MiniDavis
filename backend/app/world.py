@@ -8,7 +8,8 @@ from uuid import uuid4
 from .agents import PlannedStep, baseline_plan, baseline_with_memory
 from .memory import EventStore
 from .schemas import (Action, AgentInspector, DecisionRecord, Event, Location,
-                      MemoryContext, Resident, Resource, StepRequest, TownMap, WorldState)
+                      MemoryContext, Resident, Resource, StepRequest, TownMap,
+                      TradeOffer, WorldState)
 
 
 class Conflict(Exception):
@@ -194,6 +195,90 @@ class World:
         return state.model_copy(deep=True)
 
     def _execute(self, agent: Resident, action: Action) -> tuple[str, str]:
+        if action.action == "offer_trade":
+            recipient = next(
+                (r for r in self._state.agents if r.id == action.recipient_id),
+                None
+            )
+
+            if (
+                recipient is None
+                or recipient.id == agent.id
+                or not action.offer_id
+                or action.give_resource is None
+                or action.receive_resource is None
+                or action.give_amount is None
+                or action.receive_amount is None
+                or action.give_amount <= 0
+                or action.receive_amount <= 0
+                or any(o.offer_id == action.offer_id for o in self._state.trade_offers)
+                or getattr(agent, action.give_resource) < action.give_amount
+                or getattr(recipient, action.receive_resource) < action.receive_amount
+            ):
+                return "rejected", f"{agent.name}'s trade offer was rejected."
+
+            offer = TradeOffer(
+                offer_id=action.offer_id,
+                proposer_id=agent.id,
+                recipient_id=recipient.id,
+                give_resource=action.give_resource,
+                give_amount=action.give_amount,
+                receive_resource=action.receive_resource,
+                receive_amount=action.receive_amount,
+            )
+
+            self._state.trade_offers.append(offer)
+
+            return "accepted", f"{agent.name} offered a trade to {recipient.name}."
+        if action.action == "accept_trade":
+            offer = next(
+                (o for o in self._state.trade_offers
+                 if o.offer_id == action.offer_id),
+                None
+            )
+
+            if (
+                offer is None
+                or offer.status != "pending"
+                or offer.recipient_id != agent.id
+            ):
+                return "rejected", f"{agent.name} cannot accept this trade."
+
+            proposer = next(
+                (r for r in self._state.agents
+                 if r.id == offer.proposer_id),
+                None
+            )
+
+            if (
+                proposer is None
+                or getattr(proposer, offer.give_resource) < offer.give_amount
+                or getattr(agent, offer.receive_resource) < offer.receive_amount
+            ):
+                return "rejected", "Trade cannot be completed: insufficient resources."
+
+            setattr(
+                proposer, offer.give_resource,
+                getattr(proposer, offer.give_resource) - offer.give_amount
+            )
+            setattr(
+                agent, offer.give_resource,
+                getattr(agent, offer.give_resource) + offer.give_amount
+            )
+
+            setattr(
+                agent, offer.receive_resource,
+                getattr(agent, offer.receive_resource) - offer.receive_amount
+            )
+            setattr(
+                proposer, offer.receive_resource,
+                getattr(proposer, offer.receive_resource) + offer.receive_amount
+            )
+
+            offer.status = "accepted"
+
+            return "accepted", f"{agent.name} accepted trade {offer.offer_id}."
+
         if action.action == "move":
             x, y = action.x, action.y
             if (x is None or y is None or not (0 <= x < 12 and 0 <= y < 12)
