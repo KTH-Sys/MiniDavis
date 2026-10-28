@@ -1,0 +1,26 @@
+{
+  "prepared_date": "2026-10-27",
+  "scope": "Eric Day 5 dataset and offline Colab preparation",
+  "test_command": "python -m pytest backend/tests ml/tests -q",
+  "tests_passed": 77,
+  "existing_backend_tests": 61,
+  "data_and_training_gate_tests": 16,
+  "draft_examples": 200,
+  "human_reviews_pending": 200,
+  "notebook_default_cells_executed": 6,
+  "packaged_notebook_default_cells_executed": 6,
+  "package_files": 9,
+  "frozen_training_gate": "correctly refuses unreviewed draft data",
+  "colab_account_access_verified": false,
+  "training_executed": false,
+  "model_downloads": 0,
+  "provider_calls": 0,
+  "held_out_model_evaluations": 0,
+  "remaining": [
+    "Aishani/Ethan/Gayatri review assigned examples and correct data",
+    "Freeze reviewed data and rebuild Colab bundle",
+    "Eric confirms team Colab access and shared dry run",
+    "Gayatri runs actual training, saves validation metrics and exports to Drive",
+    "Held-out evaluation remains Day 6"
+  ]
+}

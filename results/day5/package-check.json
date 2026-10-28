@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "files": 9,
+  "sha256": "42790a8063e3e7b9914d949340a148a68d76d9c6df8122277e25785c13054b23",
+  "check": "Extracted the nine-file ZIP into an isolated directory and executed all six offline notebook cells using only packaged files.",
+  "colab_session_verified": false,
+  "training_executed": false,
+  "provider_calls": 0
+}

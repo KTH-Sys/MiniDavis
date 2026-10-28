@@ -4,7 +4,7 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Run MiniDavis
 
-The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a black hacker-terminal interface with green pixel text and yellow agent names beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events. Conversations and trades will appear once the backend records those actions. Keyword retrieval and the optional Groq planner are connected. Live account verification awaits a server API key; semantic embeddings and classifier training remain later work. See [Day 1–3 audit and setup](docs/day1-day3-audit.md). See the [town artwork and animation notes](frontend/public/art/README.md).
+The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a black hacker-terminal interface with green pixel text and yellow agent names beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events. Conversations and trades will appear once the backend records those actions. Groq decisions have now been verified for all five residents, and CPU MiniLM retrieval passes the Day 4 checks. Keyword retrieval remains the default until semantic mode is enabled. Classifier training remains Day 5 work. See [the Day 0–4 audit and setup](docs/day0-day4-audit.md) and [town artwork and animation notes](frontend/public/art/README.md).
 
 Use Python 3.12 and Node 24 LTS. From the repository root:
 
@@ -56,12 +56,14 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 
 ## Day 0 — Tuesday, 10/13: Accounts and access only
 
-- [ ] **Eric:** Create the MiniDavis GitHub repository and invite the five teammates.
-- [ ] **Saurya:** Sign in to GitHub, accept repo access, and open the shared Notion project.
-- [ ] **Rylee:** Sign in to GitHub, accept repo access, and confirm access to the shared Google Drive folder.
-- [ ] **Aishani:** Set up Groq access with Eric; record the Qwen model, free quota and credential owner without posting keys.
-- [ ] **Ethan:** Create the shared MiniDavis Google Drive folder and give the team access.
-- [ ] **Gayatri:** Create an empty shared Colab notebook in that folder and confirm everyone can open it.
+- [x] **Eric:** Create the MiniDavis GitHub repository and invite the five teammates.
+- [x] **Saurya:** Sign in to GitHub, accept repo access, and open the shared Notion project.
+- [x] **Rylee:** Repository write access and shared Drive editor access are verified. This checks granted access, not a personal workshop attendance claim.
+- [x] **Aishani:** Set up Groq access with Eric; record the Qwen model, free quota and credential owner without posting keys.
+- [x] **Ethan:** Create the shared MiniDavis Google Drive folder and give the team access.
+- [x] **Gayatri:** Create an empty shared Colab notebook in that folder and confirm everyone can open it.
+
+**Confirmed by Eric on October 27, 2026:** all Day 0 tasks are complete.
 
 **Finish:** Everyone can open GitHub, Notion, Drive, and Colab. No coding, design, dataset preparation, or training today.
 
@@ -94,7 +96,7 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 - [x] **Eric:** Complete the MVP integration and record a two-minute working run.
 - [x] **Saurya:** Add the inspector and event log; show live, waiting, baseline and fallback states for every resident.
 - [x] **Rylee:** Add model-action validation and run the MVP safety tests.
-- [ ] **Aishani:** Groq JSON adapter, shared queue and cached plans are implemented and tested. Save one real live decision per resident after Eric adds the server API key; see the [live verification command](docs/day1-day3-audit.md#your-remaining-setup).
+- [x] **Aishani:** Groq JSON adapter, shared queue and cached plans are implemented and tested. [Five actual live decisions](results/day0-day4/live-final/live-decisions.json) are verified; the local server key stays ignored.
 - [x] **Ethan:** Pass recent memories with real event IDs into the agent input.
 - [x] **Gayatri:** Run three seeded 100-tick MVP checks and save the report.
 
@@ -105,11 +107,11 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 **Shared session:** Save an interaction, retrieve it, and use it in an agent decision.
 
 - [x] **Eric:** Connect RAG to the backend and inspector; help Saurya and Rylee test it.
-- [ ] **Saurya:** Display retrieved text and source event IDs in the inspector.
-- [ ] **Rylee:** Run cross-resident and cross-run memory isolation tests.
-- [ ] **Aishani:** Add retrieved memories to all five live agents’ prompts.
-- [ ] **Ethan:** Implement recent + relevant retrieval with MiniLM CPU embeddings; run 10 checks and keep prompts within the token budget.
-- [ ] **Gayatri:** Compare decisions with memory enabled and disabled; save one example of each.
+- [x] **Saurya:** Display retrieved text/source IDs and the actual semantic/keyword mode; UI tests pass.
+- [x] **Rylee:** Cross-resident, cross-run and future-event isolation tests pass; real semantic API evidence is saved.
+- [x] **Aishani:** All five actual live requests include their own retrieved memories, bounded by the prompt limit; model-free requests exclude them.
+- [x] **Ethan:** MiniLM CPU recent + relevant retrieval passes 10/10 frozen checks and 10/10 paraphrase checks; caches track source text and model revision.
+- [x] **Gayatri:** Saved five matched memory-on/off pairs and an accepted live example of each. Four of five proposals per condition were accepted, with safe fallback for the others; no ML improvement is claimed. See [audit evidence](docs/day0-day4-audit.md).
 
 **Finish:** Agents retrieve actual past events without leaking another resident’s private memory.
 
@@ -117,7 +119,7 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 
 **Shared session:** Run the fine-tuning notebook to train a small interaction classifier: cooperation, conflict, trade, or neutral.
 
-- [ ] **Eric:** Prepare the dataset with Gayatri and help the team run the notebook in Colab.
+- [ ] **Eric:** Data preparation and offline notebook checks are done: [200 draft examples and review instructions](ml/data/README.md), [Colab notebook](ml/notebooks/03_finetune.ipynb), [test evidence and handoff](docs/eric-day5.md). Finish the shared Colab run after the assigned reviews and freeze; team access/training are not yet verified.
 - [ ] **Saurya:** Add an interaction-label field to the UI.
 - [ ] **Rylee:** Implement trade offers and acceptance; run duplicate-acceptance tests.
 - [ ] **Aishani:** Review examples 001–050 and correct wrong labels.

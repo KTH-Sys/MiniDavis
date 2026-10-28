@@ -1,0 +1,134 @@
+{
+  "model": "qwen/qwen3.8-27b",
+  "api_key_configured": true,
+  "baseline_agents_validated": 5,
+  "live_requested": true,
+  "live_verified": false,
+  "run_id": "2f9ce399-c188-4d7f-a44e-245d87302566",
+  "usage": {
+    "calls_run": 5,
+    "calls_day": 10,
+    "tokens_day": 1970,
+    "reserved_tokens_day": 1970,
+    "cooldown_seconds": 0
+  },
+  "decisions": {
+    "ethan": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Ethan moved to (2, 1).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather supplies and grow wealth food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "2f9ce399-c188-4d7f-a44e-245d87302566:1:ethan",
+      "model_explanation": "Move to forest (2,2) to gather wood, the only stocked resource available.",
+      "model_observation_revision": 0
+    },
+    "gayatri": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Gayatri moved to (7, 3).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect supplies for shelter food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "2f9ce399-c188-4d7f-a44e-245d87302566:1:gayatri",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "aishani": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Aishani moved to (4, 4).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect food for future trades food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "2f9ce399-c188-4d7f-a44e-245d87302566:1:aishani",
+      "model_explanation": "Move to the forest at (2,2) to gather wood, ensuring resource diversity for future trades as planned.",
+      "model_observation_revision": 0
+    },
+    "rylee": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Rylee moved to (9, 9).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Build cooperation in town food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "2f9ce399-c188-4d7f-a44e-245d87302566:1:rylee",
+      "model_explanation": "Move to the farm to access food, enabling the chance to eat and help sustain the group at low energy (3).",
+      "model_observation_revision": 0
+    },
+    "saurya": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Saurya moved to (3, 8).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather food to help neighbors food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "2f9ce399-c188-4d7f-a44e-245d87302566:1:saurya",
+      "model_explanation": null,
+      "model_observation_revision": null
+    }
+  },
+  "status": {
+    "ethan": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    },
+    "gayatri": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    },
+    "aishani": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    },
+    "rylee": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "farm"
+    },
+    "saurya": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    }
+  }
+}

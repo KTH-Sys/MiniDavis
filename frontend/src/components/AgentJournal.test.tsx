@@ -14,6 +14,16 @@ const decision: DecisionRecord = { tick: 2, observation_revision: 1, planner_mod
 afterEach(cleanup);
 
 describe('resident journal', () => {
+  it('labels semantic retrieval consistently and exposes source IDs and query', () => {
+    render(<AgentJournal agent={agent} decision={{ ...decision, planner_mode: 'live',
+      memory: { ...decision.memory, mode: 'semantic' } }} events={[]}
+      runtime={{ status: 'live', detail: 'Cached Groq plan', pending: false }} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Memories' }));
+    expect(screen.getByText(/Retrieved with minilm meaning search/)).toBeTruthy();
+    expect(screen.getByText(/Sources through turn 1. Query: wood/)).toBeTruthy();
+    expect(screen.getAllByText(memory.event_id)).toHaveLength(2);
+    expect(screen.queryByText(/Keyword memory/)).toBeNull();
+  });
   it('shows the executed decision and the actual retrieved memory sources', () => {
     render(<AgentJournal agent={agent} decision={decision} events={[memory]} />);
     fireEvent.click(screen.getByRole('tab', { name: 'Decision' }));

@@ -1,0 +1,200 @@
+{"example_id": "001", "text": "Ethan sees Gayatri has no food and gives her his spare portion without asking for anything.", "label": "cooperation", "scenario_family": "gift_last_food"}
+{"example_id": "002", "text": "Gayatri is hungry, so Aishani hands her some food as a gift with no payment.", "label": "cooperation", "scenario_family": "gift_last_food"}
+{"example_id": "003", "text": "Rylee shares his remaining food with Saurya, saying there is no need to repay him.", "label": "cooperation", "scenario_family": "gift_last_food"}
+{"example_id": "004", "text": "Saurya notices Ethan is out of food and gives him a portion for free.", "label": "cooperation", "scenario_family": "gift_last_food"}
+{"example_id": "005", "text": "Aishani gives Rylee a meal because he needs it, expecting nothing in return.", "label": "cooperation", "scenario_family": "gift_last_food"}
+{"example_id": "006", "text": "Ethan tells Gayatri he will punish her if she gathers food from the farm again.", "label": "conflict", "scenario_family": "threaten_farm_access"}
+{"example_id": "007", "text": "Rylee threatens Aishani for approaching the farm and orders her to stay away.", "label": "conflict", "scenario_family": "threaten_farm_access"}
+{"example_id": "008", "text": "Gayatri warns Saurya that he will regret taking another farm turn, refusing to calm down.", "label": "conflict", "scenario_family": "threaten_farm_access"}
+{"example_id": "009", "text": "Aishani tries to scare Ethan away from the food supply with a threat.", "label": "conflict", "scenario_family": "threaten_farm_access"}
+{"example_id": "010", "text": "Saurya tells Rylee he will make trouble for him if he visits the farm.", "label": "conflict", "scenario_family": "threaten_farm_access"}
+{"example_id": "011", "text": "Ethan offers Gayatri one food in exchange for two coins and waits for her answer.", "label": "trade", "scenario_family": "food_coin_offer"}
+{"example_id": "012", "text": "Aishani asks Rylee whether he will buy a portion of food for two coins.", "label": "trade", "scenario_family": "food_coin_offer"}
+{"example_id": "013", "text": "Saurya proposes selling one food to Ethan for two coins.", "label": "trade", "scenario_family": "food_coin_offer"}
+{"example_id": "014", "text": "Gayatri puts forward a deal: Rylee receives food and pays her two coins.", "label": "trade", "scenario_family": "food_coin_offer"}
+{"example_id": "015", "text": "Rylee offers Aishani a meal at a price of two coins, without transferring it yet.", "label": "trade", "scenario_family": "food_coin_offer"}
+{"example_id": "016", "text": "Ethan greets Gayatri at the town hall and says good morning.", "label": "neutral", "scenario_family": "ordinary_greeting"}
+{"example_id": "017", "text": "Aishani waves to Rylee and asks how his morning is going.", "label": "neutral", "scenario_family": "ordinary_greeting"}
+{"example_id": "018", "text": "Saurya says hello to Ethan as they pass each other on the path.", "label": "neutral", "scenario_family": "ordinary_greeting"}
+{"example_id": "019", "text": "Gayatri wishes Aishani a pleasant afternoon and continues walking.", "label": "neutral", "scenario_family": "ordinary_greeting"}
+{"example_id": "020", "text": "Rylee nods to Saurya and returns his greeting.", "label": "neutral", "scenario_family": "ordinary_greeting"}
+{"example_id": "021", "text": "Gayatri walks Ethan to the forest after he says he cannot find the gathering spot.", "label": "cooperation", "scenario_family": "share_forest_route"}
+{"example_id": "022", "text": "Aishani shows Rylee the path to the forest so he can collect the wood he needs.", "label": "cooperation", "scenario_family": "share_forest_route"}
+{"example_id": "023", "text": "Ethan marks a short route to the trees for Saurya, who had lost his way.", "label": "cooperation", "scenario_family": "share_forest_route"}
+{"example_id": "024", "text": "Rylee guides Gayatri to the woodland resource spot when she asks for help finding it.", "label": "cooperation", "scenario_family": "share_forest_route"}
+{"example_id": "025", "text": "Saurya waits for Aishani and leads her along the correct forest path.", "label": "cooperation", "scenario_family": "share_forest_route"}
+{"example_id": "026", "text": "Gayatri calls Ethan useless because he returned from the forest with little wood.", "label": "conflict", "scenario_family": "insult_gathering"}
+{"example_id": "027", "text": "Aishani mocks Rylee's gathering effort and calls him an idiot.", "label": "conflict", "scenario_family": "insult_gathering"}
+{"example_id": "028", "text": "Saurya responds to Gayatri's small harvest by insulting her ability instead of helping.", "label": "conflict", "scenario_family": "insult_gathering"}
+{"example_id": "029", "text": "Ethan ridicules Aishani for failing to collect food and keeps insulting her.", "label": "conflict", "scenario_family": "insult_gathering"}
+{"example_id": "030", "text": "Rylee calls Saurya lazy and worthless after seeing his supply count.", "label": "conflict", "scenario_family": "insult_gathering"}
+{"example_id": "031", "text": "Gayatri offers Ethan two wood if he gives her one food in return.", "label": "trade", "scenario_family": "wood_food_barter"}
+{"example_id": "032", "text": "Rylee proposes exchanging wood for Aishani's food, and she considers the offer.", "label": "trade", "scenario_family": "wood_food_barter"}
+{"example_id": "033", "text": "Ethan asks Saurya to swap one food for his two wood.", "label": "trade", "scenario_family": "wood_food_barter"}
+{"example_id": "034", "text": "Aishani and Gayatri discuss a barter of food for wood rather than using coins.", "label": "trade", "scenario_family": "wood_food_barter"}
+{"example_id": "035", "text": "Saurya offers Rylee a food portion in return for a bundle of wood.", "label": "trade", "scenario_family": "wood_food_barter"}
+{"example_id": "036", "text": "Gayatri remarks to Ethan that the sky over the town is clear today.", "label": "neutral", "scenario_family": "weather_observation"}
+{"example_id": "037", "text": "Rylee tells Aishani he noticed clouds above the forest.", "label": "neutral", "scenario_family": "weather_observation"}
+{"example_id": "038", "text": "Saurya comments that the morning sunlight looks bright on the market roof.", "label": "neutral", "scenario_family": "weather_observation"}
+{"example_id": "039", "text": "Ethan mentions the cool breeze to Rylee without making a request.", "label": "neutral", "scenario_family": "weather_observation"}
+{"example_id": "040", "text": "Aishani and Gayatri briefly comment on the pleasant weather.", "label": "neutral", "scenario_family": "weather_observation"}
+{"example_id": "041", "text": "Aishani and Saurya agree to take turns collecting food so both can get supplies.", "label": "cooperation", "scenario_family": "coordinate_food_round"}
+{"example_id": "042", "text": "Rylee suggests alternating farm visits with Ethan, and Ethan agrees to the shared plan.", "label": "cooperation", "scenario_family": "coordinate_food_round"}
+{"example_id": "043", "text": "Gayatri and Aishani arrange a fair gathering order at the farm to avoid crowding each other.", "label": "cooperation", "scenario_family": "coordinate_food_round"}
+{"example_id": "044", "text": "Saurya lets Rylee gather first because they agreed to alternate their farm turns.", "label": "cooperation", "scenario_family": "coordinate_food_round"}
+{"example_id": "045", "text": "Ethan follows the gathering schedule he made with Gayatri so neither misses a turn.", "label": "cooperation", "scenario_family": "coordinate_food_round"}
+{"example_id": "046", "text": "Aishani accuses Ethan of stealing her food and refuses his explanation.", "label": "conflict", "scenario_family": "accuse_missing_food"}
+{"example_id": "047", "text": "Gayatri angrily blames Rylee for her missing meal, and their dispute remains unresolved.", "label": "conflict", "scenario_family": "accuse_missing_food"}
+{"example_id": "048", "text": "Ethan tells Saurya he is a thief after noticing that some food is missing.", "label": "conflict", "scenario_family": "accuse_missing_food"}
+{"example_id": "049", "text": "Rylee insists Aishani took his food and starts an angry argument with her.", "label": "conflict", "scenario_family": "accuse_missing_food"}
+{"example_id": "050", "text": "Saurya accuses Gayatri of hiding his missing food and rejects her denial.", "label": "conflict", "scenario_family": "accuse_missing_food"}
+{"example_id": "051", "text": "Aishani asks Ethan to lower his food price from three coins to two.", "label": "trade", "scenario_family": "bargain_lower_price"}
+{"example_id": "052", "text": "Gayatri replies to Rylee's wood offer with a lower coin price and waits for agreement.", "label": "trade", "scenario_family": "bargain_lower_price"}
+{"example_id": "053", "text": "Saurya politely counters Aishani's asking price with an offer of one fewer coin.", "label": "trade", "scenario_family": "bargain_lower_price"}
+{"example_id": "054", "text": "Ethan negotiates with Gayatri about the number of coins needed for one food.", "label": "trade", "scenario_family": "bargain_lower_price"}
+{"example_id": "055", "text": "Rylee suggests paying two coins instead of three for Saurya's supplies.", "label": "trade", "scenario_family": "bargain_lower_price"}
+{"example_id": "056", "text": "Aishani tells Ethan she is standing beside the town hall.", "label": "neutral", "scenario_family": "location_report"}
+{"example_id": "057", "text": "Gayatri reports to Rylee that she has reached the market.", "label": "neutral", "scenario_family": "location_report"}
+{"example_id": "058", "text": "Saurya says he is near the west house when Aishani asks his location.", "label": "neutral", "scenario_family": "location_report"}
+{"example_id": "059", "text": "Ethan tells Gayatri which path he is currently walking along.", "label": "neutral", "scenario_family": "location_report"}
+{"example_id": "060", "text": "Rylee reports that he is beside the east house, without proposing an activity.", "label": "neutral", "scenario_family": "location_report"}
+{"example_id": "061", "text": "Saurya gives Gayatri spare wood for her shelter goal and says she owes him nothing.", "label": "cooperation", "scenario_family": "gift_shelter_wood"}
+{"example_id": "062", "text": "Ethan donates two wood to Rylee because Rylee is short of shelter supplies.", "label": "cooperation", "scenario_family": "gift_shelter_wood"}
+{"example_id": "063", "text": "Gayatri hands Aishani some leftover wood as a gift to help with her goal.", "label": "cooperation", "scenario_family": "gift_shelter_wood"}
+{"example_id": "064", "text": "Rylee gives Saurya wood for free after hearing that he lacks building supplies.", "label": "cooperation", "scenario_family": "gift_shelter_wood"}
+{"example_id": "065", "text": "Aishani contributes wood to Ethan without requesting food, coins or repayment.", "label": "cooperation", "scenario_family": "gift_shelter_wood"}
+{"example_id": "066", "text": "Ethan accepts two coins but then denies promising any food; Gayatri angrily disputes the broken deal.", "label": "conflict", "scenario_family": "dispute_trade_terms"}
+{"example_id": "067", "text": "Rylee and Saurya argue over a completed exchange, each claiming the other broke the terms.", "label": "conflict", "scenario_family": "dispute_trade_terms"}
+{"example_id": "068", "text": "Aishani refuses the wood she promised after receiving payment, and Ethan calls her dishonest.", "label": "conflict", "scenario_family": "dispute_trade_terms"}
+{"example_id": "069", "text": "Gayatri demands the agreed food from Rylee, who denies owing it and insults her.", "label": "conflict", "scenario_family": "dispute_trade_terms"}
+{"example_id": "070", "text": "Saurya claims Aishani cheated him in their exchange, and the accusation turns into an argument.", "label": "conflict", "scenario_family": "dispute_trade_terms"}
+{"example_id": "071", "text": "Rylee accepts Ethan's offer and exchanges two coins for the promised food.", "label": "trade", "scenario_family": "accept_exchange"}
+{"example_id": "072", "text": "Gayatri agrees to Aishani's terms; food and coins change hands once.", "label": "trade", "scenario_family": "accept_exchange"}
+{"example_id": "073", "text": "Saurya confirms the price and pays Rylee for the wood as agreed.", "label": "trade", "scenario_family": "accept_exchange"}
+{"example_id": "074", "text": "Ethan accepts Gayatri's barter, giving food and receiving wood in return.", "label": "trade", "scenario_family": "accept_exchange"}
+{"example_id": "075", "text": "Aishani says yes to Saurya's offer and they complete the agreed exchange.", "label": "trade", "scenario_family": "accept_exchange"}
+{"example_id": "076", "text": "Ethan reports that his own inventory contains three food and no wood.", "label": "neutral", "scenario_family": "own_inventory_fact"}
+{"example_id": "077", "text": "Gayatri says she currently has five coins; she does not offer them to anyone.", "label": "neutral", "scenario_family": "own_inventory_fact"}
+{"example_id": "078", "text": "Rylee counts his supplies aloud: two food and one wood.", "label": "neutral", "scenario_family": "own_inventory_fact"}
+{"example_id": "079", "text": "Aishani notes the number of coins in her inventory without discussing a purchase.", "label": "neutral", "scenario_family": "own_inventory_fact"}
+{"example_id": "080", "text": "Saurya records his current food total as a simple observation.", "label": "neutral", "scenario_family": "own_inventory_fact"}
+{"example_id": "081", "text": "Ethan warns Rylee that the farm is empty so Rylee will not waste his energy walking there.", "label": "cooperation", "scenario_family": "warn_empty_farm"}
+{"example_id": "082", "text": "Gayatri tells Saurya the last farm food was gathered and suggests saving the trip.", "label": "cooperation", "scenario_family": "warn_empty_farm"}
+{"example_id": "083", "text": "Aishani spots Ethan heading to the depleted farm and calls out to help him avoid the wasted walk.", "label": "cooperation", "scenario_family": "warn_empty_farm"}
+{"example_id": "084", "text": "Rylee shares the empty-farm warning with Gayatri before she leaves for supplies.", "label": "cooperation", "scenario_family": "warn_empty_farm"}
+{"example_id": "085", "text": "Saurya alerts Aishani that no food remains at the farm, helping her choose another plan.", "label": "cooperation", "scenario_family": "warn_empty_farm"}
+{"example_id": "086", "text": "Rylee tells Ethan nobody wants him in the town gathering group and deliberately excludes him.", "label": "conflict", "scenario_family": "exclude_neighbor"}
+{"example_id": "087", "text": "Aishani publicly orders Gayatri out of the group, saying she is not welcome.", "label": "conflict", "scenario_family": "exclude_neighbor"}
+{"example_id": "088", "text": "Saurya urges the others to shut Rylee out of every shared supply plan.", "label": "conflict", "scenario_family": "exclude_neighbor"}
+{"example_id": "089", "text": "Ethan tells Aishani she must stay away from their group and insults her when she objects.", "label": "conflict", "scenario_family": "exclude_neighbor"}
+{"example_id": "090", "text": "Gayatri refuses to let Saurya join the group because she wants him isolated.", "label": "conflict", "scenario_family": "exclude_neighbor"}
+{"example_id": "091", "text": "Ethan politely declines Rylee's food offer because the price is too high; neither argues.", "label": "trade", "scenario_family": "decline_price_politely"}
+{"example_id": "092", "text": "Aishani thanks Gayatri but rejects the proposed exchange without hostility.", "label": "trade", "scenario_family": "decline_price_politely"}
+{"example_id": "093", "text": "Rylee tells Saurya he will not buy the wood at that price and ends the negotiation calmly.", "label": "trade", "scenario_family": "decline_price_politely"}
+{"example_id": "094", "text": "Gayatri says no to Ethan's barter terms while remaining friendly.", "label": "trade", "scenario_family": "decline_price_politely"}
+{"example_id": "095", "text": "Saurya declines Aishani's coin offer for food, explaining that he wants a better price.", "label": "trade", "scenario_family": "decline_price_politely"}
+{"example_id": "096", "text": "Rylee tells Ethan he plans to rest by his house because his energy is low.", "label": "neutral", "scenario_family": "rest_announcement"}
+{"example_id": "097", "text": "Aishani says she is taking a break; she asks nobody to do anything for her.", "label": "neutral", "scenario_family": "rest_announcement"}
+{"example_id": "098", "text": "Gayatri announces she will rest for a turn before continuing her own route.", "label": "neutral", "scenario_family": "rest_announcement"}
+{"example_id": "099", "text": "Saurya tells Rylee he is pausing his walk to recover energy.", "label": "neutral", "scenario_family": "rest_announcement"}
+{"example_id": "100", "text": "Ethan notes that he will rest now and return to his own supplies later.", "label": "neutral", "scenario_family": "rest_announcement"}
+{"example_id": "101", "text": "Gayatri gathers food while Ethan collects wood, following their plan to supply both households.", "label": "cooperation", "scenario_family": "joint_supply_goal"}
+{"example_id": "102", "text": "Rylee and Aishani divide their gathering tasks to meet a shared supply goal.", "label": "cooperation", "scenario_family": "joint_supply_goal"}
+{"example_id": "103", "text": "Saurya collects wood and Gayatri collects food as part of a plan they made together.", "label": "cooperation", "scenario_family": "joint_supply_goal"}
+{"example_id": "104", "text": "Ethan and Rylee agree to gather different resources and share the results without payment.", "label": "cooperation", "scenario_family": "joint_supply_goal"}
+{"example_id": "105", "text": "Aishani coordinates food gathering with Saurya while he collects wood for their common stock.", "label": "cooperation", "scenario_family": "joint_supply_goal"}
+{"example_id": "106", "text": "Ethan stands across the narrow path to stop Rylee reaching the forest and refuses to move.", "label": "conflict", "scenario_family": "block_path_deliberately"}
+{"example_id": "107", "text": "Gayatri deliberately blocks Aishani's route to the farm after being asked to step aside.", "label": "conflict", "scenario_family": "block_path_deliberately"}
+{"example_id": "108", "text": "Saurya admits he is obstructing Ethan just to ruin his gathering trip.", "label": "conflict", "scenario_family": "block_path_deliberately"}
+{"example_id": "109", "text": "Rylee repeatedly steps into Gayatri's way to keep her away from the food.", "label": "conflict", "scenario_family": "block_path_deliberately"}
+{"example_id": "110", "text": "Aishani refuses to clear the path for Saurya, saying she wants to stop his progress.", "label": "conflict", "scenario_family": "block_path_deliberately"}
+{"example_id": "111", "text": "Gayatri tells Ethan the old food-for-coins offer expired and asks him to request a new price.", "label": "trade", "scenario_family": "cancel_expired_offer"}
+{"example_id": "112", "text": "Rylee cancels an expired wood sale to Aishani before either side transfers resources.", "label": "trade", "scenario_family": "cancel_expired_offer"}
+{"example_id": "113", "text": "Saurya explains to Gayatri that their previous exchange offer is no longer valid.", "label": "trade", "scenario_family": "cancel_expired_offer"}
+{"example_id": "114", "text": "Aishani withdraws her unaccepted food sale and informs Rylee without starting a dispute.", "label": "trade", "scenario_family": "cancel_expired_offer"}
+{"example_id": "115", "text": "Ethan lets Saurya know the proposed barter timed out and must be offered again.", "label": "trade", "scenario_family": "cancel_expired_offer"}
+{"example_id": "116", "text": "Gayatri asks Ethan which turn the town has reached.", "label": "neutral", "scenario_family": "ask_simulation_time"}
+{"example_id": "117", "text": "Saurya asks Rylee whether the current tick is ten or eleven.", "label": "neutral", "scenario_family": "ask_simulation_time"}
+{"example_id": "118", "text": "Aishani checks the town clock and asks Gayatri to confirm the displayed turn.", "label": "neutral", "scenario_family": "ask_simulation_time"}
+{"example_id": "119", "text": "Ethan wonders aloud to Saurya how many simulation turns have passed.", "label": "neutral", "scenario_family": "ask_simulation_time"}
+{"example_id": "120", "text": "Rylee asks Aishani for the current turn number without any other request.", "label": "neutral", "scenario_family": "ask_simulation_time"}
+{"example_id": "121", "text": "Aishani offers to help Ethan collect his missing supplies even though he cannot pay her.", "label": "cooperation", "scenario_family": "help_without_reward"}
+{"example_id": "122", "text": "Rylee tells Gayatri he will help with her supply goal for free, and she accepts.", "label": "cooperation", "scenario_family": "help_without_reward"}
+{"example_id": "123", "text": "Ethan agrees to assist Saurya with gathering, saying no reward is necessary.", "label": "cooperation", "scenario_family": "help_without_reward"}
+{"example_id": "124", "text": "Gayatri volunteers to help Rylee find supplies without charging him anything.", "label": "cooperation", "scenario_family": "help_without_reward"}
+{"example_id": "125", "text": "Saurya accepts Aishani's offer of unpaid help with the remaining gathering work.", "label": "cooperation", "scenario_family": "help_without_reward"}
+{"example_id": "126", "text": "Gayatri pushes ahead of Ethan's agreed gathering turn and tells him his turn does not matter.", "label": "conflict", "scenario_family": "break_gathering_turn"}
+{"example_id": "127", "text": "Rylee breaks the farm schedule on purpose and shouts down Saurya's objection.", "label": "conflict", "scenario_family": "break_gathering_turn"}
+{"example_id": "128", "text": "Aishani takes another turn despite their agreement, and Gayatri angrily confronts her.", "label": "conflict", "scenario_family": "break_gathering_turn"}
+{"example_id": "129", "text": "Ethan refuses to honor the gathering order he agreed with Rylee and starts a quarrel.", "label": "conflict", "scenario_family": "break_gathering_turn"}
+{"example_id": "130", "text": "Saurya dismisses Aishani's agreed turn and argues that only his own needs count.", "label": "conflict", "scenario_family": "break_gathering_turn"}
+{"example_id": "131", "text": "Aishani wants Rylee's food but cannot complete the purchase because she lacks the agreed coins.", "label": "trade", "scenario_family": "insufficient_coins"}
+{"example_id": "132", "text": "Ethan and Gayatri pause their deal when Ethan discovers he cannot afford the price.", "label": "trade", "scenario_family": "insufficient_coins"}
+{"example_id": "133", "text": "Saurya cannot pay for Aishani's wood, so their proposed exchange is left incomplete.", "label": "trade", "scenario_family": "insufficient_coins"}
+{"example_id": "134", "text": "Rylee explains calmly that he has too few coins to accept Gayatri's food sale.", "label": "trade", "scenario_family": "insufficient_coins"}
+{"example_id": "135", "text": "Gayatri and Saurya cancel a purchase after checking that the buyer lacks payment.", "label": "trade", "scenario_family": "insufficient_coins"}
+{"example_id": "136", "text": "Ethan tells Gayatri that the market has a striped roof; neither offers to buy or sell.", "label": "neutral", "scenario_family": "describe_market"}
+{"example_id": "137", "text": "Aishani remarks that the market stands next to the town hall, without proposing an exchange.", "label": "neutral", "scenario_family": "describe_market"}
+{"example_id": "138", "text": "Saurya observes the market sign while talking to Rylee about the town layout.", "label": "neutral", "scenario_family": "describe_market"}
+{"example_id": "139", "text": "Gayatri describes the color of the market stall to Aishani and makes no purchase request.", "label": "neutral", "scenario_family": "describe_market"}
+{"example_id": "140", "text": "Rylee points out where the market is on the map, without offering goods or assistance.", "label": "neutral", "scenario_family": "describe_market"}
+{"example_id": "141", "text": "Ethan asks Gayatri to rest and volunteers to collect their shared food while she recovers.", "label": "cooperation", "scenario_family": "respect_low_energy"}
+{"example_id": "142", "text": "Rylee sees Aishani is exhausted and covers their agreed gathering turn for her.", "label": "cooperation", "scenario_family": "respect_low_energy"}
+{"example_id": "143", "text": "Gayatri gathers the food she and Saurya need so that Saurya can recover his energy.", "label": "cooperation", "scenario_family": "respect_low_energy"}
+{"example_id": "144", "text": "Aishani offers to handle a shared supply trip while Ethan rests.", "label": "cooperation", "scenario_family": "respect_low_energy"}
+{"example_id": "145", "text": "Saurya takes Rylee's place in their joint gathering plan because Rylee needs a break.", "label": "cooperation", "scenario_family": "respect_low_energy"}
+{"example_id": "146", "text": "Rylee asks for food, but Ethan laughs at his hunger and calls him pathetic.", "label": "conflict", "scenario_family": "mock_request_for_help"}
+{"example_id": "147", "text": "Aishani responds to Gayatri's request for help with cruel insults about her situation.", "label": "conflict", "scenario_family": "mock_request_for_help"}
+{"example_id": "148", "text": "Saurya mocks Rylee for needing assistance and tells him to suffer.", "label": "conflict", "scenario_family": "mock_request_for_help"}
+{"example_id": "149", "text": "Gayatri laughs at Ethan's empty inventory and insults him when he asks for help.", "label": "conflict", "scenario_family": "mock_request_for_help"}
+{"example_id": "150", "text": "Ethan's request for supplies makes Aishani jeer at him rather than give a polite refusal.", "label": "conflict", "scenario_family": "mock_request_for_help"}
+{"example_id": "151", "text": "Ethan asks Aishani how many coins she wants for the food she has offered for sale.", "label": "trade", "scenario_family": "ask_specific_price"}
+{"example_id": "152", "text": "Rylee asks Gayatri for the price of her available wood because he wants to buy it.", "label": "trade", "scenario_family": "ask_specific_price"}
+{"example_id": "153", "text": "Saurya asks Ethan what payment he would accept for one food portion.", "label": "trade", "scenario_family": "ask_specific_price"}
+{"example_id": "154", "text": "Gayatri wants Aishani's supplies and asks what she should offer in exchange.", "label": "trade", "scenario_family": "ask_specific_price"}
+{"example_id": "155", "text": "Aishani asks Rylee to name a coin price for the wood he is selling.", "label": "trade", "scenario_family": "ask_specific_price"}
+{"example_id": "156", "text": "Rylee politely declines Ethan's invitation to walk together because he wants a quiet break.", "label": "neutral", "scenario_family": "calm_refusal_of_company"}
+{"example_id": "157", "text": "Gayatri thanks Aishani for the invitation but says she prefers to walk alone today.", "label": "neutral", "scenario_family": "calm_refusal_of_company"}
+{"example_id": "158", "text": "Saurya tells Rylee he does not want company right now; both remain calm.", "label": "neutral", "scenario_family": "calm_refusal_of_company"}
+{"example_id": "159", "text": "Ethan says no to Gayatri's invitation to chat and wishes her a good day.", "label": "neutral", "scenario_family": "calm_refusal_of_company"}
+{"example_id": "160", "text": "Aishani declines Saurya's invitation to meet at the town hall without an argument.", "label": "neutral", "scenario_family": "calm_refusal_of_company"}
+{"example_id": "161", "text": "Gayatri checks the remaining wood and tells Rylee there is enough for his planned gathering trip.", "label": "cooperation", "scenario_family": "share_helpful_count"}
+{"example_id": "162", "text": "Saurya shares an updated resource count to help Aishani plan her supply route.", "label": "cooperation", "scenario_family": "share_helpful_count"}
+{"example_id": "163", "text": "Ethan sends Gayatri the food count she requested so she can avoid an unnecessary trip.", "label": "cooperation", "scenario_family": "share_helpful_count"}
+{"example_id": "164", "text": "Rylee checks farm stock for Saurya and passes along the information to help him plan.", "label": "cooperation", "scenario_family": "share_helpful_count"}
+{"example_id": "165", "text": "Aishani looks up the available wood for Ethan and explains how much he can gather.", "label": "cooperation", "scenario_family": "share_helpful_count"}
+{"example_id": "166", "text": "Saurya demands Gayatri's wood and threatens to harass her unless she hands it over.", "label": "conflict", "scenario_family": "demand_free_resources"}
+{"example_id": "167", "text": "Ethan orders Rylee to surrender his food without payment and adds a threat.", "label": "conflict", "scenario_family": "demand_free_resources"}
+{"example_id": "168", "text": "Gayatri tries to intimidate Aishani into giving away all her coins.", "label": "conflict", "scenario_family": "demand_free_resources"}
+{"example_id": "169", "text": "Rylee threatens Saurya unless Saurya gives him the gathered wood for nothing.", "label": "conflict", "scenario_family": "demand_free_resources"}
+{"example_id": "170", "text": "Aishani demands Ethan's supplies and warns him that refusing will bring trouble.", "label": "conflict", "scenario_family": "demand_free_resources"}
+{"example_id": "171", "text": "Gayatri asks Ethan to change their deal from one food for two coins to two food for four coins.", "label": "trade", "scenario_family": "revise_quantity"}
+{"example_id": "172", "text": "Rylee proposes buying a larger bundle of Saurya's wood at the same per-item price.", "label": "trade", "scenario_family": "revise_quantity"}
+{"example_id": "173", "text": "Aishani and Ethan revise the quantity in their food sale before accepting it.", "label": "trade", "scenario_family": "revise_quantity"}
+{"example_id": "174", "text": "Saurya asks Gayatri to reduce the wood quantity and coin payment in their offer.", "label": "trade", "scenario_family": "revise_quantity"}
+{"example_id": "175", "text": "Ethan confirms a revised deal with Rylee for twice as much food and twice the payment.", "label": "trade", "scenario_family": "revise_quantity"}
+{"example_id": "176", "text": "Ethan mentions that a gift was recorded yesterday, without giving or requesting anything now.", "label": "neutral", "scenario_family": "past_event_description"}
+{"example_id": "177", "text": "Gayatri reads a log entry saying a trade ended last turn; she proposes no new exchange.", "label": "neutral", "scenario_family": "past_event_description"}
+{"example_id": "178", "text": "Rylee notes that an argument appears in the history, without taking sides or repeating an accusation.", "label": "neutral", "scenario_family": "past_event_description"}
+{"example_id": "179", "text": "Aishani describes the time of a past gathering event as a factual record.", "label": "neutral", "scenario_family": "past_event_description"}
+{"example_id": "180", "text": "Saurya says the event list contains an old refusal, without rejecting any current request.", "label": "neutral", "scenario_family": "past_event_description"}
+{"example_id": "181", "text": "Rylee apologizes for an earlier argument and gives Ethan food to make amends; Ethan accepts peacefully.", "label": "cooperation", "scenario_family": "repair_disagreement"}
+{"example_id": "182", "text": "Gayatri and Saurya settle their disagreement and agree to help each other gather tomorrow.", "label": "cooperation", "scenario_family": "repair_disagreement"}
+{"example_id": "183", "text": "Aishani says sorry to Rylee and offers a free meal; both agree their dispute is over.", "label": "cooperation", "scenario_family": "repair_disagreement"}
+{"example_id": "184", "text": "Ethan and Gayatri resolve the quarrel and resume their shared gathering plan.", "label": "cooperation", "scenario_family": "repair_disagreement"}
+{"example_id": "185", "text": "Saurya accepts Aishani's apology, and they voluntarily share their remaining supplies.", "label": "cooperation", "scenario_family": "repair_disagreement"}
+{"example_id": "186", "text": "Ethan offers to settle their dispute, but Gayatri rejects the apology and continues calling him a liar.", "label": "conflict", "scenario_family": "reject_peace_offer"}
+{"example_id": "187", "text": "Rylee tries to end the quarrel; Aishani refuses and repeats her threats.", "label": "conflict", "scenario_family": "reject_peace_offer"}
+{"example_id": "188", "text": "Saurya rejects Ethan's attempt to make peace and keeps accusing him angrily.", "label": "conflict", "scenario_family": "reject_peace_offer"}
+{"example_id": "189", "text": "Gayatri offers an apology, but Rylee says he will keep making trouble for her.", "label": "conflict", "scenario_family": "reject_peace_offer"}
+{"example_id": "190", "text": "Aishani asks for a calm discussion, and Saurya answers with more hostile insults.", "label": "conflict", "scenario_family": "reject_peace_offer"}
+{"example_id": "191", "text": "Ethan and Gayatri agree to meet at the market to swap the wood and food in their accepted offer.", "label": "trade", "scenario_family": "meet_to_exchange"}
+{"example_id": "192", "text": "Aishani asks Rylee to come nearby so they can complete the agreed food-for-coins deal.", "label": "trade", "scenario_family": "meet_to_exchange"}
+{"example_id": "193", "text": "Saurya arranges a market meeting with Ethan to finish their barter.", "label": "trade", "scenario_family": "meet_to_exchange"}
+{"example_id": "194", "text": "Gayatri waits near Rylee at the agreed location so their paid exchange can go ahead.", "label": "trade", "scenario_family": "meet_to_exchange"}
+{"example_id": "195", "text": "Rylee and Aishani coordinate where to meet to transfer the items and payment they negotiated.", "label": "trade", "scenario_family": "meet_to_exchange"}
+{"example_id": "196", "text": "Aishani tells Ethan she is moving one tile north on her own route.", "label": "neutral", "scenario_family": "independent_route"}
+{"example_id": "197", "text": "Rylee says he is walking toward his house, without inviting or obstructing anyone.", "label": "neutral", "scenario_family": "independent_route"}
+{"example_id": "198", "text": "Gayatri describes her next move to the left while Saurya listens.", "label": "neutral", "scenario_family": "independent_route"}
+{"example_id": "199", "text": "Ethan announces he is returning to his starting position for his own reasons.", "label": "neutral", "scenario_family": "independent_route"}
+{"example_id": "200", "text": "Saurya says he is heading to the town hall alone and makes no request of Gayatri.", "label": "neutral", "scenario_family": "independent_route"}

@@ -6,6 +6,7 @@ keyword search cannot match. Needs: pip install -r backend/requirements-ml.txt
 """
 
 import json
+import argparse
 import sys
 import tempfile
 from pathlib import Path
@@ -30,6 +31,9 @@ def hits(store, queries):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--out', type=Path, default=ROOT / 'results/day4/retrieval.json')
+    args = parser.parse_args()
     embedder = minilm_embedder()
     if embedder is None:
         sys.exit("sentence-transformers is not installed: pip install -r backend/requirements-ml.txt")
@@ -41,15 +45,19 @@ def main():
                              tick=tick, action=row["action"], outcome=row["outcome"], text=row["text"]))
         frozen, paraphrased = hits(store, [row["query"] for row in fixtures]), hits(store, PARAPHRASES)
         store.close()
-    result = {"model": "sentence-transformers/all-MiniLM-L6-v2",
+    semantic_verified = all(row['mode'] == 'semantic' for row in frozen + paraphrased)
+    result = {"model": "sentence-transformers/all-MiniLM-L6-v2", "cache_key": embedder.cache_key,
+              "semantic_verified": semantic_verified,
               "frozen_hits": sum(r["hit"] for r in frozen), "paraphrase_hits": sum(r["hit"] for r in paraphrased),
-              "passed": sum(r["hit"] for r in frozen) >= 8, "frozen": frozen, "paraphrased": paraphrased}
-    out = ROOT / "results/day4/retrieval.json"
+              "passed": semantic_verified and sum(r["hit"] for r in frozen) >= 8,
+              "frozen": frozen, "paraphrased": paraphrased}
+    out = args.out.resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, indent=2) + "\n")
     print(f"frozen {result['frozen_hits']}/10, paraphrase {result['paraphrase_hits']}/10, "
-          f"{'PASS' if result['passed'] else 'FAIL'} -> {out.relative_to(ROOT)}")
+          f"{'PASS' if result['passed'] else 'FAIL'} -> {out}")
+    return 0 if result['passed'] else 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

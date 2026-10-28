@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "retrieval": "real MiniLM CPU",
+  "agents": [
+    {
+      "agent_id": "ethan",
+      "mode": "semantic",
+      "recent_count": 2,
+      "relevant_count": 0,
+      "source_ids": [
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:1:ethan",
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:2:ethan"
+      ],
+      "passed": true
+    },
+    {
+      "agent_id": "gayatri",
+      "mode": "semantic",
+      "recent_count": 2,
+      "relevant_count": 0,
+      "source_ids": [
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:1:gayatri",
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:2:gayatri"
+      ],
+      "passed": true
+    },
+    {
+      "agent_id": "aishani",
+      "mode": "semantic",
+      "recent_count": 2,
+      "relevant_count": 0,
+      "source_ids": [
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:1:aishani",
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:2:aishani"
+      ],
+      "passed": true
+    },
+    {
+      "agent_id": "rylee",
+      "mode": "semantic",
+      "recent_count": 2,
+      "relevant_count": 0,
+      "source_ids": [
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:1:rylee",
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:2:rylee"
+      ],
+      "passed": true
+    },
+    {
+      "agent_id": "saurya",
+      "mode": "semantic",
+      "recent_count": 2,
+      "relevant_count": 2,
+      "source_ids": [
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:1:saurya",
+        "94dcbcd7-77c6-459b-a0ac-3bbd9941d8c8:2:saurya"
+      ],
+      "passed": true
+    }
+  ],
+  "reset_isolation": true,
+  "provider_calls": 0
+}

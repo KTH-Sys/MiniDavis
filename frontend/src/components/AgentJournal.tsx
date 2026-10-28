@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { AgentRuntime, DecisionRecord, Resident, TownEvent } from '../types';
 
 const socialActions = new Set(['talk', 'offer_trade', 'accept_trade', 'reject_trade', 'trade', 'gift']);
+const retrievalNames = { semantic: 'MiniLM meaning search', lexical: 'Keyword search', 'recent-only': 'Recent history only' };
 export function interactionsFor(events: TownEvent[], agentId: string): TownEvent[] {
   return events.filter((event) => socialActions.has(event.action)
     && (event.agent_id === agentId || event.target_agent_id === agentId || event.participants?.includes(agentId))).slice(-20).reverse();
@@ -73,7 +74,8 @@ export function AgentJournal({ agent, decision, events, agents = [agent], runtim
         {recent.length ? <MemoryCard event={recent[recent.length - 1]} name={agent.name} /> : <p className="journal-empty">No memories in this run yet.</p>}
       </>}
       {tab === 'memory' && <>
-        <p className="feed-note">History supplied before {agent.name}’s latest decision. {{ semantic: 'Retrieved with MiniLM meaning search.', lexical: 'Retrieved with keyword search.', 'recent-only': 'Recent history only.' }[decision?.memory.mode ?? 'recent-only']}</p>
+        <p className="feed-note">History supplied before {agent.name}’s latest decision. {decision ? `Retrieved with ${retrievalNames[decision.memory.mode].toLowerCase()}.` : 'No retrieval yet.'}</p>
+        {decision && <p className="feed-note">Sources through turn {decision.memory.as_of_tick}. Query: {decision.memory.query}</p>}
         <h3 className="section-label">RELEVANT MEMORIES</h3>{relevant.length ? relevant.map((event) => <MemoryCard key={event.event_id} event={event} name={agent.name} relevant />) : <p className="journal-empty">No matching memories yet.</p>}
         <h3 className="section-label">RECENT MEMORIES</h3>{recent.length ? recent.slice().reverse().map((event) => <MemoryCard key={event.event_id} event={event} name={agent.name} />) : <p className="journal-empty">No memories in this run yet.</p>}
       </>}
@@ -83,6 +85,6 @@ export function AgentJournal({ agent, decision, events, agents = [agent], runtim
           : <div className="terminal-empty"><span aria-hidden="true">&gt;_</span><h3>No interactions yet</h3><p>Conversations and trades between residents will appear here when the simulation records them.</p></div>}
       </>}
     </div>
-    <p className="journal-footnote"><span aria-hidden="true">●</span> {runtime?.status === 'live' ? 'Groq plan' : runtime?.status === 'waiting' ? 'Queued for Groq' : runtime?.status === 'fallback' ? 'Baseline fallback' : 'Baseline rules'} · Keyword memory</p>
+    <p className="journal-footnote"><span aria-hidden="true">●</span> {runtime?.status === 'live' ? 'Groq plan' : runtime?.status === 'waiting' ? 'Queued for Groq' : runtime?.status === 'fallback' ? 'Baseline fallback' : 'Baseline rules'} · {decision ? retrievalNames[decision.memory.mode] : 'No memory used yet'}</p>
   </section>;
 }

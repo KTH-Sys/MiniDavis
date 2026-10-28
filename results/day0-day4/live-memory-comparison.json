@@ -1,0 +1,1393 @@
+{
+  "passed": false,
+  "model": "qwen/qwen3.8-27b",
+  "seed": 11,
+  "retrieval": "semantic",
+  "embedding_cache_key": "sentence-transformers:sentence-transformers/all-MiniLM-L6-v2:1110a243fdf4706b3f48f1d95db1a4f5529b4d41:normalized-v1",
+  "matched_observations": true,
+  "memory_on": {
+    "memory": "on",
+    "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+    "before": {
+      "tick": 3,
+      "revision": 3,
+      "seed": 11,
+      "agents": [
+        {
+          "id": "ethan",
+          "name": "Ethan",
+          "goal": "Gather supplies and grow wealth",
+          "x": 2,
+          "y": 2,
+          "food": 3,
+          "wood": 2,
+          "coins": 10,
+          "energy": 93,
+          "relationships": {
+            "gayatri": 0,
+            "aishani": 0,
+            "rylee": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "gayatri",
+          "name": "Gayatri",
+          "goal": "Collect supplies for shelter",
+          "x": 5,
+          "y": 3,
+          "food": 3,
+          "wood": 0,
+          "coins": 5,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "aishani": 0,
+            "rylee": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "aishani",
+          "name": "Aishani",
+          "goal": "Collect food for future trades",
+          "x": 8,
+          "y": 4,
+          "food": 3,
+          "wood": 0,
+          "coins": 15,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "gayatri": 0,
+            "rylee": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "rylee",
+          "name": "Rylee",
+          "goal": "Build cooperation in town",
+          "x": 9,
+          "y": 7,
+          "food": 3,
+          "wood": 0,
+          "coins": 8,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "gayatri": 0,
+            "aishani": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "saurya",
+          "name": "Saurya",
+          "goal": "Gather food to help neighbors",
+          "x": 5,
+          "y": 8,
+          "food": 3,
+          "wood": 0,
+          "coins": 6,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "gayatri": 0,
+            "aishani": 0,
+            "rylee": 0
+          }
+        }
+      ],
+      "resources": [
+        {
+          "id": "farm",
+          "kind": "food",
+          "x": 9,
+          "y": 3,
+          "stock": 30
+        },
+        {
+          "id": "forest",
+          "kind": "wood",
+          "x": 2,
+          "y": 2,
+          "stock": 38
+        }
+      ]
+    },
+    "all_five_live": false,
+    "prompt_memory_verified": true,
+    "sources_verified": true,
+    "decisions": {
+      "ethan": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "gather",
+        "explanation": "Ethan gathered 2 wood.",
+        "memory": {
+          "mode": "semantic",
+          "query": "Gather supplies and grow wealth food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:ethan",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 2,
+              "agent_id": "ethan",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Ethan moved to (2, 2)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:ethan",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 3,
+              "agent_id": "ethan",
+              "action": "gather",
+              "outcome": "accepted",
+              "text": "Ethan gathered 2 wood."
+            }
+          ],
+          "relevant": [
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:ethan",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 3,
+              "agent_id": "ethan",
+              "action": "gather",
+              "outcome": "accepted",
+              "text": "Ethan gathered 2 wood."
+            }
+          ]
+        },
+        "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:4:ethan",
+        "model_explanation": "Gather wood in the forest to acquire supply resources, directly supporting the goal of gathering supplies and growing wealth.",
+        "model_observation_revision": 3
+      },
+      "gayatri": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "move",
+        "explanation": "Gayatri moved to (5, 4).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Collect supplies for shelter food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:gayatri",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 2,
+              "agent_id": "gayatri",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Gayatri moved to (6, 3)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:gayatri",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 3,
+              "agent_id": "gayatri",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Gayatri moved to (5, 3)."
+            }
+          ],
+          "relevant": []
+        },
+        "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:4:gayatri",
+        "model_explanation": "Moving from position (5,3) to the Market at (5,5) to trade coins for shelter supplies.",
+        "model_observation_revision": 3
+      },
+      "aishani": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "move",
+        "explanation": "Aishani moved to (9, 4).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Collect food for future trades food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:aishani",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 2,
+              "agent_id": "aishani",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Aishani moved to (7, 4)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:aishani",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 3,
+              "agent_id": "aishani",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Aishani moved to (8, 4)."
+            }
+          ],
+          "relevant": []
+        },
+        "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:4:aishani",
+        "model_explanation": "Traveling from current position (8,4) to the farm at (9,3) to collect food for future trades.",
+        "model_observation_revision": 3
+      },
+      "rylee": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "move",
+        "explanation": "Rylee moved to (9, 8).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Build cooperation in town food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:1:rylee",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 1,
+              "agent_id": "rylee",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Rylee moved to (9, 9)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:rylee",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 2,
+              "agent_id": "rylee",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Rylee moved to (9, 8)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:rylee",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 3,
+              "agent_id": "rylee",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Rylee moved to (9, 7)."
+            }
+          ],
+          "relevant": []
+        },
+        "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:4:rylee",
+        "model_explanation": "Move from (9,7) to house-east (9,9) to coordinate with neighbors on town goals.",
+        "model_observation_revision": 3
+      },
+      "saurya": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "fallback",
+        "action": "move",
+        "explanation": "Saurya moved to (6, 8).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Gather food to help neighbors food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:1:saurya",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 1,
+              "agent_id": "saurya",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Saurya moved to (3, 8)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:saurya",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 2,
+              "agent_id": "saurya",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Saurya moved to (4, 8)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:saurya",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 3,
+              "agent_id": "saurya",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Saurya moved to (5, 8)."
+            }
+          ],
+          "relevant": [
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:saurya",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 2,
+              "agent_id": "saurya",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Saurya moved to (4, 8)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:1:saurya",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 1,
+              "agent_id": "saurya",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Saurya moved to (3, 8)."
+            },
+            {
+              "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:saurya",
+              "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+              "tick": 3,
+              "agent_id": "saurya",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Saurya moved to (5, 8)."
+            }
+          ]
+        },
+        "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:4:saurya",
+        "model_explanation": null,
+        "model_observation_revision": null
+      }
+    },
+    "prompts": [
+      {
+        "agent_id": "ethan",
+        "context": {
+          "resident": {
+            "id": "ethan",
+            "goal": "Gather supplies and grow wealth",
+            "position": [
+              2,
+              2
+            ],
+            "food": 3,
+            "wood": 2,
+            "coins": 10,
+            "energy": 93
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat",
+            "gather"
+          ],
+          "memories": [
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:ethan",
+              "text": "Ethan gathered 2 wood."
+            },
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:ethan",
+              "text": "Ethan moved to (2, 2)."
+            }
+          ]
+        },
+        "content_bytes": 717
+      },
+      {
+        "agent_id": "gayatri",
+        "context": {
+          "resident": {
+            "id": "gayatri",
+            "goal": "Collect supplies for shelter",
+            "position": [
+              5,
+              3
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 5,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": [
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:gayatri",
+              "text": "Gayatri moved to (5, 3)."
+            },
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:gayatri",
+              "text": "Gayatri moved to (6, 3)."
+            }
+          ]
+        },
+        "content_bytes": 714
+      },
+      {
+        "agent_id": "aishani",
+        "context": {
+          "resident": {
+            "id": "aishani",
+            "goal": "Collect food for future trades",
+            "position": [
+              8,
+              4
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 15,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": [
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:aishani",
+              "text": "Aishani moved to (8, 4)."
+            },
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:aishani",
+              "text": "Aishani moved to (7, 4)."
+            }
+          ]
+        },
+        "content_bytes": 717
+      },
+      {
+        "agent_id": "rylee",
+        "context": {
+          "resident": {
+            "id": "rylee",
+            "goal": "Build cooperation in town",
+            "position": [
+              9,
+              7
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 8,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": [
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:rylee",
+              "text": "Rylee moved to (9, 7)."
+            },
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:rylee",
+              "text": "Rylee moved to (9, 8)."
+            },
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:1:rylee",
+              "text": "Rylee moved to (9, 9)."
+            }
+          ]
+        },
+        "content_bytes": 787
+      },
+      {
+        "agent_id": "saurya",
+        "context": {
+          "resident": {
+            "id": "saurya",
+            "goal": "Gather food to help neighbors",
+            "position": [
+              5,
+              8
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 6,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": [
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:saurya",
+              "text": "Saurya moved to (5, 8)."
+            },
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:1:saurya",
+              "text": "Saurya moved to (3, 8)."
+            },
+            {
+              "id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:saurya",
+              "text": "Saurya moved to (4, 8)."
+            }
+          ]
+        },
+        "content_bytes": 798
+      }
+    ],
+    "usage": {
+      "calls_run": 5,
+      "calls_day": 25,
+      "tokens_day": 5953,
+      "reserved_tokens_day": 5953,
+      "cooldown_seconds": 0
+    },
+    "status": {
+      "ethan": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": null
+      },
+      "gayatri": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": "market"
+      },
+      "aishani": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": "farm"
+      },
+      "rylee": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": "house-east"
+      },
+      "saurya": {
+        "status": "fallback",
+        "detail": "Run request budget exhausted",
+        "pending": false,
+        "plan_target": null
+      }
+    }
+  },
+  "memory_off": {
+    "memory": "off",
+    "run_id": "e8bef72f-b605-4653-b5c8-d472611f1e00",
+    "before": {
+      "tick": 3,
+      "revision": 3,
+      "seed": 11,
+      "agents": [
+        {
+          "id": "ethan",
+          "name": "Ethan",
+          "goal": "Gather supplies and grow wealth",
+          "x": 2,
+          "y": 2,
+          "food": 3,
+          "wood": 2,
+          "coins": 10,
+          "energy": 93,
+          "relationships": {
+            "gayatri": 0,
+            "aishani": 0,
+            "rylee": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "gayatri",
+          "name": "Gayatri",
+          "goal": "Collect supplies for shelter",
+          "x": 5,
+          "y": 3,
+          "food": 3,
+          "wood": 0,
+          "coins": 5,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "aishani": 0,
+            "rylee": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "aishani",
+          "name": "Aishani",
+          "goal": "Collect food for future trades",
+          "x": 8,
+          "y": 4,
+          "food": 3,
+          "wood": 0,
+          "coins": 15,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "gayatri": 0,
+            "rylee": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "rylee",
+          "name": "Rylee",
+          "goal": "Build cooperation in town",
+          "x": 9,
+          "y": 7,
+          "food": 3,
+          "wood": 0,
+          "coins": 8,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "gayatri": 0,
+            "aishani": 0,
+            "saurya": 0
+          }
+        },
+        {
+          "id": "saurya",
+          "name": "Saurya",
+          "goal": "Gather food to help neighbors",
+          "x": 5,
+          "y": 8,
+          "food": 3,
+          "wood": 0,
+          "coins": 6,
+          "energy": 97,
+          "relationships": {
+            "ethan": 0,
+            "gayatri": 0,
+            "aishani": 0,
+            "rylee": 0
+          }
+        }
+      ],
+      "resources": [
+        {
+          "id": "farm",
+          "kind": "food",
+          "x": 9,
+          "y": 3,
+          "stock": 30
+        },
+        {
+          "id": "forest",
+          "kind": "wood",
+          "x": 2,
+          "y": 2,
+          "stock": 38
+        }
+      ]
+    },
+    "all_five_live": false,
+    "prompt_memory_verified": true,
+    "sources_verified": true,
+    "decisions": {
+      "ethan": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "gather",
+        "explanation": "Ethan gathered 2 wood.",
+        "memory": {
+          "mode": "semantic",
+          "query": "Gather supplies and grow wealth food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [],
+          "relevant": []
+        },
+        "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:4:ethan",
+        "model_explanation": "Gather wood in the forest at [2,2] to build assets toward the goal of growing wealth.",
+        "model_observation_revision": 3
+      },
+      "gayatri": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "fallback",
+        "action": "move",
+        "explanation": "Gayatri moved to (4, 3).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Collect supplies for shelter food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [
+            {
+              "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:1:gayatri",
+              "run_id": "e8bef72f-b605-4653-b5c8-d472611f1e00",
+              "tick": 1,
+              "agent_id": "gayatri",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Gayatri moved to (7, 3)."
+            },
+            {
+              "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:2:gayatri",
+              "run_id": "e8bef72f-b605-4653-b5c8-d472611f1e00",
+              "tick": 2,
+              "agent_id": "gayatri",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Gayatri moved to (6, 3)."
+            },
+            {
+              "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:3:gayatri",
+              "run_id": "e8bef72f-b605-4653-b5c8-d472611f1e00",
+              "tick": 3,
+              "agent_id": "gayatri",
+              "action": "move",
+              "outcome": "accepted",
+              "text": "Gayatri moved to (5, 3)."
+            }
+          ],
+          "relevant": []
+        },
+        "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:4:gayatri",
+        "model_explanation": null,
+        "model_observation_revision": null
+      },
+      "aishani": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "move",
+        "explanation": "Aishani moved to (9, 4).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Collect food for future trades food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [],
+          "relevant": []
+        },
+        "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:4:aishani",
+        "model_explanation": "Move to farm at [9,3] to gather food, which directly supports the goal of collecting food for future trades.",
+        "model_observation_revision": 3
+      },
+      "rylee": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "move",
+        "explanation": "Rylee moved to (8, 7).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Build cooperation in town food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [],
+          "relevant": []
+        },
+        "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:4:rylee",
+        "model_explanation": "Traveling to Town Hall to directly foster cooperation, aligning with the primary goal using my high energy and zero wood needs.",
+        "model_observation_revision": 3
+      },
+      "saurya": {
+        "tick": 4,
+        "observation_revision": 3,
+        "planner_mode": "live",
+        "action": "move",
+        "explanation": "Saurya moved to (6, 8).",
+        "memory": {
+          "mode": "semantic",
+          "query": "Gather food to help neighbors food wood energy gather rejected",
+          "as_of_tick": 3,
+          "recent": [],
+          "relevant": []
+        },
+        "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:4:saurya",
+        "model_explanation": "Moving toward Farm at [9,3] to gather more food for neighbors.",
+        "model_observation_revision": 3
+      }
+    },
+    "prompts": [
+      {
+        "agent_id": "ethan",
+        "context": {
+          "resident": {
+            "id": "ethan",
+            "goal": "Gather supplies and grow wealth",
+            "position": [
+              2,
+              2
+            ],
+            "food": 3,
+            "wood": 2,
+            "coins": 10,
+            "energy": 93
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat",
+            "gather"
+          ],
+          "memories": []
+        },
+        "content_bytes": 546
+      },
+      {
+        "agent_id": "gayatri",
+        "context": {
+          "resident": {
+            "id": "gayatri",
+            "goal": "Collect supplies for shelter",
+            "position": [
+              5,
+              3
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 5,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": []
+        },
+        "content_bytes": 535
+      },
+      {
+        "agent_id": "aishani",
+        "context": {
+          "resident": {
+            "id": "aishani",
+            "goal": "Collect food for future trades",
+            "position": [
+              8,
+              4
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 15,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": []
+        },
+        "content_bytes": 538
+      },
+      {
+        "agent_id": "rylee",
+        "context": {
+          "resident": {
+            "id": "rylee",
+            "goal": "Build cooperation in town",
+            "position": [
+              9,
+              7
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 8,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": []
+        },
+        "content_bytes": 530
+      },
+      {
+        "agent_id": "saurya",
+        "context": {
+          "resident": {
+            "id": "saurya",
+            "goal": "Gather food to help neighbors",
+            "position": [
+              5,
+              8
+            ],
+            "food": 3,
+            "wood": 0,
+            "coins": 6,
+            "energy": 97
+          },
+          "locations": {
+            "forest": [
+              2,
+              2
+            ],
+            "farm": [
+              9,
+              3
+            ],
+            "market": [
+              5,
+              5
+            ],
+            "town-hall": [
+              6,
+              5
+            ],
+            "house-west": [
+              2,
+              9
+            ],
+            "house-east": [
+              9,
+              9
+            ]
+          },
+          "resources": {
+            "farm": [
+              "food",
+              30
+            ],
+            "forest": [
+              "wood",
+              38
+            ]
+          },
+          "allowed": [
+            "rest",
+            "move",
+            "eat"
+          ],
+          "memories": []
+        },
+        "content_bytes": 535
+      }
+    ],
+    "usage": {
+      "calls_run": 5,
+      "calls_day": 30,
+      "tokens_day": 7004,
+      "reserved_tokens_day": 7004,
+      "cooldown_seconds": 0
+    },
+    "status": {
+      "ethan": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": null
+      },
+      "gayatri": {
+        "status": "fallback",
+        "detail": "Run request budget exhausted",
+        "pending": false,
+        "plan_target": null
+      },
+      "aishani": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": "farm"
+      },
+      "rylee": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": "town-hall"
+      },
+      "saurya": {
+        "status": "live",
+        "detail": "Cached Groq plan",
+        "pending": false,
+        "plan_target": "farm"
+      }
+    }
+  },
+  "provider_calls": 10,
+  "example_memory_on": {
+    "tick": 4,
+    "observation_revision": 3,
+    "planner_mode": "live",
+    "action": "gather",
+    "explanation": "Ethan gathered 2 wood.",
+    "memory": {
+      "mode": "semantic",
+      "query": "Gather supplies and grow wealth food wood energy gather rejected",
+      "as_of_tick": 3,
+      "recent": [
+        {
+          "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:2:ethan",
+          "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+          "tick": 2,
+          "agent_id": "ethan",
+          "action": "move",
+          "outcome": "accepted",
+          "text": "Ethan moved to (2, 2)."
+        },
+        {
+          "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:ethan",
+          "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+          "tick": 3,
+          "agent_id": "ethan",
+          "action": "gather",
+          "outcome": "accepted",
+          "text": "Ethan gathered 2 wood."
+        }
+      ],
+      "relevant": [
+        {
+          "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:3:ethan",
+          "run_id": "1d63892a-5eca-44a6-b323-f801d2817f79",
+          "tick": 3,
+          "agent_id": "ethan",
+          "action": "gather",
+          "outcome": "accepted",
+          "text": "Ethan gathered 2 wood."
+        }
+      ]
+    },
+    "event_id": "1d63892a-5eca-44a6-b323-f801d2817f79:4:ethan",
+    "model_explanation": "Gather wood in the forest to acquire supply resources, directly supporting the goal of gathering supplies and growing wealth.",
+    "model_observation_revision": 3
+  },
+  "example_memory_off": {
+    "tick": 4,
+    "observation_revision": 3,
+    "planner_mode": "live",
+    "action": "gather",
+    "explanation": "Ethan gathered 2 wood.",
+    "memory": {
+      "mode": "semantic",
+      "query": "Gather supplies and grow wealth food wood energy gather rejected",
+      "as_of_tick": 3,
+      "recent": [],
+      "relevant": []
+    },
+    "event_id": "e8bef72f-b605-4653-b5c8-d472611f1e00:4:ethan",
+    "model_explanation": "Gather wood in the forest at [2,2] to build assets toward the goal of growing wealth.",
+    "model_observation_revision": 3
+  },
+  "note": "Five exploratory matched-state pairs, not statistical evidence or a guaranteed memory benefit."
+}
