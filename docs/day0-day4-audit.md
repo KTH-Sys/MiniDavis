@@ -1,6 +1,6 @@
 # Day 0–4 audit — October 27, 2026
 
-**All 24 Day 1–4 technical deliverables are implemented and verified.** Day 0 still has account/setup confirmations that cannot be inferred from working code. A completed implementation does not claim that every teammate personally attended a workshop or ran it on their laptop.
+**All Day 0–4 tasks are complete:** the 24 Day 1–4 technical deliverables are implemented and verified, and Eric explicitly confirmed all six Day 0 task groups complete on October 27, 2026. A completed implementation does not claim that every teammate personally attended a workshop or ran it on their laptop.
 
 The audit incorporates Ethan's MiniLM work and Gayatri's baseline comparison from main (`768b196`). Earlier unpublished Day 5 data/notebook preparation is preserved in its own commit; no human dataset reviews or classifier training were performed in this audit.
 
@@ -8,12 +8,12 @@ The audit incorporates Ethan's MiniLM work and Gayatri's baseline comparison fro
 
 | Owner | Day 0 | Day 1 | Day 2 | Day 3 | Day 4 |
 | --- | --- | --- | --- | --- | --- |
-| Eric | Partial: repo exists; one teammate's GitHub access and all Notion access still need confirmation | Done: project/config, connected app, hosting-budget record | Done: real controls and tick loop | Done: integrated MVP and existing two-minute recording | Done: retrieved sources connect to planner and inspector |
-| Saurya | Partial: GitHub access accepted; Notion access unverified | Done: React, 12×12 town, five residents | Done: Play/Pause/Next Turn/Reset | Done: inspector/log and runtime state labels | Done: source text/IDs, query, cutoff and truthful semantic/keyword labels |
-| Rylee | Verified: GitHub write access and Drive editor access observed | Done: FastAPI health/state/reset | Done: move/gather/eat/rest and safety runs | Done: model/action/run/revision validation | Done: private/old/future memory isolation, including semantic API/reset checks |
-| Aishani | Partial: Eric supplied a working local Groq credential; GitHub username/access and provider account/quota ownership record are outstanding | Done: baseline notebook and connection checker | Done: all five legal baseline policies | Done: five actual executed live Groq decisions | Done: all five real requests carry scoped source memories, with prompt bounds |
-| Ethan | Partial: shared Drive folder exists with six members; Notebooks exists, but Data/Models/Results subfolders remain | Done: SQLite and memory notebook | Done: accepted/rejected outcomes saved | Done: real recent-event IDs in inputs | Done: cached real MiniLM CPU retrieval and 10 frozen checks |
-| Gayatri | Partial: setup notebook is present in shared Drive; every person's Colab access/session remains unverified | Done: starter tests and evidence | Done: invalid-action/resource checks | Done: three seeded 100-tick reports | Done: actual matched memory-on/off examples and source IDs saved |
+| Eric | Done: confirmed by Eric on October 27 | Done: project/config, connected app, hosting-budget record | Done: real controls and tick loop | Done: integrated MVP and existing two-minute recording | Done: retrieved sources connect to planner and inspector |
+| Saurya | Done: confirmed by Eric on October 27 | Done: React, 12×12 town, five residents | Done: Play/Pause/Next Turn/Reset | Done: inspector/log and runtime state labels | Done: source text/IDs, query, cutoff and truthful semantic/keyword labels |
+| Rylee | Done: confirmed by Eric on October 27 | Done: FastAPI health/state/reset | Done: move/gather/eat/rest and safety runs | Done: model/action/run/revision validation | Done: private/old/future memory isolation, including semantic API/reset checks |
+| Aishani | Done: confirmed by Eric on October 27 | Done: baseline notebook and connection checker | Done: all five legal baseline policies | Done: five actual executed live Groq decisions | Done: all five real requests carry scoped source memories, with prompt bounds |
+| Ethan | Done: confirmed by Eric on October 27 | Done: SQLite and memory notebook | Done: accepted/rejected outcomes saved | Done: real recent-event IDs in inputs | Done: cached real MiniLM CPU retrieval and 10 frozen checks |
+| Gayatri | Done: confirmed by Eric on October 27 | Done: starter tests and evidence | Done: invalid-action/resource checks | Done: three seeded 100-tick reports | Done: actual matched memory-on/off examples and source IDs saved |
 
 ## Repairs made
 
@@ -45,12 +45,11 @@ The audit incorporates Ethan's MiniLM work and Gayatri's baseline comparison fro
 
 The audit made **30 provider calls total**, including failed diagnostic attempts and the ten comparison calls. They used the shared queue/counters; no extra live calls are made by the unit tests. Actual token usage is recorded in the saved live reports. The local API key is never committed. `pip check` reports no broken requirements. A Starlette/httpx deprecation warning remains non-failing.
 
-## Remaining on Eric's end
+## Day 0 completion confirmation
 
-1. Supply/confirm Aishani's actual GitHub username and complete her repository invitation. Four teammate accounts currently have accepted write access; no pending invitation was found. Do not infer a username from a display name.
-2. Confirm all six people can open Notion and Colab. The Notion project is accessible to this connected account, and the Drive folder has one owner plus five editors; this does not prove everyone has signed in or run a shared session.
-3. Finish any desired Day 0 Drive organization (Data, Models, Results). The user asked to leave Drive alone during this audit, so no further folder changes or file moves are made.
-4. Record the Groq account/credential owner and account-specific limits privately with Aishani. Eric's supplied key works; the app's conservative caps do not establish the account's full free quota.
+After reviewing this audit, Eric stated: “I confirm all day0 tasks are done.” All six Day 0 task groups are therefore complete based on the team lead's explicit confirmation. This closes the earlier GitHub/Notion/Colab access, folder-organization and Groq ownership/limit-recording follow-ups. The original independent audit observations and technical evidence remain as recorded; the confirmation is a separate evidence source.
+
+Day 5 dataset review and actual classifier training remain future work. The live-comparison fallback counts and stricter false all-five comparison flag above are unchanged.
 
 For local semantic RAG, install and configure:
 

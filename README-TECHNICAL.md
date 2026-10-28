@@ -2,7 +2,7 @@
 
 Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Current verification:** The [Day 0–4 audit](docs/day0-day4-audit.md) verifies all 24 Day 1–4 technical deliverables, including five real Groq decisions, CPU MiniLM retrieval, source isolation and a live memory-on/off comparison with explicit fallback counts. Day 0 account/sharing confirmations remain separate. The baseline includes resident selection, decision/source inspectors, the event log and the two-minute MVP recording. Eric's [Day 5 preparation](docs/eric-day5.md) adds 200 draft interaction examples, grouped splits, review/freeze gates and an offline-checked Colab notebook. Human dataset review, actual classifier training and later routes remain assigned work. Complete checkboxes only after observing results.
+**Current verification:** The [Day 0–4 audit](docs/day0-day4-audit.md) verifies all 24 Day 1–4 technical deliverables, including five real Groq decisions, CPU MiniLM retrieval, source isolation and a live memory-on/off comparison with explicit fallback counts. Eric confirmed all Day 0 account/setup tasks complete on October 27, 2026. The baseline includes resident selection, decision/source inspectors, the event log and the two-minute MVP recording. Eric's [Day 5 preparation](docs/eric-day5.md) adds 200 draft interaction examples, grouped splits, review/freeze gates and an offline-checked Colab notebook. Human dataset review, actual classifier training and later routes remain assigned work. Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
@@ -34,41 +34,43 @@ Everyone participates in agents on Day 3, RAG on Day 4, and fine-tuning on Day 5
 
 ### Eric
 
-- [ ] Sign in to GitHub and create a repository named `MiniDavis`.
-- [ ] Add Ethan, Gayatri, Aishani, Rylee, and Saurya as collaborators using their actual usernames.
-- [ ] Grant the team access to the existing Notion project.
-- [ ] Record repo, Notion, Drive, and Colab links in one shared location.
-- [ ] Confirm Groq access, the Qwen model, the free quota and credential ownership with Aishani; record the hosting budget separately.
+- [x] Sign in to GitHub and create a repository named `MiniDavis`.
+- [x] Add Ethan, Gayatri, Aishani, Rylee, and Saurya as collaborators using their actual usernames.
+- [x] Grant the team access to the existing Notion project.
+- [x] Record repo, Notion, Drive, and Colab links in one shared location.
+- [x] Confirm Groq access, the Qwen model, the free quota and credential ownership with Aishani; record the hosting budget separately.
 
 ### Saurya
 
-- [ ] Sign in to GitHub and accept the repository invitation.
-- [ ] Open the repository and the shared Notion project.
-- [ ] Confirm that the shared links are visible.
+- [x] Sign in to GitHub and accept the repository invitation.
+- [x] Open the repository and the shared Notion project.
+- [x] Confirm that the shared links are visible.
 
 ### Rylee
 
-- [ ] Sign in to GitHub and accept the repository invitation.
-- [ ] Open Ethan’s shared Drive folder.
-- [ ] Confirm GitHub and Drive access.
+- [x] Sign in to GitHub and accept the repository invitation.
+- [x] Open Ethan’s shared Drive folder.
+- [x] Confirm GitHub and Drive access.
 
 ### Aishani
 
-- [ ] Sign in to Groq and confirm access to the authorized project.
-- [ ] Confirm with Eric who controls the Groq credential and shared development/demo quota.
-- [ ] Record `groq`, the available Qwen model and account limits; keep credentials out of GitHub, Notion and chat. Do not run inference today.
+- [x] Sign in to Groq and confirm access to the authorized project.
+- [x] Confirm with Eric who controls the Groq credential and shared development/demo quota.
+- [x] Record `groq`, the available Qwen model and account limits; keep credentials out of GitHub, Notion and chat. Do not run inference today.
 
 ### Ethan
 
-- [ ] Create a Drive folder named `MiniDavis`.
-- [ ] Give the five teammates access through their actual Google accounts.
-- [ ] Add empty `Notebooks`, `Data`, `Models`, and `Results` folders.
+- [x] Create a Drive folder named `MiniDavis`.
+- [x] Give the five teammates access through their actual Google accounts.
+- [x] Add empty `Notebooks`, `Data`, `Models`, and `Results` folders.
 
 ### Gayatri
 
-- [ ] Sign in to Google Colab.
-- [ ] Create an empty `MiniDavis Setup` notebook in the shared folder.
-- [ ] Check that every teammate can open the notebook.
+- [x] Sign in to Google Colab.
+- [x] Create an empty `MiniDavis Setup` notebook in the shared folder.
+- [x] Check that every teammate can open the notebook.
+
+**Completion evidence:** Eric explicitly confirmed all Day 0 tasks complete on October 27, 2026. This records the team lead's confirmation; it does not imply a new independent account inspection.
 
 **Day 0 gate:** All six people have the required access. Do not install project dependencies, design the town, label data, or train models today.
 

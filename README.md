@@ -56,12 +56,14 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 
 ## Day 0 — Tuesday, 10/13: Accounts and access only
 
-- [ ] **Eric:** Create the MiniDavis GitHub repository and invite the five teammates.
-- [ ] **Saurya:** Sign in to GitHub, accept repo access, and open the shared Notion project.
+- [x] **Eric:** Create the MiniDavis GitHub repository and invite the five teammates.
+- [x] **Saurya:** Sign in to GitHub, accept repo access, and open the shared Notion project.
 - [x] **Rylee:** Repository write access and shared Drive editor access are verified. This checks granted access, not a personal workshop attendance claim.
-- [ ] **Aishani:** Set up Groq access with Eric; record the Qwen model, free quota and credential owner without posting keys.
-- [ ] **Ethan:** Create the shared MiniDavis Google Drive folder and give the team access.
-- [ ] **Gayatri:** Create an empty shared Colab notebook in that folder and confirm everyone can open it.
+- [x] **Aishani:** Set up Groq access with Eric; record the Qwen model, free quota and credential owner without posting keys.
+- [x] **Ethan:** Create the shared MiniDavis Google Drive folder and give the team access.
+- [x] **Gayatri:** Create an empty shared Colab notebook in that folder and confirm everyone can open it.
+
+**Confirmed by Eric on October 27, 2026:** all Day 0 tasks are complete.
 
 **Finish:** Everyone can open GitHub, Notion, Drive, and Colab. No coding, design, dataset preparation, or training today.
 
