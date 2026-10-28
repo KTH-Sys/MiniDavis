@@ -29,7 +29,7 @@ def main():
     for agent in state.agents:
         action=baseline_plan(agent,state)
         validate_model_action({'run_id':state.run_id,'agent_id':agent.id,'observation_revision':state.revision,
-                               **action.model_dump()},agent,state)
+                               **action.model_dump(exclude_none=True)},agent,state)
     report={'model':settings.llm_model,'api_key_configured':bool(settings.llm_api_key.get_secret_value()),
             'baseline_agents_validated':5,'live_requested':args.live,'live_verified':False}
     if not args.live:
