@@ -49,56 +49,56 @@ example_id,reviewer,status,notes
 048,Aishani,pending,
 049,Aishani,pending,
 050,Aishani,pending,
-051,Ethan,pending,
-052,Ethan,pending,
-053,Ethan,pending,
-054,Ethan,pending,
-055,Ethan,pending,
-056,Ethan,pending,
-057,Ethan,pending,
-058,Ethan,pending,
-059,Ethan,pending,
-060,Ethan,pending,
-061,Ethan,pending,
-062,Ethan,pending,
-063,Ethan,pending,
-064,Ethan,pending,
-065,Ethan,pending,
-066,Ethan,pending,
-067,Ethan,pending,
-068,Ethan,pending,
-069,Ethan,pending,
-070,Ethan,pending,
-071,Ethan,pending,
-072,Ethan,pending,
-073,Ethan,pending,
-074,Ethan,pending,
-075,Ethan,pending,
-076,Ethan,pending,
-077,Ethan,pending,
-078,Ethan,pending,
-079,Ethan,pending,
-080,Ethan,pending,
-081,Ethan,pending,
-082,Ethan,pending,
-083,Ethan,pending,
-084,Ethan,pending,
-085,Ethan,pending,
-086,Ethan,pending,
-087,Ethan,pending,
-088,Ethan,pending,
-089,Ethan,pending,
-090,Ethan,pending,
-091,Ethan,pending,
-092,Ethan,pending,
-093,Ethan,pending,
-094,Ethan,pending,
-095,Ethan,pending,
-096,Ethan,pending,
-097,Ethan,pending,
-098,Ethan,pending,
-099,Ethan,pending,
-100,Ethan,pending,
+051,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+052,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+053,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+054,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+055,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+056,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+057,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+058,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+059,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+060,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+061,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+062,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+063,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+064,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+065,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+066,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+067,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+068,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+069,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+070,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+071,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+072,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+073,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+074,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+075,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+076,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+077,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+078,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+079,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+080,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+081,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan; similar to 163-164 (test split), ask Gayatri to reword those"
+082,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan; similar to 163-164 (test split), ask Gayatri to reword those"
+083,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan; similar to 163-164 (test split), ask Gayatri to reword those"
+084,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan; similar to 163-164 (test split), ask Gayatri to reword those"
+085,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan; similar to 163-164 (test split), ask Gayatri to reword those"
+086,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+087,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+088,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+089,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+090,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+091,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+092,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+093,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+094,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+095,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+096,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+097,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+098,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+099,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
+100,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
 101,Gayatri,pending,
 102,Gayatri,pending,
 103,Gayatri,pending,
