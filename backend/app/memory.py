@@ -1,5 +1,7 @@
 """Durable event store: every town event saved to SQLite so it survives a restart."""
 
+import json
+import math
 import re
 import sqlite3
 from pathlib import Path
@@ -11,9 +13,11 @@ FIELDS = list(Event.model_fields)
 
 
 class EventStore:
-    def __init__(self, path: str | Path):
+    def __init__(self, path: str | Path, embedder=None):
+        """embedder: optional callable(list[str]) -> list[vector], e.g. minilm_embedder()."""
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         self._lock = RLock()
+        self._embedder = embedder
         self.db = sqlite3.connect(path, check_same_thread=False)
         self.db.execute(
             "CREATE TABLE IF NOT EXISTS events ("
@@ -21,6 +25,7 @@ class EventStore:
             " action TEXT, outcome TEXT, text TEXT)"
         )
         self.db.execute("CREATE INDEX IF NOT EXISTS events_scope ON events(run_id, agent_id, tick)")
+        self.db.execute("CREATE TABLE IF NOT EXISTS embeddings (event_id TEXT PRIMARY KEY, vector TEXT)")
 
     def save(self, event: Event) -> None:
         self.save_many([event])
@@ -49,23 +54,79 @@ class EventStore:
         return [Event(**dict(zip(FIELDS, row))) for row in reversed(rows)]
 
     def retrieve(self, run_id: str, agent_id: str, query: str, as_of_tick: int) -> MemoryContext:
-        """Scoped lexical fallback: no embedding/model download or provider call.
+        """Five recent events plus the top three relevant ones, all scoped in SQL first.
 
-        Rank at most 500 eligible events. Current Event records are resident-private;
-        run, resident and observation tick are filtered in SQL before ranking.
+        Run, resident and observation tick are filtered before ranking, so ranking can
+        never see another resident's or another run's events. Uses cached MiniLM
+        embeddings when available and falls back to keyword search if they fail.
         """
         eligible = self.recent(run_id, agent_id, limit=500, as_of_tick=as_of_tick)
+        mode, relevant = "lexical", self._lexical(eligible, query)
+        if self._embedder and eligible:
+            try:
+                mode, relevant = "semantic", self._semantic(eligible, query)
+            except Exception:
+                pass
+        return MemoryContext(mode=mode, query=query, as_of_tick=as_of_tick,
+                             recent=eligible[-5:], relevant=relevant)
+
+    def _lexical(self, eligible: list[Event], query: str) -> list[Event]:
         terms = set(re.findall(r"[a-z0-9]+", query.lower()))
         ranked = []
         for event in eligible:
-            words = set(re.findall(r"[a-z0-9]+", event.text.lower()))
-            score = len(terms & words)
+            score = len(terms & set(re.findall(r"[a-z0-9]+", event.text.lower())))
             if score:
                 ranked.append((score, event.tick, event.event_id, event))
         ranked.sort(key=lambda item: item[:3], reverse=True)
-        return MemoryContext(query=query, as_of_tick=as_of_tick,
-                             recent=eligible[-5:], relevant=[item[3] for item in ranked[:3]])
+        return [item[3] for item in ranked[:3]]
+
+    def _semantic(self, eligible: list[Event], query: str) -> list[Event]:
+        vectors = self._vectors(eligible)
+        query_vector = self._embedder([query])[0]
+        ranked = [(cosine(query_vector, vectors[e.event_id]), e.tick, e.event_id, e) for e in eligible]
+        ranked = sorted((item for item in ranked if item[0] > 0), key=lambda item: item[:3], reverse=True)
+        return [item[3] for item in ranked[:3]]
+
+    def _vectors(self, events: list[Event]) -> dict[str, list[float]]:
+        """Embed each event once; later calls read the vector back from SQLite."""
+        ids = [e.event_id for e in events]
+        with self._lock:
+            rows = self.db.execute(
+                f"SELECT event_id, vector FROM embeddings WHERE event_id IN ({','.join('?' * len(ids))})", ids
+            ).fetchall()
+        vectors = {event_id: json.loads(vector) for event_id, vector in rows}
+        missing = [e for e in events if e.event_id not in vectors]
+        if missing:
+            new = [[float(x) for x in v] for v in self._embedder([e.text for e in missing])]
+            with self._lock, self.db:
+                self.db.executemany("INSERT OR REPLACE INTO embeddings VALUES (?, ?)",
+                                    [(e.event_id, json.dumps(v)) for e, v in zip(missing, new)])
+            vectors.update({e.event_id: v for e, v in zip(missing, new)})
+        return vectors
 
     def close(self) -> None:
         with self._lock:
             self.db.close()
+
+
+def cosine(a: list[float], b: list[float]) -> float:
+    norm = math.sqrt(sum(x * x for x in a)) * math.sqrt(sum(y * y for y in b))
+    return sum(x * y for x, y in zip(a, b)) / norm if norm else 0.0
+
+
+def minilm_embedder(model_name: str = "sentence-transformers/all-MiniLM-L6-v2"):
+    """Return a CPU MiniLM embedder, or None when sentence-transformers is not installed.
+
+    The model loads on first use (about 90 MB, cached by Hugging Face after that).
+    """
+    try:
+        from sentence_transformers import SentenceTransformer
+    except ImportError:
+        return None
+    model = []
+
+    def embed(texts: list[str]) -> list[list[float]]:
+        if not model:
+            model.append(SentenceTransformer(model_name, device="cpu"))
+        return model[0].encode(texts, normalize_embeddings=True).tolist()
+    return embed

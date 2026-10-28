@@ -1,0 +1,230 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "frozen_hits": 10,
+  "paraphrase_hits": 10,
+  "passed": true,
+  "frozen": [
+    {
+      "query": "forest",
+      "expected": "fixture:1:ethan",
+      "top3": [
+        "fixture:1:ethan",
+        "fixture:8:ethan",
+        "fixture:6:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "farm",
+      "expected": "fixture:2:ethan",
+      "top3": [
+        "fixture:2:ethan",
+        "fixture:8:ethan",
+        "fixture:5:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "lunch",
+      "expected": "fixture:3:ethan",
+      "top3": [
+        "fixture:3:ethan",
+        "fixture:2:ethan",
+        "fixture:9:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "house",
+      "expected": "fixture:4:ethan",
+      "top3": [
+        "fixture:4:ethan",
+        "fixture:6:ethan",
+        "fixture:5:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "market",
+      "expected": "fixture:5:ethan",
+      "top3": [
+        "fixture:5:ethan",
+        "fixture:2:ethan",
+        "fixture:7:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "hall",
+      "expected": "fixture:6:ethan",
+      "top3": [
+        "fixture:6:ethan",
+        "fixture:4:ethan",
+        "fixture:1:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "border",
+      "expected": "fixture:7:ethan",
+      "top3": [
+        "fixture:7:ethan",
+        "fixture:10:ethan",
+        "fixture:1:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "logs",
+      "expected": "fixture:8:ethan",
+      "top3": [
+        "fixture:8:ethan",
+        "fixture:1:ethan",
+        "fixture:2:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "exhaustion",
+      "expected": "fixture:9:ethan",
+      "top3": [
+        "fixture:9:ethan",
+        "fixture:3:ethan",
+        "fixture:4:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "eastern",
+      "expected": "fixture:10:ethan",
+      "top3": [
+        "fixture:10:ethan",
+        "fixture:4:ethan",
+        "fixture:5:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    }
+  ],
+  "paraphrased": [
+    {
+      "query": "trees",
+      "expected": "fixture:1:ethan",
+      "top3": [
+        "fixture:1:ethan",
+        "fixture:8:ethan",
+        "fixture:2:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "crops",
+      "expected": "fixture:2:ethan",
+      "top3": [
+        "fixture:2:ethan",
+        "fixture:10:ethan",
+        "fixture:1:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "meal",
+      "expected": "fixture:3:ethan",
+      "top3": [
+        "fixture:3:ethan",
+        "fixture:2:ethan",
+        "fixture:4:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "home",
+      "expected": "fixture:4:ethan",
+      "top3": [
+        "fixture:4:ethan",
+        "fixture:6:ethan",
+        "fixture:5:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "shop",
+      "expected": "fixture:5:ethan",
+      "top3": [
+        "fixture:5:ethan",
+        "fixture:6:ethan",
+        "fixture:10:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "city government building",
+      "expected": "fixture:6:ethan",
+      "top3": [
+        "fixture:6:ethan",
+        "fixture:8:ethan",
+        "fixture:10:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "edge of the map",
+      "expected": "fixture:7:ethan",
+      "top3": [
+        "fixture:7:ethan",
+        "fixture:10:ethan",
+        "fixture:1:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "timber",
+      "expected": "fixture:8:ethan",
+      "top3": [
+        "fixture:1:ethan",
+        "fixture:8:ethan",
+        "fixture:5:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "tired",
+      "expected": "fixture:9:ethan",
+      "top3": [
+        "fixture:9:ethan",
+        "fixture:3:ethan",
+        "fixture:4:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    },
+    {
+      "query": "east",
+      "expected": "fixture:10:ethan",
+      "top3": [
+        "fixture:10:ethan",
+        "fixture:4:ethan",
+        "fixture:5:ethan"
+      ],
+      "mode": "semantic",
+      "hit": true
+    }
+  ]
+}

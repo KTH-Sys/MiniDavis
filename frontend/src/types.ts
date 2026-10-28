@@ -43,7 +43,7 @@ export interface WorldState {
 export type TownEvent = WorldState['events'][number];
 
 export interface MemoryContext {
-  mode: 'lexical' | 'recent-only';
+  mode: 'semantic' | 'lexical' | 'recent-only';
   query: string;
   as_of_tick: number;
   recent: TownEvent[];

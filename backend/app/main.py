@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
-from .memory import EventStore
+from .memory import EventStore, minilm_embedder
 from .groq_planner import LivePlanner
 from .schemas import AgentInspector, ResetRequest, StepRequest, WorldState
 from .world import Conflict, World
@@ -14,7 +14,7 @@ from .world import Conflict, World
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
-    store = EventStore(settings.memory_db_path)
+    store = EventStore(settings.memory_db_path, embedder=minilm_embedder(settings.embedding_model))
     planner = LivePlanner(settings)
 
     @asynccontextmanager

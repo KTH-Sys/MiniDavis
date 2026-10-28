@@ -53,3 +53,51 @@ def test_recent_returns_last_five_real_events_for_one_resident_and_run(tmp_path)
     assert [event.tick for event in recent] == [3, 4, 5, 6, 7]  # oldest first, reads like a story
     assert all(event.agent_id == "ethan" and event.run_id == run_id for event in recent)
     assert all(store.get(event.event_id) == event for event in recent)  # every ID really exists
+
+
+def word_embedder(calls):
+    """Fake MiniLM: 'lumber' and 'wood' share a meaning, so lexical search alone misses it."""
+    def embed(texts):
+        calls.extend(texts)
+        return [[float("wood" in t.lower() or "lumber" in t.lower()),
+                 float("food" in t.lower() or "meal" in t.lower())] for t in texts]
+    return embed
+
+
+def save_town(store):
+    store.save_many([
+        Event(event_id="e1", run_id="r", tick=1, agent_id="ethan", action="gather", outcome="accepted", text="Ethan gathered wood."),
+        Event(event_id="e2", run_id="r", tick=2, agent_id="ethan", action="eat", outcome="accepted", text="Ethan ate food."),
+        Event(event_id="other", run_id="r", tick=1, agent_id="eric", action="gather", outcome="accepted", text="Eric gathered wood."),
+        Event(event_id="old", run_id="old", tick=1, agent_id="ethan", action="gather", outcome="accepted", text="Ethan gathered wood."),
+        Event(event_id="future", run_id="r", tick=9, agent_id="ethan", action="gather", outcome="accepted", text="Ethan gathered wood."),
+    ])
+
+
+def test_semantic_retrieval_finds_meaning_not_just_words(tmp_path):
+    store = EventStore(tmp_path / "m.sqlite", embedder=word_embedder([]))
+    save_town(store)
+    memory = store.retrieve("r", "ethan", "lumber", as_of_tick=2)
+    assert memory.mode == "semantic"
+    assert [e.event_id for e in memory.relevant][0] == "e1"
+    assert {e.event_id for e in memory.relevant + memory.recent} <= {"e1", "e2"}
+
+
+def test_event_embeddings_are_cached(tmp_path):
+    calls = []
+    store = EventStore(tmp_path / "m.sqlite", embedder=word_embedder(calls))
+    save_town(store)
+    store.retrieve("r", "ethan", "lumber", as_of_tick=2)
+    calls.clear()
+    store.retrieve("r", "ethan", "meal", as_of_tick=2)
+    assert calls == ["meal"]
+
+
+def test_broken_embedder_falls_back_to_keyword_search(tmp_path):
+    def broken(texts):
+        raise RuntimeError("model failed to load")
+    store = EventStore(tmp_path / "m.sqlite", embedder=broken)
+    save_town(store)
+    memory = store.retrieve("r", "ethan", "wood", as_of_tick=2)
+    assert memory.mode == "lexical"
+    assert [e.event_id for e in memory.relevant] == ["e1"]
