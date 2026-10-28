@@ -1,0 +1,134 @@
+{
+  "model": "qwen/qwen3.8-27b",
+  "api_key_configured": true,
+  "baseline_agents_validated": 5,
+  "live_requested": true,
+  "live_verified": false,
+  "run_id": "4dc29f90-a32b-4042-923a-18521254b796",
+  "usage": {
+    "calls_run": 5,
+    "calls_day": 5,
+    "tokens_day": 915,
+    "reserved_tokens_day": 915,
+    "cooldown_seconds": 0
+  },
+  "decisions": {
+    "ethan": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Ethan moved to (2, 1).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather supplies and grow wealth food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4dc29f90-a32b-4042-923a-18521254b796:1:ethan",
+      "model_explanation": "Head to the forest to gather initial wood resources.",
+      "model_observation_revision": 0
+    },
+    "gayatri": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Gayatri moved to (7, 3).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect supplies for shelter food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4dc29f90-a32b-4042-923a-18521254b796:1:gayatri",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "aishani": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Aishani moved to (6, 4).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect food for future trades food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4dc29f90-a32b-4042-923a-18521254b796:1:aishani",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "rylee": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "rest",
+      "explanation": "Rylee rested.",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Build cooperation in town food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4dc29f90-a32b-4042-923a-18521254b796:1:rylee",
+      "model_explanation": "Regenerating energy and resting at home.",
+      "model_observation_revision": 0
+    },
+    "saurya": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Saurya moved to (2, 7).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather food to help neighbors food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4dc29f90-a32b-4042-923a-18521254b796:1:saurya",
+      "model_explanation": "Proceed to the forest to gather food as per goal.",
+      "model_observation_revision": 0
+    }
+  },
+  "status": {
+    "ethan": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    },
+    "gayatri": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    },
+    "aishani": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    },
+    "rylee": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": null
+    },
+    "saurya": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    }
+  }
+}

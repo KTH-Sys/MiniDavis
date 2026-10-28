@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     llm_max_input_tokens: int = Field(default=800, ge=256)
     llm_max_completion_tokens: int = Field(default=512, gt=0)
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    embedding_revision: str = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+    memory_retrieval_mode: Literal["lexical", "semantic"] = "lexical"
+    embedding_cache_path: str = "data/model-cache"
     classifier_model_path: str = "ml/artifacts/classifier"
     memory_db_path: str = "data/minidavis.sqlite"
     frontend_origins: str = "http://localhost:5173,http://127.0.0.1:5173"

@@ -1,0 +1,43 @@
+{
+  "audited_date": "2026-10-27",
+  "day_1_to_4_technical_deliverables_verified": 24,
+  "day_0_account_tasks_fully_verified": 1,
+  "day_0_account_tasks_partial_or_unverified": 5,
+  "backend_tests_passed": 80,
+  "ml_data_tests_passed": 16,
+  "frontend_tests_passed": 22,
+  "frontend_build": "passed",
+  "all_five_live_decisions_verified": true,
+  "real_minilm_semantic_verified": true,
+  "frozen_retrieval_hits": 10,
+  "paraphrase_retrieval_hits": 10,
+  "matched_live_memory_observations": true,
+  "all_five_on_off_prompt_contents_verified": true,
+  "live_proposals_accepted": {
+    "memory_on": 4,
+    "memory_off": 4
+  },
+  "comparison_strict_all_five_gate": false,
+  "matched_accepted_live_example_saved": true,
+  "audit_provider_calls_including_diagnostics": 30,
+  "baseline_seeds": [
+    11,
+    22,
+    33
+  ],
+  "baseline_ticks_per_seed": 100,
+  "baseline_invariant_failures": 0,
+  "classifier_training_performed": false,
+  "remaining": [
+    "Aishani GitHub username/access",
+    "All-person Notion/Colab access confirmation",
+    "Remaining Day 0 folder organization is user-managed",
+    "Provider account ownership/actual limits record"
+  ],
+  "limitations": [
+    "Live comparison accepted four of five proposals per condition; the strict all-five gate remains false.",
+    "Workshop attendance and every teammates personal execution are not inferred from working code."
+  ],
+  "real_semantic_api_all_five_verified": true,
+  "semantic_api_reset_isolation": true
+}

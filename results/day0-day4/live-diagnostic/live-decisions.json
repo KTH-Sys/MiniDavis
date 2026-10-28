@@ -1,0 +1,181 @@
+{
+  "model": "qwen/qwen3.8-27b",
+  "api_key_configured": true,
+  "baseline_agents_validated": 5,
+  "live_requested": true,
+  "live_verified": false,
+  "run_id": "cc67d535-1b4b-4cfd-9696-e750dfa5f11e",
+  "usage": {
+    "calls_run": 5,
+    "calls_day": 15,
+    "tokens_day": 3182,
+    "reserved_tokens_day": 3182,
+    "cooldown_seconds": 0
+  },
+  "decisions": {
+    "ethan": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Ethan moved to (2, 1).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather supplies and grow wealth food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "cc67d535-1b4b-4cfd-9696-e750dfa5f11e:1:ethan",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "gayatri": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Gayatri moved to (7, 3).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect supplies for shelter food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "cc67d535-1b4b-4cfd-9696-e750dfa5f11e:1:gayatri",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "aishani": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Aishani moved to (6, 4).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect food for future trades food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "cc67d535-1b4b-4cfd-9696-e750dfa5f11e:1:aishani",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "rylee": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Rylee moved to (9, 9).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Build cooperation in town food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "cc67d535-1b4b-4cfd-9696-e750dfa5f11e:1:rylee",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "saurya": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Saurya moved to (3, 8).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather food to help neighbors food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "cc67d535-1b4b-4cfd-9696-e750dfa5f11e:1:saurya",
+      "model_explanation": "Move to farm (9,3) to gather food for neighbors, as farm has 30 food stocked.",
+      "model_observation_revision": 0
+    }
+  },
+  "status": {
+    "ethan": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    },
+    "gayatri": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    },
+    "aishani": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    },
+    "rylee": {
+      "status": "fallback",
+      "detail": "Run request budget exhausted",
+      "pending": false,
+      "plan_target": null
+    },
+    "saurya": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "farm"
+    }
+  },
+  "attempts": [
+    {
+      "agent_id": "ethan",
+      "proposal": {
+        "action": "gather",
+        "explanation": "Targeting forest at [2,2] to collect wood, as the goal is to gather supplies and wood is a stocked resource at that location.",
+        "target": "forest"
+      },
+      "validation": "InvalidModelAction"
+    },
+    {
+      "agent_id": "gayatri",
+      "proposal": {
+        "action": "move",
+        "explanation": "Goal is to collect supplies. Forest (2,2) is the nearest resource location (wood stock 40) compared to Farm (9,3). Current pos (8,3). Path length to Forest is 9 steps, to Farm is 1 step. However, Farm has food stock. Let's re-evaluate distance. Current (8,3). Farm is (9,3). Distance is 1. Forest is (2,2). Distance is |8-2| + |3-2| = 6+1=7. Farm is much closer. I should move to Farm to gather food.",
+        "target": "farm"
+      },
+      "validation": "InvalidModelAction"
+    },
+    {
+      "agent_id": "aishani",
+      "proposal": {
+        "action": "move",
+        "explanation": "Move to [9,3] to access the Farm, which is the only stocked resource location (food:30) aligned with the goal of collecting food for future trades.",
+        "target": "[9,3]"
+      },
+      "validation": "InvalidModelAction"
+    },
+    {
+      "agent_id": "rylee",
+      "proposal": {
+        "action": "move",
+        "explanation": "No energy held, so must gather resources to sustain. Farm is first listed in resources definition and has food (30), making it the valid gather target. Moving toward farm center (9,3) as a step in the town cooperation goal.",
+        "target": "9,3"
+      },
+      "validation": "InvalidModelAction"
+    },
+    {
+      "agent_id": "saurya",
+      "proposal": {
+        "action": "move",
+        "explanation": "Move to farm (9,3) to gather food for neighbors, as farm has 30 food stocked.",
+        "target": "farm"
+      },
+      "validation": "accepted"
+    }
+  ]
+}

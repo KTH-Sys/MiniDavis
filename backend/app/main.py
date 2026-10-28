@@ -14,12 +14,16 @@ from .world import Conflict, World
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
-    store = EventStore(settings.memory_db_path, embedder=minilm_embedder(settings.embedding_model))
+    embedder = (minilm_embedder(settings.embedding_model, settings.embedding_cache_path, settings.embedding_revision)
+                if settings.memory_retrieval_mode == 'semantic' else None)
+    store = EventStore(settings.memory_db_path, embedder=embedder)
     planner = LivePlanner(settings)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         try:
+            # Optional CPU model setup finishes before requests acquire World._lock.
+            store.warmup()
             yield
         finally:
             planner.close()

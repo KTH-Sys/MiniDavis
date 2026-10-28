@@ -1,0 +1,181 @@
+{
+  "model": "qwen/qwen3.8-27b",
+  "api_key_configured": true,
+  "baseline_agents_validated": 5,
+  "live_requested": true,
+  "live_verified": true,
+  "run_id": "4180064a-a832-468f-88a8-bed05c1cf410",
+  "usage": {
+    "calls_run": 5,
+    "calls_day": 20,
+    "tokens_day": 4237,
+    "reserved_tokens_day": 4237,
+    "cooldown_seconds": 0
+  },
+  "decisions": {
+    "ethan": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Ethan moved to (2, 1).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather supplies and grow wealth food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4180064a-a832-468f-88a8-bed05c1cf410:1:ethan",
+      "model_explanation": "Exploring the forest to gather wood, a primary resource needed to progress toward wealth goals.",
+      "model_observation_revision": 0
+    },
+    "gayatri": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Gayatri moved to (7, 3).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect supplies for shelter food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4180064a-a832-468f-88a8-bed05c1cf410:1:gayatri",
+      "model_explanation": "Gain money to purchase food at the market. After gaining money, I'm going to go to the forest to earn some money.",
+      "model_observation_revision": 0
+    },
+    "aishani": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Aishani moved to (6, 4).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect food for future trades food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4180064a-a832-468f-88a8-bed05c1cf410:1:aishani",
+      "model_explanation": "Moving toward the farm at [9,3] is the fastest route to access food resources for collecting and future trades.",
+      "model_observation_revision": 0
+    },
+    "rylee": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Rylee moved to (7, 9).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Build cooperation in town food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4180064a-a832-468f-88a8-bed05c1cf410:1:rylee",
+      "model_explanation": "riley is adjacent to Town Hall, the neutral hub ideal for initiating cooperation with residents from across the town.",
+      "model_observation_revision": 0
+    },
+    "saurya": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Saurya moved to (2, 7).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather food to help neighbors food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "4180064a-a832-468f-88a8-bed05c1cf410:1:saurya",
+      "model_explanation": "Move toward the forest to begin gathering wood, supporting the goal to help neighbors.",
+      "model_observation_revision": 0
+    }
+  },
+  "status": {
+    "ethan": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    },
+    "gayatri": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "market"
+    },
+    "aishani": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "farm"
+    },
+    "rylee": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "town-hall"
+    },
+    "saurya": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    }
+  },
+  "attempts": [
+    {
+      "agent_id": "ethan",
+      "proposal": {
+        "action": "move",
+        "explanation": "Exploring the forest to gather wood, a primary resource needed to progress toward wealth goals.",
+        "target": "forest"
+      },
+      "validation": "accepted"
+    },
+    {
+      "agent_id": "gayatri",
+      "proposal": {
+        "action": "move",
+        "explanation": "Gain money to purchase food at the market. After gaining money, I'm going to go to the forest to earn some money.",
+        "target": "market"
+      },
+      "validation": "accepted"
+    },
+    {
+      "agent_id": "aishani",
+      "proposal": {
+        "action": "move",
+        "explanation": "Moving toward the farm at [9,3] is the fastest route to access food resources for collecting and future trades.",
+        "target": "farm"
+      },
+      "validation": "accepted"
+    },
+    {
+      "agent_id": "rylee",
+      "proposal": {
+        "action": "move",
+        "explanation": "riley is adjacent to Town Hall, the neutral hub ideal for initiating cooperation with residents from across the town.",
+        "target": "town-hall"
+      },
+      "validation": "accepted"
+    },
+    {
+      "agent_id": "saurya",
+      "proposal": {
+        "action": "move",
+        "explanation": "Move toward the forest to begin gathering wood, supporting the goal to help neighbors.",
+        "target": "forest"
+      },
+      "validation": "accepted"
+    }
+  ]
+}

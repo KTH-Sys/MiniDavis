@@ -1,5 +1,7 @@
 # Day 1–3 audit and remaining setup
 
+**Historical report:** the October 27 [Day 0–4 audit](day0-day4-audit.md) supersedes the pending live-model and semantic-retrieval status below. Five actual Groq decisions and real CPU MiniLM checks are now saved. The original evidence and findings remain intact.
+
 Audited October 24, 2026. The checked boxes describe working project deliverables; they do not claim that each teammate personally ran a workshop or verified their own account access.
 
 **17 of 18 deliverables are verified. Aishani's Day 3 implementation is complete, but the required five real Groq decisions await a server API key. No live response, semantic embedding model or fine-tuned classifier is claimed.**

@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from backend.app.config import Settings
-from backend.app.groq_planner import LivePlanner
+from backend.app.groq_planner import GroqProvider, LivePlanner, resolve_proposal
 from backend.app.schemas import StepRequest
 from backend.app.validation import validate_model_action
 from backend.app.agents import baseline_plan
@@ -38,7 +38,21 @@ def main():
         print(json.dumps(report|{'next_action':'Set LLM_API_KEY in backend/.env or the server environment; never put it in React.'},indent=2))
         return 2
     settings=settings.model_copy(update={'minidavis_mode':'llm','llm_max_calls_per_run':min(5,settings.llm_max_calls_per_run)})
-    planner=LivePlanner(settings)
+    attempts=[]
+    provider=GroqProvider(settings)
+    def recorded_provider(payload):
+        reply=provider(payload)
+        agent_id=json.loads(payload['messages'][1]['content'])['resident']['id']
+        observed=world.snapshot()
+        agent=next(a for a in observed.agents if a.id==agent_id)
+        try:
+            resolve_proposal(reply.proposal,agent,observed)
+            validation='accepted'
+        except ValueError as error:
+            validation=type(error).__name__
+        attempts.append({'agent_id':agent_id,'proposal':reply.proposal,'validation':validation})
+        return reply
+    planner=LivePlanner(settings,provider=recorded_provider)
     world=World(live_planner=planner,mode='llm')
     try:
         deadline=time.monotonic()+args.timeout
@@ -55,11 +69,11 @@ def main():
         state=world.step(StepRequest(run_id=state.run_id,expected_revision=state.revision,request_id='live-check'))
         decisions={key:value.model_dump(mode='json') for key,value in state.decisions.items()}
         report.update(run_id=state.run_id,usage=state.provider_usage.model_dump(),decisions=decisions,
-                      status={key:value.model_dump() for key,value in state.agent_runtime.items()})
+                      status={key:value.model_dump() for key,value in state.agent_runtime.items()},attempts=attempts)
         report['live_verified']=all(d['planner_mode']=='live' for d in decisions.values()) and len(decisions)==5
         args.out.mkdir(parents=True,exist_ok=True)
         (args.out/'live-decisions.json').write_text(json.dumps(report,indent=2)+'\n')
-        print(json.dumps({key:value for key,value in report.items() if key not in {'decisions','status'}},indent=2))
+        print(json.dumps({key:value for key,value in report.items() if key not in {'decisions','status','attempts'}},indent=2))
         print(f'Evidence: {args.out / "live-decisions.json"}')
         return 0 if report['live_verified'] else 1
     finally:

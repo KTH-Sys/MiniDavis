@@ -2,12 +2,14 @@
 
 Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Implemented through Eric’s Day 3–4 integration:** The baseline frontend/backend now includes resident selection, decision/source inspectors, the event log, scoped SQLite keyword retrieval and a two-minute MVP recording. See [Day 1–2 evidence](docs/eric-day1-day2.md) and [Day 3–4 evidence](docs/eric-day3-day4.md). The Day 1–3 audit adds the optional nonblocking Groq adapter, shared persistent budgets, cached destinations, explicit planner states and runnable agent/memory notebooks. Eric's [Day 5 preparation](docs/eric-day5.md) adds 200 draft interaction examples, grouped splits, review/freeze gates and an offline-checked Colab notebook. Real Groq evidence awaits an API key. MiniLM embeddings, human dataset review, actual training and later routes remain assigned work. See [audit and setup](docs/day1-day3-audit.md). Complete checkboxes only after observing results.
+**Current verification:** The [Day 0–4 audit](docs/day0-day4-audit.md) verifies all 24 Day 1–4 technical deliverables, including five real Groq decisions, CPU MiniLM retrieval, source isolation and a live memory-on/off comparison with explicit fallback counts. Day 0 account/sharing confirmations remain separate. The baseline includes resident selection, decision/source inspectors, the event log and the two-minute MVP recording. Eric's [Day 5 preparation](docs/eric-day5.md) adds 200 draft interaction examples, grouped splits, review/freeze gates and an offline-checked Colab notebook. Human dataset review, actual classifier training and later routes remain assigned work. Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
 - **Agent LLM:** Groq-hosted Qwen; starting model ID `qwen/qwen3.8-27b`. All five residents share this service with separate observations, goals and memories. Verify availability in the project account on Day 1 and freeze the working model/config on Day 6. No local town LLM or Ollama installation is required.
 - **RAG:** Our SQLite event store, filtering and retrieval; `sentence-transformers/all-MiniLM-L6-v2` embeddings on CPU. Cache event embeddings. Use scoped recent/lexical retrieval if embedding loading fails and label the mode.
+
+Install `backend/requirements-ml.txt` and set `MEMORY_RETRIEVAL_MODE=semantic` in the server environment to enable MiniLM. The default is `lexical` so ordinary tests/startup do not download models. `EMBEDDING_CACHE_PATH=data/model-cache` stores ignored local weights; `EMBEDDING_REVISION` pins the model commit in `.env.example`. Startup warms the optional model before serving turns. Failed loading uses labelled keyword retrieval. Vector cache keys include the model/revision and source-text fingerprint; the previous event-ID-only cache is not trusted. A custom embedder must use a distinct `embedding_key` when its model changes.
 - **Fine-tuning:** Train our four-label DistilBERT classifier in Colab and export the model/tokenizer/config. Load it on the CPU backend. This does not change the hosted Qwen weights. Hosting a future fine-tuned town LLM requires a separate checkpoint-compatible service and budget.
 - **App hosting:** Static React frontend plus a CPU FastAPI service. Render is a starting option; Eric/Rylee select a backend size only after measuring classifier + embeddings + app RAM. Groq runs the large LLM. No GPU server purchase is assumed.
 
@@ -188,6 +190,9 @@ LLM_MAX_TOKENS_PER_DAY=160000
 LLM_MAX_INPUT_TOKENS=800
 LLM_MAX_COMPLETION_TOKENS=512
 EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+MEMORY_RETRIEVAL_MODE=lexical
+EMBEDDING_REVISION=1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+EMBEDDING_CACHE_PATH=data/model-cache
 CLASSIFIER_MODEL_PATH=ml/artifacts/classifier
 MEMORY_DB_PATH=data/minidavis.sqlite
 FRONTEND_ORIGINS=http://localhost:5173
@@ -198,7 +203,7 @@ FRONTEND_ORIGINS=http://localhost:5173
 VITE_API_BASE_URL=http://127.0.0.1:8000
 ```
 
-The starter loads these server-only settings from `backend/.env`; baseline works without a key. Set `MINIDAVIS_MODE=llm` and a server `LLM_API_KEY` to enable the implemented Groq adapter. Reset preserves the active mode unless an explicit mode is supplied. The adapter uses the existing scoped keyword memory; embeddings/classifier settings remain for later work. No key is returned by health/state or exposed to React. Run `python scripts/check_groq.py --live` to save actual per-resident evidence before claiming live verification.
+The starter loads these server-only settings from `backend/.env`; baseline works without a key. Set `MINIDAVIS_MODE=llm` and a server `LLM_API_KEY` to enable Groq. Set `MEMORY_RETRIEVAL_MODE=semantic` after installing the optional ML requirements to use CPU MiniLM. Reset preserves the active mode unless an explicit mode is supplied. No key is returned by health/state or exposed to React. Actual five-resident verification is saved in `results/day0-day4/live-final/live-decisions.json`; rerun the bounded live checker only when needed and within the team's quota.
 
 ### Shared request and token budget
 
@@ -295,7 +300,7 @@ Aishani implements structured plans with `run_id`, `agent_id`, `observation_revi
 - [x] **Eric:** Save a two-minute MVP recording and assign failing cases to the responsible teammate.
 - [x] **Saurya:** Click every resident; inspector and event log match the backend snapshot.
 - [x] **Rylee:** Run `test_agents.py`; invalid output cannot mutate authoritative state.
-- [ ] **Aishani:** Save at least one actual live decision for each resident with mode/model identified. Implementation passes mocked checks; real provider evidence awaits the server key.
+- [x] **Aishani:** Saved one actual live decision per resident with mode/model identified in `results/day0-day4/live-final/live-decisions.json`.
 - [x] **Ethan:** Check that recent memories cite existing event IDs.
 - [x] **Gayatri:** Run seeds 11, 22, and 33 for 100 baseline ticks each.
 
@@ -313,11 +318,11 @@ Open `ml/notebooks/02_rag.ipynb` in Colab. Run cells in order: store events → 
 Ethan implements SQLite events containing `event_id`, `run_id`, `tick`, `agent_id`, participants, visibility, event type, outcome, factual text, and optional embedding. Filter by run/agent/visibility and exclude future events **before** ranking. Use cached MiniLM CPU embeddings. Return up to five recent events plus the top three relevant unique events with source IDs, truncating factual text to the planner input budget. Use scoped recent/lexical fallback if embeddings fail.
 
 - [x] **Eric:** Confirm retrieved evidence travels from memory service to the planner and inspector.
-- [ ] **Saurya:** Confirm the screen displays memory text, IDs, and retrieval mode.
-- [ ] **Rylee:** Run `test_memory.py`; another resident’s private event and an old run’s event stay excluded.
-- [ ] **Aishani:** Confirm all five live planners use the retrieved facts in their input.
-- [ ] **Ethan:** Run the 10 frozen retrieval examples; at least 8 include the expected event in the top three relevant results.
-- [ ] **Gayatri:** Save matching memory-on/off observations, decisions, and retrieved IDs without claiming a guaranteed behavioral change.
+- [x] **Saurya:** UI tests confirm memory text, source IDs, query and actual retrieval mode; the footer no longer mislabels semantic memory.
+- [x] **Rylee:** Memory tests exclude private/old/future events before embedding; real MiniLM API/reset checks cover all five residents.
+- [x] **Aishani:** All five real live requests include their own retrieved facts; tests enforce scoped source IDs and the 800-byte conservative prompt bound.
+- [x] **Ethan:** The 10 frozen retrieval checks and 10 paraphrased queries each score 10/10 with real CPU MiniLM.
+- [x] **Gayatri:** Matched observations, live decisions, source IDs and memory-on/off examples are saved. Four of five proposals per condition were accepted; others safely fell back. This is an exploratory comparison, not proof of improvement.
 
 ```bash
 python -m pytest backend/tests/test_memory.py -q

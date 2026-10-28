@@ -56,6 +56,31 @@ def test_prompt_is_scoped_bounded_and_contains_real_sources(tmp_path):
     assert payload['response_format']['json_schema']['strict'] is True
     assert payload['reasoning_effort']=='none'
     assert reserved > 512
+    context = json.loads(content)
+    assert context['resident']['energy'] == agent.energy
+    schema = payload['response_format']['json_schema']['schema']
+    assert 'gather' not in schema['properties']['action']['enum']
+    assert schema['properties']['explanation']['maxLength'] == 180
+    assert 'farm' in schema['properties']['target']['anyOf'][0]['enum']
+
+
+@pytest.mark.parametrize('agent_index', range(5))
+def test_every_resident_prompt_carries_only_its_actual_previous_sources(tmp_path, agent_index):
+    state = World().snapshot()
+    agent = state.agents[agent_index]
+    sources = [Event(event_id=f'{state.run_id}:{i}:{agent.id}', run_id=state.run_id,
+                     tick=i, agent_id=agent.id, action='gather', outcome='accepted',
+                     text=f'{agent.name} gathered food.') for i in range(1, 6)]
+    hidden = sources[0].model_copy(update={'event_id': 'not-visible', 'agent_id': 'someone-else'})
+    memory = MemoryContext(mode='semantic', query='supplies', as_of_tick=5,
+                           recent=sources + [hidden], relevant=sources)
+    payload, used, _ = build_input(agent, state, memory, settings(tmp_path))
+    observed = json.loads(payload['messages'][1]['content'])
+    assert observed['memories']
+    assert {row['id'] for row in observed['memories']} <= {event.event_id for event in sources}
+    assert used.mode == 'semantic'
+    assert 'not-visible' not in payload['messages'][1]['content']
+    assert len(''.join(m['content'] for m in payload['messages']).encode()) <= 800
 
 
 def test_destination_is_followed_without_repeated_provider_calls(tmp_path):
@@ -121,7 +146,7 @@ def test_provider_errors_and_invalid_plans_use_labelled_fallback(tmp_path,failur
 def test_all_five_residents_share_one_queue_and_twenty_call_run_cap(tmp_path):
     clock=Clock(); called=[]
     def provider(payload):
-        called.append(json.loads(payload['messages'][1]['content'])['resident'][0]); return rest(payload)
+        called.append(json.loads(payload['messages'][1]['content'])['resident']['id']); return rest(payload)
     planner=LivePlanner(settings(tmp_path,llm_max_calls_per_run=5),provider=provider,clock=clock)
     world=World(live_planner=planner,mode='llm')
     try:
@@ -203,6 +228,39 @@ def test_live_prompt_uses_persisted_previous_events(tmp_path):
             assert store.get(event.event_id)==event
             assert event.event_id in seen[0]['messages'][1]['content']
     finally:planner.close();store.close()
+
+
+@pytest.mark.parametrize('memory_on', [True, False])
+def test_all_five_live_prompts_use_the_memory_toggle_without_changing_world_observation(tmp_path, memory_on):
+    cfg = settings(tmp_path, llm_max_calls_per_run=5)
+    clock = Clock()
+    store = EventStore(tmp_path / 'events.sqlite')
+    prompts = []
+    def provider(payload):
+        prompts.append(json.loads(payload['messages'][1]['content']))
+        return rest(payload)
+    planner = LivePlanner(cfg, provider=provider, clock=clock, use_memory=memory_on)
+    world = World(store=store, live_planner=planner, mode='baseline')
+    try:
+        state = step(world, 'warmup')
+        world._state.mode = 'llm'
+        for _ in range(5):
+            planner.kick(world)
+            wait(planner)
+            clock.advance(15)
+        assert len(prompts) == 5
+        for context in prompts:
+            agent_id = context['resident']['id']
+            actual = next(agent for agent in state.agents if agent.id == agent_id)
+            assert context['resident']['position'] == [actual.x, actual.y]
+            assert bool(context['memories']) is memory_on
+            for source in context['memories']:
+                event = store.get(source['id'])
+                assert event.agent_id == agent_id and event.run_id == state.run_id
+                assert event.text == source['text']
+    finally:
+        planner.close()
+        store.close()
 
 
 @pytest.mark.parametrize('status',[400,401,403,429,503])

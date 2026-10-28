@@ -23,7 +23,7 @@ describe('inspector evidence and event log', () => {
     expect(recent.getByText(event.event_id)).toBeTruthy();
     expect(screen.getByText('Keyword search')).toBeTruthy();
     expect(screen.getByText('Baseline rules')).toBeTruthy();
-    expect(screen.getByText(/Live AI and semantic embeddings are pending/)).toBeTruthy();
+    expect(screen.getByText(/baseline actions still follow fixed rules/)).toBeTruthy();
   });
 
   it('switches resident and removes old decision evidence after reset', () => {

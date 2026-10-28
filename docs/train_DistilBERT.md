@@ -60,7 +60,7 @@ Review assignments:
 For every assigned example:
 
 1. Read its `text` and `label` in `ml/data/interactions.jsonl`.
-2. Check the [full label policy](ml/data/README.md). A free gift is cooperation; a polite rejected price is trade; a hostile trade dispute is conflict.
+2. Check the [full label policy](../ml/data/README.md). A free gift is cooperation; a polite rejected price is trade; a hostile trade dispute is conflict.
 3. Correct wrong labels or unclear wording in that JSONL file. Keep the example ID unchanged. Rewrite ambiguous examples rather than guessing what someone intended.
 4. Keep related versions in the same `scenario_family`. If two families describe the same situation, resolve the grouping before freezing; the checks require five examples per family and 50 per class.
 5. Find the same ID in `ml/data/review_queue.csv`. Add any correction note and change `pending` to `approved` only after reviewing it.
