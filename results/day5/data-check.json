@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "dataset_status": "draft",
+  "examples": 200,
+  "families": 40,
+  "splits": {
+    "train": {
+      "examples": 120,
+      "families": 24,
+      "labels": {
+        "cooperation": 30,
+        "conflict": 30,
+        "trade": 30,
+        "neutral": 30
+      }
+    },
+    "validation": {
+      "examples": 40,
+      "families": 8,
+      "labels": {
+        "trade": 10,
+        "conflict": 10,
+        "neutral": 10,
+        "cooperation": 10
+      }
+    },
+    "test": {
+      "examples": 40,
+      "families": 8,
+      "labels": {
+        "cooperation": 10,
+        "conflict": 10,
+        "trade": 10,
+        "neutral": 10
+      }
+    }
+  },
+  "reviews_remaining": 200,
+  "dataset_sha256": "82ccf456076109235a4bc1b0d5a53dfdcf8af5db056051e17c187396612ef71b",
+  "held_out_model_evaluations": 0
+}

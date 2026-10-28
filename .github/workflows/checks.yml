@@ -12,7 +12,9 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - run: python -m pip install -r backend/requirements.txt
-      - run: python -m pytest backend/tests -q
+      - run: python -m pytest backend/tests ml/tests -q
+      - run: python scripts/prepare_interactions.py
+      - run: python scripts/check_day5_notebook.py
       - run: python scripts/verify_notebooks.py
       - run: python scripts/run_eval.py --mode baseline --seeds 11 --ticks 100 --out /tmp/day2
   frontend:

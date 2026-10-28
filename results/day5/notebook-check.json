@@ -1,0 +1,10 @@
+{
+  "notebook": "03_finetune.ipynb",
+  "status": "passed",
+  "code_cells_executed": 6,
+  "training_executed": false,
+  "model_downloads": 0,
+  "provider_calls": 0,
+  "held_out_model_evaluations": 0,
+  "scope": "Offline defaults only; Colab training branch not executed"
+}

@@ -2,7 +2,7 @@
 
 Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Implemented through Eric’s Day 3–4 integration:** The baseline frontend/backend now includes resident selection, decision/source inspectors, the event log, scoped SQLite keyword retrieval and a two-minute MVP recording. See [Day 1–2 evidence](docs/eric-day1-day2.md) and [Day 3–4 evidence](docs/eric-day3-day4.md). The Day 1–3 audit adds the optional nonblocking Groq adapter, shared persistent budgets, cached destinations, explicit planner states and runnable agent/memory notebooks. Real Groq evidence awaits an API key. MiniLM embeddings, training and later routes remain assigned work. See [audit and setup](docs/day1-day3-audit.md). Complete checkboxes only after observing results.
+**Implemented through Eric’s Day 3–4 integration:** The baseline frontend/backend now includes resident selection, decision/source inspectors, the event log, scoped SQLite keyword retrieval and a two-minute MVP recording. See [Day 1–2 evidence](docs/eric-day1-day2.md) and [Day 3–4 evidence](docs/eric-day3-day4.md). The Day 1–3 audit adds the optional nonblocking Groq adapter, shared persistent budgets, cached destinations, explicit planner states and runnable agent/memory notebooks. Eric's [Day 5 preparation](docs/eric-day5.md) adds 200 draft interaction examples, grouped splits, review/freeze gates and an offline-checked Colab notebook. Real Groq evidence awaits an API key. MiniLM embeddings, human dataset review, actual training and later routes remain assigned work. See [audit and setup](docs/day1-day3-audit.md). Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
@@ -331,6 +331,8 @@ Eric and Gayatri prepare 200 labelled synthetic town interactions, 50/class, wit
 
 Before training, correct labels and check duplicates. Ethan and Gayatri create a reproducible 60/20/20 grouped split: target 120 train, 40 validation, 40 test, with 10 test examples/class. Keep all paraphrases from the same scenario family in one split. If these constraints conflict, revise the example families before freezing the split; do not move test examples after viewing results.
 
+Eric's draft now includes these counts with 40 scenario families, assigned review rows and a reproducible **candidate** split. Follow [the label policy and review steps](ml/data/README.md); no human reviews or training are claimed. Run `python scripts/prepare_interactions.py` and `python -m pytest ml/tests -q`. After review edits, use `--refresh-draft`; after all assigned reviews, use `--freeze`. Training verifies exact frozen hashes and review completion. Only text is used as model input; IDs/families/reviewers are excluded. `python scripts/check_day5_notebook.py` verifies the notebook's offline defaults. Training dependencies in `ml/requirements.txt` are separate from backend dependencies.
+
 Train a small DistilBERT sequence classifier using `distilbert/distilbert-base-uncased`, four labels, maximum length 128, initial learning rate `2e-5`, batch size 8, and three epochs. Treat these as starting settings; choose a checkpoint using validation macro-F1 only. Compare with TF-IDF + logistic regression trained on the same training split. This follows the general workflow in [Hugging Face’s classification guide](https://github.com/huggingface/transformers/blob/main/docs/source/en/tasks/sequence_classification.md).
 
 ### Day 5 shared Colab session
@@ -339,7 +341,7 @@ Open `ml/notebooks/03_finetune.ipynb`. Run cells in order: install pinned notebo
 
 Use a GPU runtime if available. Colab availability varies; save checkpoints/results to Drive rather than depending on runtime persistence. If unavailable, run on CPU with batch size 4 and record the configuration and training time. See [Colab’s resource FAQ](https://research.google.com/colaboratory/faq.html).
 
-- [ ] **Eric:** Prepare the dataset with Gayatri and confirm everyone can run the shared notebook.
+- [ ] **Eric:** Dataset preparation, structural tests and offline notebook preflight are complete ([evidence](docs/eric-day5.md)); confirm team access and the actual shared Colab run after assigned reviews/freeze.
 - [ ] **Saurya:** Check the classifier label field displays correctly using a supplied fixture.
 - [ ] **Rylee:** Run `test_trade.py`; offers transfer nothing until valid acceptance and cannot commit twice.
 - [ ] **Aishani:** Review examples 001–050 and save label corrections.

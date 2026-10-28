@@ -117,7 +117,7 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 
 **Shared session:** Run the fine-tuning notebook to train a small interaction classifier: cooperation, conflict, trade, or neutral.
 
-- [ ] **Eric:** Prepare the dataset with Gayatri and help the team run the notebook in Colab.
+- [ ] **Eric:** Data preparation and offline notebook checks are done: [200 draft examples and review instructions](ml/data/README.md), [Colab notebook](ml/notebooks/03_finetune.ipynb), [test evidence and handoff](docs/eric-day5.md). Finish the shared Colab run after the assigned reviews and freeze; team access/training are not yet verified.
 - [ ] **Saurya:** Add an interaction-label field to the UI.
 - [ ] **Rylee:** Implement trade offers and acceptance; run duplicate-acceptance tests.
 - [ ] **Aishani:** Review examples 001–050 and correct wrong labels.

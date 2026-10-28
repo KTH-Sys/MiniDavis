@@ -1,0 +1,5 @@
+# Colab training only. Offline data checks need only Python's standard library.
+# Retain the runtime's PyTorch/CUDA installation; record its exact version per run.
+transformers==4.57.1
+accelerate==1.11.0
+scikit-learn==1.7.2
