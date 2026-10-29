@@ -1,5 +1,8 @@
 
-# CPU classifier inference dependencies.
-# Install PyTorch using the appropriate CPU-compatible distribution
-# for the deployment platform before installing this file.
+
+# Optional CPU classifier inference dependencies.
+# PyTorch uses the appropriate wheel for the deployment platform.
+# For Linux CPU-only hosting, verify the CPU wheel source before deployment.
+torch==2.14.1
 transformers==4.57.1
+
