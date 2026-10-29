@@ -1,8 +1,7 @@
 
 import pytest
 
-from app.classifier import InteractionClassifier
-
+from backend.app.classifier import InteractionClassifier
 
 def test_missing_classifier_raises_error(tmp_path):
     missing_dir = tmp_path / "missing-classifier"
