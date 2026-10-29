@@ -1,11 +1,12 @@
 """Run from the repository root: python -m uvicorn backend.app.main:app --reload."""
-
+from pathlib import Path
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
+from .classifier import InteractionClassifier
 from .memory import EventStore, minilm_embedder
 from .groq_planner import LivePlanner
 from .schemas import AgentInspector, ResetRequest, StepRequest, WorldState
@@ -19,12 +20,23 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     store = EventStore(settings.memory_db_path, embedder=embedder)
     planner = LivePlanner(settings)
 
+    
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         try:
-            # Optional CPU model setup finishes before requests acquire World._lock.
+            # Initialize optional models before accepting requests.
             store.warmup()
+
+            classifier_path = Path(settings.classifier_model_path)
+            application.state.classifier = None
+
+            if classifier_path.is_dir():
+                application.state.classifier = (
+                    InteractionClassifier(classifier_path).load()
+                )
+
             yield
+
         finally:
             planner.close()
             store.close()

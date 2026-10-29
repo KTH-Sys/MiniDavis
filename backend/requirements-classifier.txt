@@ -1,0 +1,5 @@
+
+# CPU classifier inference dependencies.
+# Install PyTorch using the appropriate CPU-compatible distribution
+# for the deployment platform before installing this file.
+transformers==4.57.1
