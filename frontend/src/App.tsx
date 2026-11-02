@@ -27,7 +27,7 @@ export default function App() {
           <label className="grid-toggle"><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} /> Show grid</label></div>
         <div className="scene-frame">{state ? <TownMap state={state} selectedId={selectedId} onSelect={setSelectedId} running={town.running} showGrid={showGrid} />
           : <div className="map-loading">{town.error ? 'Your town is offline.' : 'Opening the gates…'}</div>}</div>
-        <div className="scene-caption"><span>Click a resident to inspect their story.</span><div className="supply-chips">{state?.resources.map((resource) => <span key={resource.id}>{resource.kind === 'food' ? 'Farm' : 'Forest'} <strong>{resource.stock}</strong></span>)}</div></div>
+        <div className="scene-caption"><span>Click a resident to inspect their story.</span><div className="supply-chips">{state?.resources.map((resource) => <span key={resource.id} className={resource.stock <= 5 ? 'shortage' : ''}>{resource.kind === 'food' ? 'Farm' : 'Forest'} <strong>{resource.stock}</strong>{resource.stock <= 5 && <span className="shortage-badge"> LOW</span>}</span>)}</div></div>
         <Controls {...town} ready={!!state && !town.error} seed={seed} setSeed={setSeed} />
         <p className="control-note">Pause finishes the current turn. Reset starts a new town.</p>
       </section>
@@ -38,7 +38,7 @@ export default function App() {
           <span aria-hidden="true">[</span>{agent.name}<span aria-hidden="true">]</span>
           <small className={`resident-mode mode-${state?.agent_runtime?.[agent.id]?.status ?? 'baseline'}`}>{state?.agent_runtime?.[agent.id]?.status ?? 'baseline'}</small>
         </button>)}</div>
-        {selected && <AgentJournal agent={selected} decision={state?.decisions?.[selected.id]} events={state?.events ?? []} agents={state?.agents} runtime={state?.agent_runtime?.[selected.id]} />}
+        {selected && <AgentJournal agent={selected} decision={state?.decisions?.[selected.id]} events={state?.events ?? []} agents={state?.agents} runtime={state?.agent_runtime?.[selected.id]} tradeOffers={state?.trade_offers} />}
         {state?.mode === 'llm' && <p className="provider-budget">Groq calls: {state.provider_usage?.calls_run ?? 0} this run · {state.provider_usage?.calls_day ?? 0} today</p>}
       </aside>
     </div>

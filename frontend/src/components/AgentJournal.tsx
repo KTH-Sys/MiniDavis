@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { AgentRuntime, DecisionRecord, Resident, TownEvent } from '../types';
+import type { AgentRuntime, DecisionRecord, Resident, TownEvent, TradeOffer } from '../types';
 
 const socialActions = new Set(['talk', 'offer_trade', 'accept_trade', 'reject_trade', 'trade', 'gift']);
 const retrievalNames = { semantic: 'MiniLM meaning search', lexical: 'Keyword search', 'recent-only': 'Recent history only' };
@@ -9,27 +9,47 @@ export function interactionsFor(events: TownEvent[], agentId: string): TownEvent
 }
 
 function MemoryCard({ event, name, relevant = false }: { event: TownEvent; name: string; relevant?: boolean }) {
+  const label = event.interaction_label ?? event.classification?.label ?? event.label;
+  const confidence = event.confidence ?? event.classification?.confidence;
   return <article className="terminal-entry memory-entry" data-source-id={event.event_id}>
     <div className="entry-heading"><span className="entry-glyph" aria-hidden="true">▧</span><strong>[ {name} ]</strong><span>{relevant ? 'RELEVANT MEMORY' : 'MEMORY'}</span><time>T{String(event.tick).padStart(2, '0')}</time></div>
     <p><span className="entry-branch" aria-hidden="true">└↳</span>{event.text}</p>
+    {label && <p className="interaction-label" data-testid="memory-interaction-label">
+      <span className="entry-branch" aria-hidden="true">└↳</span>
+      <span className="label-prefix">Interaction label:</span>{' '}
+      <strong className={`label-badge label-${label.toLowerCase()}`}>{label}</strong>
+      {confidence != null && <span className="label-confidence"> ({typeof confidence === 'number' && confidence <= 1 ? `${(confidence * 100).toFixed(1)}%` : confidence} confidence)</span>}
+    </p>}
     <details><summary>Source event</summary><code>{event.event_id}</code><span className="source-outcome">{event.outcome}</span></details>
   </article>;
 }
 
 function EventEntry({ event, name }: { event: TownEvent; name: string }) {
-  return <article className={`terminal-entry ${event.outcome === 'rejected' ? 'rejected-entry' : ''}`}>
+  const isSocial = socialActions.has(event.action);
+  const label = event.interaction_label ?? event.classification?.label ?? event.label;
+  const confidence = event.confidence ?? event.classification?.confidence;
+  return <article className={`terminal-entry ${event.outcome === 'rejected' ? 'rejected-entry' : ''}`} data-event-id={event.event_id}>
     <div className="entry-heading"><span className="entry-glyph" aria-hidden="true">▪</span><strong>[ {name} ]</strong>
-      <span>{socialActions.has(event.action) ? 'INTERACTION' : 'ACTION'} / {event.action.replaceAll('_', ' ')}</span><time>T{String(event.tick).padStart(2, '0')}</time></div>
+      <span>{isSocial ? 'INTERACTION' : 'ACTION'} / {event.action.replaceAll('_', ' ')}</span><time>T{String(event.tick).padStart(2, '0')}</time></div>
     <p><span className="entry-branch" aria-hidden="true">└↳</span>{event.text}</p>
+    {(label || isSocial) && <p className={`interaction-label ${!label ? 'unclassified' : ''}`} data-testid="interaction-label">
+      <span className="entry-branch" aria-hidden="true">└↳</span>
+      <span className="label-prefix">Interaction label:</span>{' '}
+      {label ? <>
+        <strong className={`label-badge label-${label.toLowerCase()}`}>{label}</strong>
+        {confidence != null && <span className="label-confidence"> ({typeof confidence === 'number' && confidence <= 1 ? `${(confidence * 100).toFixed(1)}%` : confidence} confidence)</span>}
+      </> : <em className="label-none">unclassified</em>}
+    </p>}
     {event.outcome === 'rejected' && <small>Rejected by the world rules</small>}
   </article>;
 }
 
-export function AgentJournal({ agent, decision, events, agents = [agent], runtime }: {
-  agent: Resident; decision?: DecisionRecord; events: TownEvent[]; agents?: Resident[]; runtime?: AgentRuntime;
+export function AgentJournal({ agent, decision, events, agents = [agent], runtime, tradeOffers = [] }: {
+  agent: Resident; decision?: DecisionRecord; events: TownEvent[]; agents?: Resident[]; runtime?: AgentRuntime; tradeOffers?: TradeOffer[];
 }) {
   const [tab, setTab] = useState<'feed' | 'decision' | 'memory' | 'interactions'>('feed');
   const interactions = interactionsFor(events, agent.id);
+  const residentTrades = tradeOffers.filter((t) => t.proposer_id === agent.id || t.recipient_id === agent.id);
   const recent = decision?.memory.recent ?? [];
   const relevant = decision?.memory.relevant ?? [];
   const nameFor = (id: string) => agents.find((resident) => resident.id === id)?.name ?? id;
@@ -81,8 +101,22 @@ export function AgentJournal({ agent, decision, events, agents = [agent], runtim
       </>}
       {tab === 'interactions' && <>
         <p className="feed-note">Conversations & trades involving {agent.name} · {interactions.length} recorded</p>
+        {residentTrades.length > 0 && <div className="trade-offers-block" aria-label="Trade offers">
+          <h3 className="section-label">TRADE OFFERS & TRANSFERS</h3>
+          <ul className="trade-offers-list">
+            {residentTrades.map((trade) => <li key={trade.offer_id} className={`trade-item status-${trade.status}`}>
+              <div className="entry-heading">
+                <span className="entry-glyph" aria-hidden="true">⇄</span>
+                <strong>[ {nameFor(trade.proposer_id)} → {nameFor(trade.recipient_id)} ]</strong>
+                <span className={`trade-status-pill status-${trade.status}`}>{trade.status.toUpperCase()}</span>
+              </div>
+              <p className="trade-terms">Offers {trade.give_amount} {trade.give_resource} for {trade.receive_amount} {trade.receive_resource}</p>
+              <code>{trade.offer_id}</code>
+            </li>)}
+          </ul>
+        </div>}
         {interactions.length ? interactions.map((event) => <EventEntry key={event.event_id} event={event} name={nameFor(event.agent_id)} />)
-          : <div className="terminal-empty"><span aria-hidden="true">&gt;_</span><h3>No interactions yet</h3><p>Conversations and trades between residents will appear here when the simulation records them.</p></div>}
+          : !residentTrades.length ? <div className="terminal-empty"><span aria-hidden="true">&gt;_</span><h3>No interactions yet</h3><p>Conversations and trades between residents will appear here when the simulation records them.</p></div> : null}
       </>}
     </div>
     <p className="journal-footnote"><span aria-hidden="true">●</span> {runtime?.status === 'live' ? 'Groq plan' : runtime?.status === 'waiting' ? 'Queued for Groq' : runtime?.status === 'fallback' ? 'Baseline fallback' : 'Baseline rules'} · {decision ? retrievalNames[decision.memory.mode] : 'No memory used yet'}</p>

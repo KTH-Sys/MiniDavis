@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 import { AgentJournal, interactionsFor } from './AgentJournal';
-import type { DecisionRecord, Resident, TownEvent } from '../types';
+import type { DecisionRecord, Resident, TownEvent, TradeOffer } from '../types';
 
 const agent: Resident = { id: 'ethan', name: 'Ethan', goal: 'Gather supplies', x: 2, y: 2,
   food: 3, wood: 2, coins: 10, energy: 90, relationships: {} };
@@ -94,5 +94,82 @@ describe('resident journal', () => {
       runtime={{ status: 'fallback', detail: 'Missing server API key', pending: false }} />);
     expect(screen.getByRole('status').textContent).toContain('FALLBACK');
     expect(screen.queryByText(/Model’s explanation/)).toBeNull();
+  });
+
+  it('displays the interaction-label field and confidence for completed social interactions', () => {
+    const tradeFixture: TownEvent = {
+      event_id: 'trade-001',
+      run_id: 'run-1',
+      tick: 3,
+      agent_id: 'ethan',
+      target_agent_id: 'rylee',
+      action: 'offer_trade',
+      outcome: 'accepted',
+      text: 'Ethan offered 2 wood for 1 food to Rylee.',
+      interaction_label: 'trade',
+      confidence: 0.952,
+    };
+    const cooperationFixture: TownEvent = {
+      event_id: 'coop-001',
+      run_id: 'run-1',
+      tick: 4,
+      agent_id: 'rylee',
+      target_agent_id: 'ethan',
+      action: 'talk',
+      outcome: 'accepted',
+      text: 'Rylee shared food with Ethan.',
+      interaction_label: 'cooperation',
+      confidence: 0.884,
+    };
+    render(<AgentJournal agent={agent} events={[tradeFixture, cooperationFixture]} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Interactions' }));
+    expect(screen.getAllByText(/Interaction label:/)).toHaveLength(2);
+    expect(screen.getByText('trade')).toBeTruthy();
+    expect(screen.getByText(/95.2% confidence/)).toBeTruthy();
+    expect(screen.getByText('cooperation')).toBeTruthy();
+    expect(screen.getByText(/88.4% confidence/)).toBeTruthy();
+  });
+
+  it('marks social interactions without classifier predictions as unclassified', () => {
+    const unclassified: TownEvent = {
+      event_id: 'talk-001',
+      run_id: 'run-1',
+      tick: 2,
+      agent_id: 'ethan',
+      target_agent_id: 'rylee',
+      action: 'talk',
+      outcome: 'accepted',
+      text: 'Ethan spoke to Rylee.',
+    };
+    render(<AgentJournal agent={agent} events={[unclassified]} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Interactions' }));
+    expect(screen.getByText(/Interaction label:/)).toBeTruthy();
+    expect(screen.getByText('unclassified')).toBeTruthy();
+  });
+
+  it('shows pending and accepted trade offers in the interactions tab', () => {
+    const offers: TradeOffer[] = [
+      { offer_id: 'trade-1', proposer_id: 'ethan', recipient_id: 'rylee',
+        give_resource: 'wood', give_amount: 2, receive_resource: 'food', receive_amount: 1, status: 'pending' },
+      { offer_id: 'trade-2', proposer_id: 'rylee', recipient_id: 'ethan',
+        give_resource: 'food', give_amount: 1, receive_resource: 'wood', receive_amount: 2, status: 'accepted' },
+    ];
+    render(<AgentJournal agent={agent} events={[]} tradeOffers={offers} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Interactions' }));
+    expect(screen.getByText(/TRADE OFFERS/)).toBeTruthy();
+    expect(screen.getByText('PENDING')).toBeTruthy();
+    expect(screen.getByText('ACCEPTED')).toBeTruthy();
+    expect(screen.getByText(/Offers 2 wood for 1 food/)).toBeTruthy();
+  });
+
+  it('hides trade offers section when resident has no related trades', () => {
+    const offers: TradeOffer[] = [
+      { offer_id: 'trade-3', proposer_id: 'gayatri', recipient_id: 'aishani',
+        give_resource: 'food', give_amount: 1, receive_resource: 'wood', receive_amount: 1, status: 'pending' },
+    ];
+    render(<AgentJournal agent={agent} events={[]} tradeOffers={offers} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Interactions' }));
+    expect(screen.queryByText(/TRADE OFFERS/)).toBeNull();
+    expect(screen.getByText('No interactions yet')).toBeTruthy();
   });
 });

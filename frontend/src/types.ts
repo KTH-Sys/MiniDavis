@@ -27,6 +27,7 @@ export interface WorldState {
   };
   agents: Resident[];
   resources: { id: string; kind: 'food' | 'wood'; x: number; y: number; stock: number }[];
+  trade_offers?: TradeOffer[];
   events: {
     event_id: string;
     run_id: string;
@@ -37,6 +38,13 @@ export interface WorldState {
     action: string;
     outcome: 'accepted' | 'rejected';
     text: string;
+    interaction_label?: 'cooperation' | 'conflict' | 'trade' | 'neutral' | string;
+    confidence?: number;
+    label?: 'cooperation' | 'conflict' | 'trade' | 'neutral' | string;
+    classification?: {
+      label: 'cooperation' | 'conflict' | 'trade' | 'neutral' | string;
+      confidence?: number;
+    };
   }[];
 }
 
@@ -67,4 +75,15 @@ export interface AgentRuntime {
   detail: string;
   pending: boolean;
   plan_target?: string | null;
+}
+
+export interface TradeOffer {
+  offer_id: string;
+  proposer_id: string;
+  recipient_id: string;
+  give_resource: 'food' | 'wood' | 'coins';
+  give_amount: number;
+  receive_resource: 'food' | 'wood' | 'coins';
+  receive_amount: number;
+  status: 'pending' | 'accepted' | 'rejected';
 }

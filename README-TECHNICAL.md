@@ -349,7 +349,7 @@ Open `ml/notebooks/03_finetune.ipynb`. Run cells in order: install pinned notebo
 Use a GPU runtime if available. Colab availability varies; save checkpoints/results to Drive rather than depending on runtime persistence. If unavailable, run on CPU with batch size 4 and record the configuration and training time. See [Colab’s resource FAQ](https://research.google.com/colaboratory/faq.html).
 
 - [ ] **Eric:** Dataset preparation, structural tests and offline notebook preflight are complete ([evidence](docs/eric-day5.md)); confirm team access and the actual shared Colab run after assigned reviews/freeze.
-- [ ] **Saurya:** Check the classifier label field displays correctly using a supplied fixture.
+- [x] **Saurya:** Check the classifier label field displays correctly using a supplied fixture.
 - [ ] **Rylee:** Run `test_trade.py`; offers transfer nothing until valid acceptance and cannot commit twice.
 - [ ] **Aishani:** Review examples 001–050 and save label corrections.
 - [ ] **Ethan:** Review examples 051–100 and verify no scenario family crosses splits.
@@ -368,7 +368,7 @@ Use a GPU runtime if available. Colab availability varies; save checkpoints/resu
 ## 8. Day 6 integration gate
 
 - [ ] **Eric:** Run the integrated build and fix blockers with the responsible teammate before feature freeze.
-- [ ] **Saurya:** Controls, memories, offers/acceptances, classifier labels, and shortage are visible.
+- [x] **Saurya:** Controls, memories, offers/acceptances, classifier labels, and shortage are visible.
 - [ ] **Rylee:** Trade conserves transferred items/coins; shortage lowers stock; reset clears offers; replay reproduces final state.
 - [ ] **Aishani:** All five agents make live decisions; malformed JSON, timeout, missing key, and quota error fall back safely.
 - [ ] **Ethan:** Memories and relationships describe executed events, not invented model claims.

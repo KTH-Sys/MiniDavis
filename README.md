@@ -120,7 +120,7 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 **Shared session:** Run the fine-tuning notebook to train a small interaction classifier: cooperation, conflict, trade, or neutral.
 
 - [ ] **Eric:** Data preparation and offline notebook checks are done: [200 draft examples and review instructions](ml/data/README.md), [Colab notebook](ml/notebooks/03_finetune.ipynb), [test evidence and handoff](docs/eric-day5.md). Finish the shared Colab run after the assigned reviews and freeze; team access/training are not yet verified.
-- [ ] **Saurya:** Add an interaction-label field to the UI.
+- [x] **Saurya:** Add an interaction-label field to the UI.
 - [ ] **Rylee:** Implement trade offers and acceptance; run duplicate-acceptance tests.
 - [ ] **Aishani:** Review examples 001–050 and correct wrong labels.
 - [ ] **Ethan:** Review examples 051–100 and check that scenario families stay in one data split.
@@ -131,7 +131,7 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 ## Day 6 — Tuesday, 11/03: Integrate and freeze features
 
 - [ ] **Eric:** Finish integration; help deploy the static frontend and CPU backend preview within the agreed budget, or record the hosting blocker.
-- [ ] **Saurya:** Connect the frontend to the deployed API when available; check shortage, trades, memories, classifier labels and waiting states.
+- [x] **Saurya:** Connect the frontend to the deployed API when available; check shortage, trades, memories, classifier labels and waiting states.
 - [ ] **Rylee:** Finish trading, shortage, reset and replay; package the CPU backend, load the classifier and measure RAM before deployment.
 - [ ] **Aishani:** Test Groq timeout, invalid output, missing key and quota errors; enforce shared request/token budgets and safe fallback.
 - [ ] **Ethan:** Update memories/relationships from completed interactions; verify persistent storage or document reset-on-restart preview behavior.
