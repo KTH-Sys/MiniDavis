@@ -94,7 +94,7 @@ class TradeOffer(Contract):
     give_resource: Literal["food", "wood", "coins"]
     give_amount: int = Field(gt=0)
     receive_resource: Literal["food", "wood", "coins"]
-    receive_amount: int = Field(gt=0)
+    receive_amount: int = Field(ge=0)
     status: Literal["pending", "accepted", "rejected"] = "pending"
 
 class WorldState(Contract):

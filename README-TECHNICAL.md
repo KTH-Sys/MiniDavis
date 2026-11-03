@@ -352,7 +352,7 @@ Use a GPU runtime if available. Colab availability varies; save checkpoints/resu
 - [x] **Saurya:** Check the classifier label field displays correctly using a supplied fixture.
 - [ ] **Rylee:** Run `test_trade.py`; offers transfer nothing until valid acceptance and cannot commit twice.
 - [ ] **Aishani:** Review examples 001–050 and save label corrections.
-- [ ] **Ethan:** Review examples 051–100 and verify no scenario family crosses splits.
+- [x] **Ethan:** Review examples 051–100 and verify no scenario family crosses splits.
 - [ ] **Gayatri:** Review examples 101–200; train after reviews finish; save baseline/validation metrics and exported classifier.
 
 ### Day 6 final classifier check
@@ -371,7 +371,7 @@ Use a GPU runtime if available. Colab availability varies; save checkpoints/resu
 - [x] **Saurya:** Controls, memories, offers/acceptances, classifier labels, and shortage are visible.
 - [ ] **Rylee:** Trade conserves transferred items/coins; shortage lowers stock; reset clears offers; replay reproduces final state.
 - [ ] **Aishani:** All five agents make live decisions; malformed JSON, timeout, missing key, and quota error fall back safely.
-- [ ] **Ethan:** Memories and relationships describe executed events, not invented model claims.
+- [x] **Ethan:** Memories and relationships describe executed events, not invented model claims.
 - [ ] **Gayatri:** Save integration results and held-out classifier metrics, including failures.
 
 ```bash
