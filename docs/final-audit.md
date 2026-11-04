@@ -2,6 +2,10 @@
 
 **Status: local demo implementation is ready for presentation checks; venue rehearsal remains the team's final step.** The code, model artifacts and measured evidence are separate from claims about deployment or long autonomous behavior. The machine-readable record is [verification.json](../results/presentation/verification.json).
 
+## Audience presentation update
+
+The main interface now shows only resident stories and simple playback controls. Technical inspectors, model probes, memory sources and configuration stay behind **Presenter tools**. The [single illustrated LaTeX guide](../output/pdf/MiniDavis-Presentation-Guide.pdf) follows the requested speaker assignments and contains no presentation timestamps or suggested durations. See [guide verification](../results/presentation/guide-verification.json) for the new checks.
+
 ## Repairs and completion
 
 - Preserved the original root project plan, technical checklist and legacy frontend README in `docs/archive/`. The root README now describes the actual project, architecture, setup, evaluation and demo.
@@ -19,7 +23,7 @@
 | Check | Result |
 | --- | --- |
 | Backend and data suite | 152 tests passed |
-| Frontend suite | 39 tests passed |
+| Frontend suite | 42 tests passed after audience-view simplification |
 | Production frontend build | Passed |
 | Reviewed dataset | Frozen 200 examples; 120/40/40 grouped split; unchanged hashes |
 | Notebook defaults | Offline checks, no training/provider calls |

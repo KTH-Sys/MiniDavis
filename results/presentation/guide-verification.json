@@ -1,0 +1,40 @@
+{
+  "pdf": "output/pdf/MiniDavis-Presentation-Guide.pdf",
+  "pages": 18,
+  "format": "LaTeX compiled with Tectonic 0.17.0",
+  "pdf_sha256": "07c20a23e4553b6f6e22a65c9e8b79268a4e344aedcce9c776d18a32ff66d1db",
+  "visual_review": "All 18 final rendered pages inspected; diagrams, tables, screenshots and section breaks checked",
+  "timing_allocations_present": false,
+  "text_outside_pages": false,
+  "roles": {
+    "Frontend": "Saurya",
+    "Backend": "Rylee",
+    "RAG and memories": "Ethan",
+    "Classifier": "Gayatri",
+    "Live demo": "Aishani / Saurya",
+    "Further development": "Aishani"
+  },
+  "audience_view": {
+    "technical_panels_hidden_by_default": true,
+    "controls": [
+      "Play/Pause",
+      "Next Turn",
+      "Reset",
+      "Recorded example"
+    ],
+    "tools_available_under": "Presenter tools",
+    "live_execution_and_recorded_example_verified": true,
+    "browser_provider_calls": 2,
+    "screenshots": [
+      "docs/assets/demo-live.jpg",
+      "docs/assets/demo-recorded.jpg"
+    ]
+  },
+  "frontend_tests": {
+    "passed": 42,
+    "failed": 0
+  },
+  "frontend_build": "passed",
+  "backend_changes": false,
+  "notes": "Recorded example remains explicitly scripted. ML results and limitations are taken from the existing presentation evidence."
+}

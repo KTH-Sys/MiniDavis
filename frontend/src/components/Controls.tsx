@@ -4,6 +4,7 @@ interface Props {
   replacing: boolean;
   ready: boolean;
   planning?: boolean;
+  compact?: boolean;
   seed: number;
   setSeed: (seed: number) => void;
   play: () => void;
@@ -12,7 +13,7 @@ interface Props {
   reset: (seed: number) => void;
 }
 
-export function Controls({ running, busy, replacing, ready, planning = false, seed, setSeed, play, pause, next, reset }: Props) {
+export function Controls({ running, busy, replacing, ready, planning = false, compact = false, seed, setSeed, play, pause, next, reset }: Props) {
   const validSeed = Number.isInteger(seed) && seed >= 0 && seed <= 2147483647;
   return <div className="controls" aria-label="Town controls">
     <button className="primary" onClick={running ? pause : play} disabled={!running && (!ready || busy)}>
@@ -20,10 +21,10 @@ export function Controls({ running, busy, replacing, ready, planning = false, se
     </button>
     <button onClick={next} disabled={!ready || busy || running || planning}>Next Turn</button>
     <span className="control-spacer" />
-    <label className="seed-label">Seed
+    {!compact && <label className="seed-label">Seed
       <input aria-label="Seed" type="number" min="0" max="2147483647" step="1" value={Number.isNaN(seed) ? '' : seed}
         onChange={(event) => setSeed(event.target.valueAsNumber)} />
-    </label>
+    </label>}
     <button onClick={() => reset(seed)} disabled={!validSeed || replacing}>Reset</button>
   </div>;
 }

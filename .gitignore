@@ -23,3 +23,8 @@ ml/artifacts/*
 results/**/baseline-*.json
 !results/presentation/comparison/baseline-*.json
 data/model-cache/
+/tmp/
+/output/pdf/*.log
+/output/pdf/*.aux
+/output/pdf/*.xdv
+/output/pdf/*.out

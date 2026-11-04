@@ -3,7 +3,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { RunTools } from './RunTools';
 import { setOperatorKey } from '../api';
 
-vi.mock('../api', () => ({setOperatorKey:vi.fn(),townApi:{trace:vi.fn()}}));
+vi.mock('../api', async (importOriginal) => ({...await importOriginal<typeof import('../api')>(),setOperatorKey:vi.fn(),townApi:{trace:vi.fn()}}));
 afterEach(()=>{cleanup();vi.clearAllMocks();});
 
 it('sets a tab-only operator key and clears the visible input',()=>{

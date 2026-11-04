@@ -3,6 +3,10 @@ import type { AgentRuntime, DecisionRecord, Resident, TownEvent, TradeOffer } fr
 
 const socialActions = new Set(['talk', 'offer_trade', 'accept_trade', 'reject_trade', 'trade', 'gift', 'trade_completed']);
 const retrievalNames = { semantic: 'MiniLM meaning search', lexical: 'Keyword search', 'recent-only': 'Recent history only' };
+function storyText(text: string): string {
+  return text.replace(/ moved to \(\d+, \d+\)\./g, ' moved through town.')
+    .replace(/\b(trade|gift) [\w:-]+:/g, '$1:').replace(/\b1 coins\b/g, '1 coin');
+}
 export function interactionsFor(events: TownEvent[], agentId: string): TownEvent[] {
   // The engine writes the actor's event before the listener's memory copy.
   // Keep the original so its heading names the speaker, not the listener.
@@ -32,15 +36,15 @@ function MemoryCard({ event, name, relevant = false }: { event: TownEvent; name:
   </article>;
 }
 
-function EventEntry({ event, name }: { event: TownEvent; name: string }) {
+function EventEntry({ event, name, simple = false }: { event: TownEvent; name: string; simple?: boolean }) {
   const isSocial = socialActions.has(event.action);
   const label = event.interaction_label ?? event.classification?.label ?? event.label;
   const confidence = event.confidence ?? event.classification?.confidence;
   return <article className={`terminal-entry ${event.outcome === 'rejected' ? 'rejected-entry' : ''}`} data-event-id={event.event_id}>
     <div className="entry-heading"><span className="entry-glyph" aria-hidden="true">▪</span><strong>[ {name} ]</strong>
-      <span>{isSocial ? 'INTERACTION' : 'ACTION'} / {event.action.replaceAll('_', ' ')}</span><time>T{String(event.tick).padStart(2, '0')}</time></div>
-    <p><span className="entry-branch" aria-hidden="true">└↳</span>{event.text}</p>
-    {(label || isSocial) && <p className={`interaction-label ${!label ? 'unclassified' : ''}`} data-testid="interaction-label">
+      {!simple && <span>{isSocial ? 'INTERACTION' : 'ACTION'} / {event.action.replaceAll('_', ' ')}</span>}<time>{simple ? 'Turn ' + event.tick : 'T' + String(event.tick).padStart(2, '0')}</time></div>
+    <p><span className="entry-branch" aria-hidden="true">└↳</span>{simple ? storyText(event.text) : event.text}</p>
+    {!simple && (label || isSocial) && <p className={`interaction-label ${!label ? 'unclassified' : ''}`} data-testid="interaction-label">
       <span className="entry-branch" aria-hidden="true">└↳</span>
       <span className="label-prefix">Interaction label:</span>{' '}
       {label ? <>
@@ -52,8 +56,8 @@ function EventEntry({ event, name }: { event: TownEvent; name: string }) {
   </article>;
 }
 
-export function AgentJournal({ agent, decision, events, agents = [agent], runtime, tradeOffers = [] }: {
-  agent: Resident; decision?: DecisionRecord; events: TownEvent[]; agents?: Resident[]; runtime?: AgentRuntime; tradeOffers?: TradeOffer[];
+export function AgentJournal({ agent, decision, events, agents = [agent], runtime, tradeOffers = [], presentation = false }: {
+  agent: Resident; decision?: DecisionRecord; events: TownEvent[]; agents?: Resident[]; runtime?: AgentRuntime; tradeOffers?: TradeOffer[]; presentation?: boolean;
 }) {
   const [tab, setTab] = useState<'feed' | 'decision' | 'memory' | 'interactions'>('feed');
   const interactions = interactionsFor(events, agent.id);
@@ -70,6 +74,29 @@ export function AgentJournal({ agent, decision, events, agents = [agent], runtim
   const feed = [...actionEvents.slice(-15).map((event) => ({ event, memory: false })),
     ...recent.slice(-1).map((event) => ({ event, memory: true }))]
     .sort((a, b) => b.event.tick - a.event.tick);
+  if (presentation) {
+    const story = actionEvents.filter((event) => event.agent_id === agent.id || event.target_agent_id === agent.id).slice(-5).reverse();
+    const status = runtime?.status === 'replay' ? 'Recorded example' : runtime?.pending ? 'AI is thinking…'
+      : runtime?.status === 'live' ? 'AI plan ready' : runtime?.status === 'fallback' ? 'Using backup rules'
+      : runtime?.status === 'waiting' ? 'Ready for an AI turn' : 'Practice run';
+    return <section className="agent-journal presentation-journal" aria-label="Resident story">
+      <div className="journal-person"><div><span className="eyebrow">FOLLOWING</span><h2>{agent.name}</h2></div>
+        <span className="journal-turn">{decision ? `TURN ${decision.tick}` : 'READY'}</span></div>
+      <p className={`planner-status mode-${runtime?.status ?? 'baseline'}`} role="status">{status}</p>
+      <div className="story-goal"><h3>MY GOAL</h3><p>{agent.goal}</p>
+        <div className="story-supplies"><span>Food <strong>{agent.food}</strong></span><span>Wood <strong>{agent.wood}</strong></span><span>Coins <strong>{agent.coins}</strong></span></div>
+      </div>
+      <div className="journal-content story-content">
+        <h3 className="section-label">LATEST ACTION</h3>
+        <p className="story-latest">{decision ? storyText(decision.explanation) : 'Press Next Turn to begin my story.'}</p>
+        {decision && ['fallback','waiting'].includes(decision.planner_mode) && <p className="story-backup">This turn used backup rules.</p>}
+        <h3 className="section-label">RECENT ACTIVITY</h3>
+        {story.length ? story.map((event)=><EventEntry key={event.event_id} event={event} name={nameFor(event.agent_id)} simple />)
+          : <p className="journal-empty">Select a resident and advance a turn to see what happens.</p>}
+      </div>
+      <p className="journal-footnote">{runtime?.status === 'replay' ? 'Saved actions · No new AI decisions' : 'One resident. One unfolding story.'}</p>
+    </section>;
+  }
   const tabs = ['feed', 'decision', 'memory', 'interactions'] as const;
   return <section className="agent-journal" aria-label="Resident inspector">
     <div className="journal-person"><div><span className="eyebrow">INSPECTING</span><h2>{agent.name}</h2></div>

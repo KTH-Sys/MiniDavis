@@ -3,6 +3,14 @@ import type { Readiness, RunTrace, WorldState } from './types';
 let operatorKey = '';
 export function setOperatorKey(value: string) { operatorKey = value; }
 
+export async function loadSampleTrace(): Promise<RunTrace> {
+  const response = await fetch('/demo/sample-run.json');
+  if (!response.ok) throw new Error('The recorded example is unavailable. Open Presenter tools to load a saved run.');
+  const trace = await response.json();
+  if (trace?.version !== 1 || !Array.isArray(trace.operations)) throw new Error('The recorded example is not a valid town run.');
+  return trace as RunTrace;
+}
+
 // Accept the original frontend setting while keeping the shared setting primary.
 const base = (import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
 

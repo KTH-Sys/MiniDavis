@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { setOperatorKey, townApi } from '../api';
+import { loadSampleTrace, setOperatorKey, townApi } from '../api';
 import type { Readiness, RunTrace } from '../types';
 import { ClassifierProbe } from './ClassifierProbe';
 
@@ -26,9 +26,7 @@ export function RunTools({ disabled, replaying, shortage, replay, reconnect, mod
   async function sampleRun() {
     setLoading(true);
     try {
-      const response = await fetch('/demo/sample-run.json');
-      if (!response.ok) throw new Error('Sample run is unavailable. Use Replay saved run instead.');
-      replay(readTrace(await response.json())); setMessage('Sample loaded: scripted actions, no AI calls.');
+      replay(await loadSampleTrace()); setMessage('Sample loaded: scripted actions, no AI calls.');
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Could not load sample.'); }
     finally { setLoading(false); }
   }

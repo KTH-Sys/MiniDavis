@@ -1,8 +1,8 @@
 # MiniDavis
 
-**A tiny town for AI agents.** Five residents gather supplies, make decisions, remember events, talk and trade in a 2D pixel town. Watch the town on the left and inspect decisions, memories and interactions in the terminal feed on the right.
+**A tiny town for AI agents.** Five residents gather supplies, make decisions, remember events, talk and trade in a 2D pixel town. Watch the town on the left and follow each resident's goal and recent actions on the right. Technical inspectors stay behind **Presenter tools**.
 
-![MiniDavis presentation view](docs/assets/presentation.jpg)
+![MiniDavis simple demo view](docs/assets/demo-recorded.jpg)
 
 Built by **Eric, Gayatri, Aishani, Rylee, Saurya and Ethan** for a machine learning club project.
 
@@ -46,7 +46,7 @@ MINIDAVIS_MODE=llm
 LLM_API_KEY=your_private_groq_key
 ```
 
-Restart the backend after changing `.env`. Alternatively, with a server key already configured, choose **Live AI (Groq) → Start new town** in the UI. Starting a new town clears the current run; use **Save run** first.
+Restart the backend after changing `.env`. Alternatively, with a server key already configured, open **Presenter tools** and choose **Live AI (Groq) → Start new town**. Close the tools for the audience view. Starting a new town clears the current run; use **Save run** first.
 
 The `.env` file is ignored by Git. Each separately hosted backend needs its own server configuration. Connecting several viewers to one backend does not require putting the Groq key on their computers or in the frontend.
 
@@ -75,7 +75,7 @@ Install the presentation model package supplied separately from Git:
 python scripts/install_classifier.py --archive /path/to/minidavis-classifier.zip
 ```
 
-Model weights are intentionally excluded from Git. With no model installed, leave `CLASSIFIER_REQUIRED=false`: the town still works and social events say **unclassified**. The UI reports whether the classifier loaded. Semantic retrieval requires its pinned MiniLM weights; if it falls back, inspect the actual retrieval mode in **Memories**.
+Model weights are intentionally excluded from Git. With no model installed, leave `CLASSIFIER_REQUIRED=false`: the town still works and social events say **unclassified**. Presenter tools report whether the classifier loaded. Semantic retrieval requires its pinned MiniLM weights; if it falls back, inspect the actual retrieval mode in **Presenter tools → Memories**.
 
 ## Architecture
 
@@ -116,6 +116,7 @@ MiniDavis/
 │   ├── notebooks/          # Agent, RAG and fine-tuning learning notebooks
 │   ├── train_classifier.py # Training and validation-selected export
 │   └── evaluate_classifier.py # One-time frozen test evaluation
+├── output/pdf/             # Single illustrated LaTeX presentation guide
 ├── scripts/                # Checks, comparisons, packaging and model installation
 ├── results/                # Recorded evidence; dated reports preserve history
 ├── docs/
@@ -141,15 +142,15 @@ The saved town comparison produced three talks and two offers, with no completed
 
 The [final audit](docs/final-audit.md) records current test counts, real CPU inference, RAM, live API results, browser checks and limits. Older reports are historical evidence and may describe features that have since changed.
 
-## Five-minute demo
+## Short live demo
 
-1. Show the town, select a resident and explain its goal.
-2. In live mode, advance a turn and inspect the actual decision and its execution status.
-3. Open **Memories** and show the event IDs used as evidence. Distinguish semantic search from keyword fallback.
-4. Use **Load sample run** to reliably show a recorded trade, conversation and shortage. Say clearly that this is a scripted mechanics demonstration. Select Ethan or Saurya and inspect interactions and relationships.
-5. Open **Try the trained classifier** for a real CPU prediction and show the saved evaluation results; the replay intentionally makes no classifier calls.
+1. Explain the stack, memory/RAG and classifier in the slides using the [illustrated presentation guide](output/pdf/MiniDavis-Presentation-Guide.pdf).
+2. Show the town, select a resident and read its goal.
+3. Advance a live turn and describe the actual action. Waiting or backup rules remain labelled.
+4. Choose another resident to show its separate story.
+5. Use **Recorded example** for a reliable trade and conversation, explicitly identifying it as scripted. Keep technical inspectors closed.
 
-See [presentation.md](docs/presentation.md) for the speaking script, operator checklist and failure recovery.
+See the [single PDF guide](output/pdf/MiniDavis-Presentation-Guide.pdf) for speaker scripts, screenshots, diagrams, demo steps and questions. The [presentation index](docs/presentation.md) lists roles and rebuild instructions. No presentation timings are prescribed.
 
 ## Verification
 
@@ -184,11 +185,11 @@ The comparison uses matched baseline history and one five-resident planning wind
 
 A local presentation is supported. **No hosted URL is claimed.** The optional Render blueprint defaults to baseline mode. Full ML hosting needs measured RAM, persistent daily-budget storage and verification on the actual host. A backend restart starts a new town; old SQLite events stay isolated by run where disk persists.
 
-For protected shared previews, the host sets a separate `OPERATOR_TOKEN`. Enter that password in **Shared preview access** to control the town. It is not the Groq key. The password form stays hidden for ordinary unprotected local runs. See [deployment.md](docs/deployment.md).
+For protected shared previews, the host sets a separate `OPERATOR_TOKEN`. Open **Presenter tools → Shared preview access** and enter that password to control the town. It is not the Groq key. The password form stays hidden for ordinary unprotected local runs. See [deployment.md](docs/deployment.md).
 
 ## Documentation and credits
 
-- [Presentation guide](docs/presentation.md) · [Final audit](docs/final-audit.md) · [Model card](docs/model-card.md)
+- [Illustrated LaTeX guide](output/pdf/MiniDavis-Presentation-Guide.pdf) · [Presentation index](docs/presentation.md) · [Final audit](docs/final-audit.md) · [Model card](docs/model-card.md)
 - [Training walkthrough](docs/train_DistilBERT.md) · [Dataset and label policy](ml/data/README.md)
 - [Archived day-by-day plan](docs/archive/README-plan.md) · [Archived technical checklist](docs/archive/README-technical.md)
 - [Artwork provenance](frontend/public/art/README.md) · [Font license](frontend/public/fonts/README.md)
