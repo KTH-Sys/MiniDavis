@@ -123,7 +123,7 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 - [x] **Saurya:** Add an interaction-label field to the UI.
 - [ ] **Rylee:** Implement trade offers and acceptance; run duplicate-acceptance tests.
 - [ ] **Aishani:** Review examples 001–050 and correct wrong labels.
-- [ ] **Ethan:** Review examples 051–100 and check that scenario families stay in one data split.
+- [x] **Ethan:** Review examples 051–100 and check that scenario families stay in one data split.
 - [ ] **Gayatri:** Prepare the Colab training notebook, review examples 101–200, train DistilBERT, and export weights/tokenizer/config and validation results.
 
 **Finish:** Train on the fixed training split, choose using validation, and save a trained classifier. Keep test data untouched until Day 6. Fine-tune the classifier, not the main LLM.
@@ -134,7 +134,7 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 - [x] **Saurya:** Connect the frontend to the deployed API when available; check shortage, trades, memories, classifier labels and waiting states.
 - [ ] **Rylee:** Finish trading, shortage, reset and replay; package the CPU backend, load the classifier and measure RAM before deployment.
 - [ ] **Aishani:** Test Groq timeout, invalid output, missing key and quota errors; enforce shared request/token budgets and safe fallback.
-- [ ] **Ethan:** Update memories/relationships from completed interactions; verify persistent storage or document reset-on-restart preview behavior.
+- [x] **Ethan:** Update memories/relationships from completed interactions; verify persistent storage or document reset-on-restart preview behavior.
 - [ ] **Gayatri:** Evaluate the frozen classifier on held-out test data and run the integration checklist.
 
 **Integration gate:** Groq agents, our RAG, trades, shortage, CPU classifier and frontend work together. Check queue/budget limits and hosting readiness. Keep fixed relationship rules; the classifier supplies an observable label. Freeze new features after this meeting. A hosting blocker must be recorded and must not delay core integration.

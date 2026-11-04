@@ -178,6 +178,16 @@ class World:
             )
             state.events.append(event)
             new_events.append(event)
+            if action.action == "accept_trade" and outcome == "accepted":
+                # The proposer acted earlier, so record the completed trade in their history too.
+                offer = next(o for o in state.trade_offers if o.offer_id == action.offer_id)
+                partner_event = event.model_copy(update={
+                    "event_id": f"{event.event_id}:partner",
+                    "agent_id": offer.proposer_id,
+                    "action": "trade_completed",
+                })
+                state.events.append(partner_event)
+                new_events.append(partner_event)
             state.decisions[agent.id] = DecisionRecord(
                 tick=state.tick, observation_revision=state.revision,
                 planner_mode=planned.mode if planned else ("baseline" if self._planner is baseline_plan and self._context_planner is baseline_with_memory else "custom"),
@@ -193,6 +203,10 @@ class World:
         if len(self._requests) > 256:
             self._requests.popitem(last=False)
         return state.model_copy(deep=True)
+
+    @staticmethod
+    def _adjust_relationship(agent: Resident, other_id: str, change: int) -> None:
+        agent.relationships[other_id] = max(-100, min(100, agent.relationships.get(other_id, 0) + change))
 
     def _execute(self, agent: Resident, action: Action) -> tuple[str, str]:
         if action.action == "offer_trade":
@@ -210,7 +224,7 @@ class World:
                 or action.give_amount is None
                 or action.receive_amount is None
                 or action.give_amount <= 0
-                or action.receive_amount <= 0
+                or action.receive_amount < 0  # zero price makes the offer a gift
                 or any(o.offer_id == action.offer_id for o in self._state.trade_offers)
                 or getattr(agent, action.give_resource) < action.give_amount
                 or getattr(recipient, action.receive_resource) < action.receive_amount
@@ -277,7 +291,14 @@ class World:
 
             offer.status = "accepted"
 
-            return "accepted", f"{agent.name} accepted trade {offer.offer_id}."
+            gave = f"{proposer.name} gave {offer.give_amount} {offer.give_resource}"
+            if offer.receive_amount == 0:
+                self._adjust_relationship(agent, proposer.id, 5)
+                return "accepted", f"{agent.name} accepted gift {offer.offer_id}: {gave}."
+            self._adjust_relationship(agent, proposer.id, 2)
+            self._adjust_relationship(proposer, agent.id, 2)
+            return "accepted", (f"{agent.name} accepted trade {offer.offer_id}: {gave}, "
+                                f"{agent.name} gave {offer.receive_amount} {offer.receive_resource}.")
 
         if action.action == "move":
             x, y = action.x, action.y
