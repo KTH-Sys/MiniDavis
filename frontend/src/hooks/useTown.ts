@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { townApi, type TownApi } from '../api';
-import type { WorldState } from '../types';
+import type { RunTrace, WorldState } from '../types';
 
 /** Exactly one request at a time. Reset invalidates every earlier response. */
 export function useTown(api: TownApi = townApi, intervalMs = 700) {
@@ -26,7 +26,7 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     setState(next);
   }, []);
 
-  const replace = useCallback(async (seed?: number) => {
+  const replace = useCallback(async (seed?: number, trace?: RunTrace) => {
     if (replacingRef.current) return;
     replacingRef.current = true;
     setReplacing(true);
@@ -39,7 +39,11 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     setBusy(true);
     setError(null);
     try {
-      const next = seed === undefined ? await api.state(abort.signal) : await api.reset(seed, abort.signal);
+      let next: WorldState;
+      if (trace) {
+        if (!api.replay || !snapshot.current) throw new Error('Connect to the town before replaying.');
+        next = await api.replay(snapshot.current, trace, crypto.randomUUID(), abort.signal);
+      } else next = seed === undefined ? await api.state(abort.signal) : await api.reset(seed, abort.signal);
       if (generation === epoch.current) apply(next);
     } catch (problem) {
       if (generation === epoch.current && !abort.signal.aborted) {
@@ -55,7 +59,7 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     }
   }, [api, apply, pause]);
 
-  const step = useCallback(async () => {
+  const step = useCallback(async (operation: 'step' | 'shortage' = 'step') => {
     const previous = snapshot.current;
     if (active.current || !previous) return;
     active.current = true;
@@ -64,7 +68,9 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     const abort = new AbortController();
     controller.current = abort;
     try {
-      const next = await api.step(previous, crypto.randomUUID(), abort.signal);
+      const mutation = operation === 'shortage' ? api.shortage : api.step;
+      if (!mutation) throw new Error('This town does not support that action.');
+      const next = await mutation(previous, crypto.randomUUID(), abort.signal);
       if (generation === epoch.current && next.run_id === previous.run_id
           && next.revision >= previous.revision) {
         apply(next);
@@ -84,7 +90,7 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
   }, [api, apply, pause]);
 
   const play = useCallback(() => {
-    if (!snapshot.current || active.current || error) return;
+    if (!snapshot.current || snapshot.current.mode === 'replay' || active.current || error) return;
     runningRef.current = true;
     setRunning(true);
   }, [error]);
@@ -127,12 +133,12 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     return () => window.clearTimeout(timer);
   }, [running, busy, error, state, step, intervalMs]);
 
-  // Read-only polling lets an in-flight plan finish visibly while paused.
-  // GET /state never schedules another provider call.
+  // Paused viewers follow the same server town without advancing it. Pending
+  // plans refresh faster. GET /state never schedules a provider call.
   useEffect(() => {
-    if (running || busy || error || state?.mode !== 'llm'
-        || !Object.values(state.agent_runtime ?? {}).some((agent) => agent.pending)) return;
-    const timer = window.setTimeout(() => void refreshPlanning(), 1000);
+    if (running || busy || error || !state) return;
+    const pending = Object.values(state.agent_runtime ?? {}).some((agent) => agent.pending);
+    const timer = window.setTimeout(() => void refreshPlanning(), pending ? 1000 : 2000);
     return () => window.clearTimeout(timer);
   }, [running, busy, error, state, refreshPlanning]);
 
@@ -140,6 +146,8 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     state, running, busy, replacing, error, play, pause,
     next: () => { pause(); void step(); },
     reset: (seed: number) => void replace(seed),
+    shortage: () => { pause(); void step('shortage'); },
+    replay: (trace: RunTrace) => void replace(undefined, trace),
     reconnect: () => void replace(),
   };
 }

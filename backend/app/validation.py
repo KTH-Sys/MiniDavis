@@ -6,6 +6,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from .schemas import Action, Resident, WorldState
+from .social import SOCIAL_ACTIONS, validate_social
 
 
 class InvalidModelAction(ValueError):
@@ -42,11 +43,18 @@ def validate_model_action(
         "y",
         "target",
         "explanation",
+        "offer_id", "recipient_id", "give_resource", "give_amount", "receive_resource", "receive_amount", "message",
     }
     if set(plan) - allowed_fields:
         raise InvalidModelAction("Unexpected fields in model plan.")
 
     action_name = plan.get("action")
+    if action_name in SOCIAL_ACTIONS:
+        try:
+            fields = {key: value for key, value in plan.items() if key in Action.model_fields}
+            return validate_social(Action(**fields), agent, state)
+        except ValueError as error:
+            raise InvalidModelAction('Invalid social action') from error
     if action_name not in ("move", "gather", "eat", "rest"):
         raise InvalidModelAction("Unknown action.")
 

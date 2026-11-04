@@ -1,0 +1,458 @@
+{
+  "reviewed_date": "2026-11-03",
+  "examples_reviewed": 50,
+  "label_changes": 0,
+  "human_signoff_claimed": false,
+  "reviews": [
+    {
+      "example_id": "001",
+      "label": "cooperation",
+      "scenario_family": "gift_last_food",
+      "text_sha256": "633aaca80007b33d77cdbffe7d3d11d1cb703ddf3b4a50035b50c09915d9f1b3",
+      "decision": "approve",
+      "reason": "Unpaid food gift is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "002",
+      "label": "cooperation",
+      "scenario_family": "gift_last_food",
+      "text_sha256": "55bae05ce892f4aef2675ed4f5710b9ca1d70dda48d6f5dbfeeafc91c7a798e6",
+      "decision": "approve",
+      "reason": "Unpaid food gift is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "003",
+      "label": "cooperation",
+      "scenario_family": "gift_last_food",
+      "text_sha256": "8efd7aeb732cbf7c7b3b4b6603c5f96f96ac670ec1e34dd180381b75b1f8d2c2",
+      "decision": "approve",
+      "reason": "Unpaid food gift is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "004",
+      "label": "cooperation",
+      "scenario_family": "gift_last_food",
+      "text_sha256": "9fabb3ace0e7df7113b90f4324cfe56c144dd58f1c6014c3bed1c82b406fcd9f",
+      "decision": "approve",
+      "reason": "Unpaid food gift is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "005",
+      "label": "cooperation",
+      "scenario_family": "gift_last_food",
+      "text_sha256": "93200ed53cef96ace9ed3cf0407841c834e577aa6c758770c710b7da926cdb49",
+      "decision": "approve",
+      "reason": "Unpaid food gift is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "006",
+      "label": "conflict",
+      "scenario_family": "threaten_farm_access",
+      "text_sha256": "b2e6e659e051485787f67d91d5df1afbae8e2343ac9c8d2e8ef9db151774c086",
+      "decision": "approve",
+      "reason": "Explicit resource-access threat is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "007",
+      "label": "conflict",
+      "scenario_family": "threaten_farm_access",
+      "text_sha256": "76bef61febca962b847c6ab4609358c508f9a5e275d2c19d05475a1956cb3d4d",
+      "decision": "approve",
+      "reason": "Explicit resource-access threat is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "008",
+      "label": "conflict",
+      "scenario_family": "threaten_farm_access",
+      "text_sha256": "c79d24da66ae9bf6c98005c5f9d1923f0dd694a8f8011555e6216a2b015d59e7",
+      "decision": "approve",
+      "reason": "Explicit resource-access threat is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "009",
+      "label": "conflict",
+      "scenario_family": "threaten_farm_access",
+      "text_sha256": "ef7f75a7dba48255d4208bf9c8c775b226fc89692fcea9e0bdc542020f457bc3",
+      "decision": "approve",
+      "reason": "Explicit resource-access threat is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "010",
+      "label": "conflict",
+      "scenario_family": "threaten_farm_access",
+      "text_sha256": "3c721fa70dd746855e9f725ad473271e9e73338519a21cb77613d4ef4234f0ae",
+      "decision": "approve",
+      "reason": "Explicit resource-access threat is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "011",
+      "label": "trade",
+      "scenario_family": "food_coin_offer",
+      "text_sha256": "59cb90d9322e73868ba34eb8c2a2eadf4a4fd9082707ca09bc220b3a54a53e58",
+      "decision": "approve",
+      "reason": "Food-for-coins offer is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "012",
+      "label": "trade",
+      "scenario_family": "food_coin_offer",
+      "text_sha256": "cf6cf1d92736cbe48d0322a027e3fe8de3593864db6f4d60f1e1b163cf389a60",
+      "decision": "approve",
+      "reason": "Food-for-coins offer is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "013",
+      "label": "trade",
+      "scenario_family": "food_coin_offer",
+      "text_sha256": "02a4fa11aa66d74417c6a2fb2f0331ea041beee5fffd3a0ee14e013eeba40a77",
+      "decision": "approve",
+      "reason": "Food-for-coins offer is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "014",
+      "label": "trade",
+      "scenario_family": "food_coin_offer",
+      "text_sha256": "80f76e6974d2839e3e2ea41061bb06e7a3c188552017c90477105aacc64a65d8",
+      "decision": "approve",
+      "reason": "Food-for-coins offer is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "015",
+      "label": "trade",
+      "scenario_family": "food_coin_offer",
+      "text_sha256": "01f36155ed1d7446ef7cb8317a7194497333c0b0081c226dfcacf98839a5be45",
+      "decision": "approve",
+      "reason": "Food-for-coins offer is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "016",
+      "label": "neutral",
+      "scenario_family": "ordinary_greeting",
+      "text_sha256": "9bd175339255e8095381912a67f4798f86a8fc8f670ae4f4f1e4587b29d8a862",
+      "decision": "approve",
+      "reason": "Ordinary greeting is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "017",
+      "label": "neutral",
+      "scenario_family": "ordinary_greeting",
+      "text_sha256": "25565b9f04306170efddba1ba52afb7bfb331a1fe464ce43b0c8e42369643c53",
+      "decision": "approve",
+      "reason": "Ordinary greeting is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "018",
+      "label": "neutral",
+      "scenario_family": "ordinary_greeting",
+      "text_sha256": "5449515f0b01e642e9a34a39fb9a4e0b68a184b9244c846e61ba51a238181b7e",
+      "decision": "approve",
+      "reason": "Ordinary greeting is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "019",
+      "label": "neutral",
+      "scenario_family": "ordinary_greeting",
+      "text_sha256": "22a470ab1eaa7a7559ba0ee315f5f022138a7e615c704d839e527451aaecdba5",
+      "decision": "approve",
+      "reason": "Ordinary greeting is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "020",
+      "label": "neutral",
+      "scenario_family": "ordinary_greeting",
+      "text_sha256": "236b67aeca15112dfdfc77126d83b94d55218d377dcf6f27330cc1111b5f572a",
+      "decision": "approve",
+      "reason": "Ordinary greeting is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "021",
+      "label": "cooperation",
+      "scenario_family": "share_forest_route",
+      "text_sha256": "f9ad0f3c5c55aede4c6f5df09ff30979b2f94c099d6fd72f1342536d127553cc",
+      "decision": "approve",
+      "reason": "Guiding a neighbor is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "022",
+      "label": "cooperation",
+      "scenario_family": "share_forest_route",
+      "text_sha256": "2fd9435fff50d3d37521a8db40988dab97d41422cb218709ff0a41103bb95f80",
+      "decision": "approve",
+      "reason": "Guiding a neighbor is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "023",
+      "label": "cooperation",
+      "scenario_family": "share_forest_route",
+      "text_sha256": "a1e8dd2d61c58d418b42f2d3acf53554ed521bfbb2052fe1e7d680b7b1234908",
+      "decision": "approve",
+      "reason": "Guiding a neighbor is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "024",
+      "label": "cooperation",
+      "scenario_family": "share_forest_route",
+      "text_sha256": "aebd440ba6f6dc86fe02356e6b651d2def4ae968e309906b34bf3cf1d2c7aa91",
+      "decision": "approve",
+      "reason": "Guiding a neighbor is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "025",
+      "label": "cooperation",
+      "scenario_family": "share_forest_route",
+      "text_sha256": "74a48f7cb54af00b119c0a384bc0498217b8b314131edd3befbb6d136b74f9fc",
+      "decision": "approve",
+      "reason": "Guiding a neighbor is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "026",
+      "label": "conflict",
+      "scenario_family": "insult_gathering",
+      "text_sha256": "879fdc612f51887dbde1d860bdaac6ddd8fab145784be2789d8416cb28147127",
+      "decision": "approve",
+      "reason": "Direct insult is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "027",
+      "label": "conflict",
+      "scenario_family": "insult_gathering",
+      "text_sha256": "a61e647ac0d6a04039fb3d61c7d0b12f2bb054d2b0ddd28de823d09fabc13b59",
+      "decision": "approve",
+      "reason": "Direct insult is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "028",
+      "label": "conflict",
+      "scenario_family": "insult_gathering",
+      "text_sha256": "5588d021c7c735911da77cbd9a4f9de6f78305d91afd212492b0550bd86772ce",
+      "decision": "approve",
+      "reason": "Direct insult is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "029",
+      "label": "conflict",
+      "scenario_family": "insult_gathering",
+      "text_sha256": "769be4b89a880edb5cc042e04f4647ff00e488427eebb40306bfc6e0282fc985",
+      "decision": "approve",
+      "reason": "Direct insult is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "030",
+      "label": "conflict",
+      "scenario_family": "insult_gathering",
+      "text_sha256": "0d9898a60ae73ee5d625e3de9d627c5bfaa93bc453e018a05195442a7e89ef10",
+      "decision": "approve",
+      "reason": "Direct insult is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "031",
+      "label": "trade",
+      "scenario_family": "wood_food_barter",
+      "text_sha256": "e2219c7d37999ecc31c7bee3880ba4350702341a23e7effaecdc181504ec09c3",
+      "decision": "approve",
+      "reason": "Food/wood barter is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "032",
+      "label": "trade",
+      "scenario_family": "wood_food_barter",
+      "text_sha256": "7119ce19fd6af270d7ceea5bdf8de5fe183a6b77ffdd85d5e5add7b124a5a30d",
+      "decision": "approve",
+      "reason": "Food/wood barter is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "033",
+      "label": "trade",
+      "scenario_family": "wood_food_barter",
+      "text_sha256": "eeb4c11be3fe50eed907e0c8fda7e90a1f26cdb0edf10e6b7de1682e6bfac098",
+      "decision": "approve",
+      "reason": "Food/wood barter is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "034",
+      "label": "trade",
+      "scenario_family": "wood_food_barter",
+      "text_sha256": "f466f28e73d7da82938e616dd1ac510e65d1db26dc06cb323c4ff5a4dbb00139",
+      "decision": "approve",
+      "reason": "Food/wood barter is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "035",
+      "label": "trade",
+      "scenario_family": "wood_food_barter",
+      "text_sha256": "9048cb537dd69445eb2a8d97c5e804804e9389cee6ae44eecefec5200b12d66b",
+      "decision": "approve",
+      "reason": "Food/wood barter is trade.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "036",
+      "label": "neutral",
+      "scenario_family": "weather_observation",
+      "text_sha256": "12d878dfabe1f4719a0c3b9756b6d408499cc35994d60c36e0f6cd8bad8355a0",
+      "decision": "approve",
+      "reason": "Weather observation is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "037",
+      "label": "neutral",
+      "scenario_family": "weather_observation",
+      "text_sha256": "125c3fd10eeedbef2b7d81cfea3139906ceeaa0212b4c8e8cde0c99e2094931d",
+      "decision": "approve",
+      "reason": "Weather observation is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "038",
+      "label": "neutral",
+      "scenario_family": "weather_observation",
+      "text_sha256": "337f2e4441258d9bc9cb6f25ddc41ae7285677b3dbbc8191ec7a3d9b8f649ce5",
+      "decision": "approve",
+      "reason": "Weather observation is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "039",
+      "label": "neutral",
+      "scenario_family": "weather_observation",
+      "text_sha256": "e29be95e38bab80cf2bdd89973ed91989d1ac8d37f8a2d5dd36d20b3fde0cb80",
+      "decision": "approve",
+      "reason": "Weather observation is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "040",
+      "label": "neutral",
+      "scenario_family": "weather_observation",
+      "text_sha256": "58effd9f4325f6d746d87ae6edc7ad8f070b759b1f26d46085d118a126738165",
+      "decision": "approve",
+      "reason": "Weather observation is neutral.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "041",
+      "label": "cooperation",
+      "scenario_family": "coordinate_food_round",
+      "text_sha256": "6804d4381e2aaf390de99207b3b144256e32cdca21b2d62e84384ac326aa50d0",
+      "decision": "approve",
+      "reason": "Agreed gathering schedule is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "042",
+      "label": "cooperation",
+      "scenario_family": "coordinate_food_round",
+      "text_sha256": "b9827d2148569afd48b5bcc4f966fbe3f3b382fb5b5af7e900ef712246c4b5e8",
+      "decision": "approve",
+      "reason": "Agreed gathering schedule is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "043",
+      "label": "cooperation",
+      "scenario_family": "coordinate_food_round",
+      "text_sha256": "17a0f391a3bb77fe0b7f5e9614a47e97f27147dd2fd3b7daeb7dbe5e769f615b",
+      "decision": "approve",
+      "reason": "Agreed gathering schedule is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "044",
+      "label": "cooperation",
+      "scenario_family": "coordinate_food_round",
+      "text_sha256": "1028776fac3eae2576b891929932350671583be7485a1601d3cce863fd8b3f6f",
+      "decision": "approve",
+      "reason": "Agreed gathering schedule is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "045",
+      "label": "cooperation",
+      "scenario_family": "coordinate_food_round",
+      "text_sha256": "3aa7f98b502abb9ff9d8dd21947a32ca0a054eba7ab2e7f61e4a00fe630d86d3",
+      "decision": "approve",
+      "reason": "Agreed gathering schedule is cooperation.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "046",
+      "label": "conflict",
+      "scenario_family": "accuse_missing_food",
+      "text_sha256": "604d7734ab26ed730ac2f07502b18e2459a68e4685671d3d6d514ee75558a62c",
+      "decision": "approve",
+      "reason": "Unresolved theft accusation is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "047",
+      "label": "conflict",
+      "scenario_family": "accuse_missing_food",
+      "text_sha256": "0117a19f57572f4b6ef1d1e0ba0e6b954c9451a098cae7ad9ed2995f137754e2",
+      "decision": "approve",
+      "reason": "Unresolved theft accusation is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "048",
+      "label": "conflict",
+      "scenario_family": "accuse_missing_food",
+      "text_sha256": "eb3581f76be4e5df382cc1541e8f2261cb7ae42bb65ab2be45d100f346faae78",
+      "decision": "approve",
+      "reason": "Unresolved theft accusation is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "049",
+      "label": "conflict",
+      "scenario_family": "accuse_missing_food",
+      "text_sha256": "015e97ec4412144300007d4d020324d29a765585df118968ecfbde9deb46c6f0",
+      "decision": "approve",
+      "reason": "Unresolved theft accusation is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    },
+    {
+      "example_id": "050",
+      "label": "conflict",
+      "scenario_family": "accuse_missing_food",
+      "text_sha256": "60b8b36b87f028cd8b17050e6823346f8798b9bd32d96b39d7b0509a08c5eb3e",
+      "decision": "approve",
+      "reason": "Unresolved theft accusation is conflict.",
+      "review_source": "assistant at Eric's explicit request"
+    }
+  ]
+}

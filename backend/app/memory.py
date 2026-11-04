@@ -30,6 +30,11 @@ class EventStore:
             " action TEXT, outcome TEXT, text TEXT)"
         )
         self.db.execute("CREATE INDEX IF NOT EXISTS events_scope ON events(run_id, agent_id, tick)")
+        existing = {row[1] for row in self.db.execute('PRAGMA table_info(events)')}
+        for name, kind in {'target_agent_id': 'TEXT', 'interaction_id': 'TEXT',
+                           'interaction_label': 'TEXT', 'confidence': 'REAL'}.items():
+            if name not in existing:
+                self.db.execute(f'ALTER TABLE events ADD COLUMN {name} {kind}')
         # The old event-ID-only cache is deliberately left unused: its vectors
         # cannot be attributed to a model or to the current source text.
         self.db.execute("CREATE TABLE IF NOT EXISTS memory_vectors ("

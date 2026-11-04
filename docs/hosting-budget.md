@@ -1,5 +1,7 @@
 # Hosting and budget status
 
+**November 3 current status:** [deployment.md](deployment.md) records a free baseline-preview blueprint and the full-ML blockers. A CPU MiniLM process peaked at 443.34 MiB locally; there is no combined-model measurement because Gayatri confirmed training is unfinished. No hosted URL or paid service was created. Current live-agent checks passed for five residents; the ignored server key is already configured. Earlier dated notes below are historical.
+
 Recorded for Eric’s Day 1 task, October 19, 2026.
 
 Updated October 27: [the Day 0–4 audit](day0-day4-audit.md) now verifies live Groq access and real MiniLM CPU retrieval. The local key remains ignored. Classifier training/loading and combined deployment RAM measurements are still pending; this does not approve a hosting purchase.

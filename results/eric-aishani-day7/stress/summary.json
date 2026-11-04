@@ -1,0 +1,16 @@
+[
+  {
+    "seed": 11,
+    "mode": "baseline",
+    "scenario": "normal",
+    "ticks": 1000,
+    "invariant_failures": 0,
+    "provider_calls": 0,
+    "actions_seen": [
+      "eat",
+      "gather",
+      "move",
+      "rest"
+    ]
+  }
+]

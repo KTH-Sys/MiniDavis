@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import type { AgentRuntime, DecisionRecord, Resident, TownEvent, TradeOffer } from '../types';
 
-const socialActions = new Set(['talk', 'offer_trade', 'accept_trade', 'reject_trade', 'trade', 'gift']);
+const socialActions = new Set(['talk', 'offer_trade', 'accept_trade', 'reject_trade', 'trade', 'gift', 'trade_completed']);
 const retrievalNames = { semantic: 'MiniLM meaning search', lexical: 'Keyword search', 'recent-only': 'Recent history only' };
 export function interactionsFor(events: TownEvent[], agentId: string): TownEvent[] {
+  const seen = new Set<string>();
   return events.filter((event) => socialActions.has(event.action)
-    && (event.agent_id === agentId || event.target_agent_id === agentId || event.participants?.includes(agentId))).slice(-20).reverse();
+    && (event.agent_id === agentId || event.target_agent_id === agentId || event.participants?.includes(agentId)))
+    .slice().reverse().filter((event) => {
+      const id = event.interaction_id ?? event.event_id;
+      if (seen.has(id)) return false;
+      seen.add(id); return true;
+    }).slice(0, 20);
 }
 
 function MemoryCard({ event, name, relevant = false }: { event: TownEvent; name: string; relevant?: boolean }) {
@@ -53,7 +59,13 @@ export function AgentJournal({ agent, decision, events, agents = [agent], runtim
   const recent = decision?.memory.recent ?? [];
   const relevant = decision?.memory.relevant ?? [];
   const nameFor = (id: string) => agents.find((resident) => resident.id === id)?.name ?? id;
-  const feed = [...events.slice(-15).map((event) => ({ event, memory: false })),
+  const seenActions = new Set<string>();
+  const actionEvents = events.filter((event) => {
+    const id = event.interaction_id ?? event.event_id;
+    if (seenActions.has(id)) return false;
+    seenActions.add(id); return true;
+  });
+  const feed = [...actionEvents.slice(-15).map((event) => ({ event, memory: false })),
     ...recent.slice(-1).map((event) => ({ event, memory: true }))]
     .sort((a, b) => b.event.tick - a.event.tick);
   const tabs = ['feed', 'decision', 'memory', 'interactions'] as const;

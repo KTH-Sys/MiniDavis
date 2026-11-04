@@ -22,6 +22,7 @@ def run(script, store=None):
         return script.get((state.tick, agent.id), REST)
 
     world = World(planner=planner, store=store)
+    world._state.agents[2].x, world._state.agents[2].y = 2, 1
     for number in range(max(tick for tick, _ in script)):
         state = world.snapshot()
         world.step(StepRequest(run_id=state.run_id, expected_revision=state.revision, request_id=f"r{number}"))
@@ -53,6 +54,7 @@ def test_accepted_gift_adds_five_recipient_to_giver_only():
 def test_relationship_stays_within_bounds():
     world = World()
     ethan, aishani = world._state.agents[0], world._state.agents[2]
+    aishani.x, aishani.y = ethan.x + 1, ethan.y
     ethan.relationships["aishani"] = 99
     aishani.relationships["ethan"] = 100
     world._execute(ethan, offer(give="food"))

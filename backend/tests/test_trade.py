@@ -8,6 +8,8 @@ def test_trade_offer_does_not_transfer_resources():
 
     ethan = next(a for a in state.agents if a.id == "ethan")
     aishani = next(a for a in state.agents if a.id == "aishani")
+    # Positive transfer fixtures must satisfy the documented distance rule.
+    aishani.x, aishani.y = ethan.x + 1, ethan.y
 
     ethan.wood = 5
     aishani.food = 5
@@ -40,6 +42,8 @@ def test_trade_acceptance_transfers_resources_only_once():
 
     ethan = next(a for a in state.agents if a.id == "ethan")
     aishani = next(a for a in state.agents if a.id == "aishani")
+    # Positive transfer fixtures must satisfy the documented distance rule.
+    aishani.x, aishani.y = ethan.x + 1, ethan.y
 
     ethan.wood = 5
     aishani.food = 5
@@ -91,6 +95,8 @@ def test_trade_rejected_if_resources_are_spent():
 
     ethan = next(a for a in state.agents if a.id == "ethan")
     aishani = next(a for a in state.agents if a.id == "aishani")
+    # Positive transfer fixtures must satisfy the documented distance rule.
+    aishani.x, aishani.y = ethan.x + 1, ethan.y
 
     ethan.wood = 5
     aishani.food = 5
@@ -130,6 +136,8 @@ def test_wrong_resident_cannot_accept_trade():
 
     ethan = next(a for a in state.agents if a.id == "ethan")
     aishani = next(a for a in state.agents if a.id == "aishani")
+    # Positive transfer fixtures must satisfy the documented distance rule.
+    aishani.x, aishani.y = ethan.x + 1, ethan.y
     rylee = next(a for a in state.agents if a.id == "rylee")
 
     ethan.wood = 5
@@ -173,6 +181,8 @@ def test_duplicate_trade_offer_id_is_rejected():
 
     ethan = next(a for a in state.agents if a.id == "ethan")
     aishani = next(a for a in state.agents if a.id == "aishani")
+    # Positive transfer fixtures must satisfy the documented distance rule.
+    aishani.x, aishani.y = ethan.x + 1, ethan.y
 
     ethan.wood = 5
     aishani.food = 5
@@ -211,6 +221,8 @@ def test_reset_clears_pending_trade_offers():
 
     ethan = next(a for a in state.agents if a.id == "ethan")
     aishani = next(a for a in state.agents if a.id == "aishani")
+    # Positive transfer fixtures must satisfy the documented distance rule.
+    aishani.x, aishani.y = ethan.x + 1, ethan.y
 
     ethan.wood = 5
     aishani.food = 5

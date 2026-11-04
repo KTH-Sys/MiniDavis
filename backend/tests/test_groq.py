@@ -59,9 +59,9 @@ def test_prompt_is_scoped_bounded_and_contains_real_sources(tmp_path):
     context = json.loads(content)
     assert context['resident']['energy'] == agent.energy
     schema = payload['response_format']['json_schema']['schema']
-    assert 'gather' not in schema['properties']['action']['enum']
+    assert 'gather' not in schema['properties']['choice']['enum']
     assert schema['properties']['explanation']['maxLength'] == 180
-    assert 'farm' in schema['properties']['target']['anyOf'][0]['enum']
+    assert 'move:farm' in schema['properties']['choice']['enum']
 
 
 @pytest.mark.parametrize('agent_index', range(5))

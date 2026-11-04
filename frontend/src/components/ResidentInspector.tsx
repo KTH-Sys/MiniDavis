@@ -38,7 +38,7 @@ export function ResidentInspector({ agent, decision, runtime }: {
         <p>Food {agent.food} · Wood {agent.wood} · Coins {agent.coins}</p>
         <h3>Latest decision</h3><p>{decision?.explanation ?? 'Advance a turn to see the first decision.'}</p>
         {decision && <>
-          <p><strong>Mode:</strong> {{ baseline: 'Baseline rules', custom: 'Custom planner', live: 'Live Groq plan', cached: 'Cached Groq plan', waiting: 'Waiting for Groq', fallback: 'Baseline fallback' }[decision.planner_mode]}</p>
+          <p><strong>Mode:</strong> {{ baseline: 'Baseline rules', custom: 'Custom planner', live: 'Live Groq plan', cached: 'Cached Groq plan', waiting: 'Waiting for Groq', fallback: 'Baseline fallback', replay: 'Recorded replay' }[decision.planner_mode]}</p>
           <p><strong>Memory retrieval:</strong> {{ semantic: 'MiniLM meaning search', lexical: 'Keyword search', 'recent-only': 'Recent history only' }[decision.memory.mode]}</p>
           <p>Memory includes events through turn {decision.memory.as_of_tick}, before this decision.</p>
           <details><summary>Retrieval query</summary><p>{decision.memory.query}</p></details>

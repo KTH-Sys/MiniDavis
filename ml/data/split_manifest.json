@@ -2,7 +2,7 @@
   "schema_version": 1,
   "dataset_version": "minidavis-synthetic-v1",
   "seed": 20261029,
-  "status": "draft",
+  "status": "frozen",
   "label2id": {
     "cooperation": 0,
     "conflict": 1,
@@ -217,5 +217,6 @@
       "199",
       "200"
     ]
-  }
+  },
+  "reviews_sha256": "cebc37dc98d8e09b5714144564ed9de9de6d69f78501a3ffb775034f3030ed0d"
 }

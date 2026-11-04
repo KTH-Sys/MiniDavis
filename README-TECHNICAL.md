@@ -2,7 +2,7 @@
 
 Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Current verification:** The [Day 0–4 audit](docs/day0-day4-audit.md) verifies all 24 Day 1–4 technical deliverables, including five real Groq decisions, CPU MiniLM retrieval, source isolation and a live memory-on/off comparison with explicit fallback counts. Eric confirmed all Day 0 account/setup tasks complete on October 27, 2026. The baseline includes resident selection, decision/source inspectors, the event log and the two-minute MVP recording. Eric's [Day 5 preparation](docs/eric-day5.md) adds 200 draft interaction examples, grouped splits, review/freeze gates and an offline-checked Colab notebook. Human dataset review, actual classifier training and later routes remain assigned work. Complete checkboxes only after observing results.
+**Current verification (November 3):** The [Day 0–4 audit](docs/day0-day4-audit.md) verifies the earlier deliverables; Eric confirmed all Day 0 setup complete. The [Day 5–7 implementation report](docs/eric-aishani-day5-day7.md) records the frozen 200-example dataset, review provenance, executed social actions, shortage, replay, operator controls and failure/budget tests. Real Groq decisions pass for all five residents and CPU MiniLM retrieval checks pass. Actual classifier training, real classifier integration and full ML hosting remain pending Gayatri's export. Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
@@ -332,13 +332,15 @@ python -m pytest backend/tests/test_memory.py -q
 
 ## 7. Day 5–6: fine-tuning checklist
 
+**November 3 status:** assigned reviews are recorded, including Aishani's AI-assisted review explicitly delegated by Eric. The manifest is frozen and source/split assignments are unchanged. Actual training remains pending. Use `python scripts/prepare_interactions.py --require-frozen`; do not refresh/refreeze this version. The [current implementation report](docs/eric-aishani-day5-day7.md) supersedes earlier draft-status notes below.
+
 ### Dataset and model
 
 Eric and Gayatri prepare 200 labelled synthetic town interactions, 50/class, with `example_id` 001–200, `text`, `label`, and `scenario_family`. Labels: cooperation, conflict, trade, neutral.
 
 Before training, correct labels and check duplicates. Ethan and Gayatri create a reproducible 60/20/20 grouped split: target 120 train, 40 validation, 40 test, with 10 test examples/class. Keep all paraphrases from the same scenario family in one split. If these constraints conflict, revise the example families before freezing the split; do not move test examples after viewing results.
 
-Eric's draft now includes these counts with 40 scenario families, assigned review rows and a reproducible **candidate** split. Follow [the label policy and review steps](ml/data/README.md); no human reviews or training are claimed. Run `python scripts/prepare_interactions.py` and `python -m pytest ml/tests -q`. After review edits, use `--refresh-draft`; after all assigned reviews, use `--freeze`. Training verifies exact frozen hashes and review completion. Only text is used as model input; IDs/families/reviewers are excluded. `python scripts/check_day5_notebook.py` verifies the notebook's offline defaults. Training dependencies in `ml/requirements.txt` are separate from backend dependencies.
+The frozen dataset now includes these counts with 40 scenario families and completed assigned review rows. Follow [the label policy and review provenance](ml/data/README.md); no training is claimed. Run `python scripts/prepare_interactions.py --require-frozen` and `python -m pytest ml/tests -q`. Preserve this version's hashes and split. A future revision needs a separate review/version decision; do not silently refresh it. Training verifies exact frozen hashes and review completion. Only text is used as model input; IDs/families/reviewers are excluded. `python scripts/check_day5_notebook.py` verifies the notebook's offline defaults. Training dependencies in `ml/requirements.txt` are separate from backend dependencies.
 
 Train a small DistilBERT sequence classifier using `distilbert/distilbert-base-uncased`, four labels, maximum length 128, initial learning rate `2e-5`, batch size 8, and three epochs. Treat these as starting settings; choose a checkpoint using validation macro-F1 only. Compare with TF-IDF + logistic regression trained on the same training split. This follows the general workflow in [Hugging Face’s classification guide](https://github.com/huggingface/transformers/blob/main/docs/source/en/tasks/sequence_classification.md).
 
@@ -351,7 +353,7 @@ Use a GPU runtime if available. Colab availability varies; save checkpoints/resu
 - [ ] **Eric:** Dataset preparation, structural tests and offline notebook preflight are complete ([evidence](docs/eric-day5.md)); confirm team access and the actual shared Colab run after assigned reviews/freeze.
 - [x] **Saurya:** Check the classifier label field displays correctly using a supplied fixture.
 - [ ] **Rylee:** Run `test_trade.py`; offers transfer nothing until valid acceptance and cannot commit twice.
-- [ ] **Aishani:** Review examples 001–050 and save label corrections.
+- [x] **Aishani:** Reviewed 001–050 through Eric's explicit delegation; no label corrections needed. Review source and reasons are saved in `results/eric-aishani-day7/aishani-review.json`.
 - [x] **Ethan:** Review examples 051–100 and verify no scenario family crosses splits.
 - [ ] **Gayatri:** Review examples 101–200; train after reviews finish; save baseline/validation metrics and exported classifier.
 
@@ -370,7 +372,7 @@ Use a GPU runtime if available. Colab availability varies; save checkpoints/resu
 - [ ] **Eric:** Run the integrated build and fix blockers with the responsible teammate before feature freeze.
 - [x] **Saurya:** Controls, memories, offers/acceptances, classifier labels, and shortage are visible.
 - [ ] **Rylee:** Trade conserves transferred items/coins; shortage lowers stock; reset clears offers; replay reproduces final state.
-- [ ] **Aishani:** All five agents make live decisions; malformed JSON, timeout, missing key, and quota error fall back safely.
+- [x] **Aishani:** Current five-resident live verification passes; malformed JSON, timeout, invalid plans, missing key, quota and recovery are verified with mocks.
 - [x] **Ethan:** Memories and relationships describe executed events, not invented model claims.
 - [ ] **Gayatri:** Save integration results and held-out classifier metrics, including failures.
 
@@ -383,7 +385,7 @@ Require no invariant failures, an accepted bilateral trade demonstrated by a doc
 
 ### CPU deployment checklist — prepare Day 5, preview Day 6
 
-- [ ] **Eric:** Choose static frontend hosting and CPU backend hosting using measured RAM and the agreed budget. Record URLs/costs or a specific blocker; do not enable paid resources without an agreed budget.
+- [x] **Eric:** Recorded the free baseline-preview option and specific full-ML hosting blockers in [deployment.md](docs/deployment.md). MiniLM CPU peak measured; combined RAM cannot be measured until Gayatri supplies the classifier. No service/purchase was activated.
 - [ ] **Rylee:** Package FastAPI, pinned dependencies and the exported classifier/tokenizer/config. Fetch model files during build or store them in an accessible artifact location. Load models once per process and measure peak memory; start with one backend worker and one shared town scheduler.
 - [ ] **Rylee:** Bind to `0.0.0.0` and the host-provided port. Configure readiness, frontend origins, Groq server secrets and classifier/database paths. Keep backend mutation controls restricted to the demo operator; viewers read the same town state.
 - [ ] **Saurya:** Build React with `VITE_API_BASE_URL` set to the HTTPS backend URL. Configure static hosting for `frontend/dist`; verify CORS and controls in the deployed build.
@@ -406,10 +408,10 @@ python scripts/run_eval.py --mode all --seeds 11 --scenarios normal shortage --t
 
 Default to one matched seed (11) across three modes and two scenarios: six exploratory runs. Four of those runs use Groq, capped at 20 calls/run; baseline uses zero. Reserve calls/tokens first and pace all live requests through the shared queue. Apply shortage at tick 30 in every shortage episode. Expand to seeds 11/22/33 (18 runs) only when the shared quota permits; split over days while freezing model/prompt/config and record dates. A fast baseline stress test must not call Groq. Report budget-exhausted comparisons rather than treating fallback as live LLM behavior.
 
-- [ ] **Eric:** Collect reproducible bugs, fix them with their owners, and rerun affected checks.
+- [x] **Eric:** Reproduced/fixed integration bugs and reran the affected backend/frontend checks on November 3; full trained-classifier gate is explicitly pending.
 - [ ] **Saurya:** Complete a 30-minute UI session without freezing; show at most 200 recent events on screen.
 - [ ] **Rylee:** Complete 1,000 baseline ticks with legal state and verify reset afterward.
-- [ ] **Aishani:** Verify Groq recovery, the shared four-call/minute queue, 20-call/run cap and daily token budget; record actual usage including retries.
+- [x] **Aishani:** Recovery, cached plans, stale results, shared four-call/minute pacing, real 20-call/run enforcement across two budget handles and conservative daily charges are tested; live usage reports include diagnostic attempts.
 - [ ] **Ethan:** Rerun retrieval hit-rate, isolation, and stale/future-event checks.
 - [ ] **Gayatri:** Save run IDs/configs, proposal validity, engine acceptance, fallback rate, trades, latency, tokens/calls, and classifier metrics.
 

@@ -1,0 +1,90 @@
+{
+  "verified_on": "2026-11-03",
+  "scope": "Eric and Aishani through Day 7; Day 7 checks performed early",
+  "backend_and_data_tests": {
+    "passed": 146,
+    "failed": 0,
+    "provider_calls": 0
+  },
+  "frontend_tests": {
+    "passed": 34,
+    "failed": 0
+  },
+  "frontend_production_build": "passed",
+  "data": {
+    "status": "frozen",
+    "examples": 200,
+    "families": 40,
+    "splits": {
+      "train": 120,
+      "validation": 40,
+      "test": 40
+    },
+    "reviews_remaining": 0,
+    "aishani_delegated_ai_assisted_reviews": 50,
+    "aishani_personal_human_signoff_claimed": false,
+    "dataset_sha256": "82ccf456076109235a4bc1b0d5a53dfdcf8af5db056051e17c187396612ef71b"
+  },
+  "notebook": {
+    "default_code_cells_executed": 6,
+    "training_executed": false,
+    "held_out_model_evaluations": 0,
+    "model_downloads": 0
+  },
+  "live": {
+    "latest_five_resident_check_passed": true,
+    "accepted": 5,
+    "attempted": 5,
+    "actual_calls_across_two_checks": 10,
+    "daily_tokens_reported_after_checks": 2173,
+    "earlier_check_accepted": 4,
+    "earlier_check_attempted": 5,
+    "report": "live-final/live-decisions.json"
+  },
+  "retrieval": {
+    "real_pinned_cpu_minilm": true,
+    "frozen_hits": 10,
+    "frozen_queries": 10,
+    "paraphrase_hits": 10,
+    "paraphrase_queries": 10
+  },
+  "stress": {
+    "mode": "baseline",
+    "seed": 11,
+    "ticks": 1000,
+    "invariant_failures": 0,
+    "provider_calls": 0
+  },
+  "scripted_integration_fixture": {
+    "trace": "scripted-demo-trace.json",
+    "fixture": true,
+    "ticks": 10,
+    "shortage_operations": 1,
+    "trade_status": "accepted",
+    "replay_factual_state_matches": true,
+    "provider_calls": 0,
+    "trained_classifier_used": false
+  },
+  "deployment": {
+    "local_minilm_peak_mib": 443.34375,
+    "combined_model_ram_measured": false,
+    "trained_classifier_available": false,
+    "hosted_service_created": false,
+    "paid_service_activated": false,
+    "full_ml_gate_passed": false
+  },
+  "task_status": {
+    "eric_day5": "Preparation complete; actual shared training pending Gayatri",
+    "eric_day6": "Local integration and hosting blocker recorded; real classifier/full ML gate pending",
+    "eric_day7": "Complete; rerun affected checks after later teammate changes",
+    "aishani_day5": "Complete via explicitly delegated AI-assisted review",
+    "aishani_day6": "Complete",
+    "aishani_day7": "Complete"
+  },
+  "remaining_dependencies": [
+    "Gayatri actual classifier export and validation report",
+    "Real classifier CPU inference and combined RAM measurement",
+    "Authorized hosting account, persistent budget storage and actual deployed checks",
+    "Gayatri held-out evaluation and matched comparison runs"
+  ]
+}

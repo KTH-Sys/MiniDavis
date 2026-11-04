@@ -1,5 +1,7 @@
 # Shared notebooks
 
+**November 3:** the dataset is now frozen after recorded assigned reviews. Aishani's 001–050 review was delegated by Eric and is explicitly attributed as AI-assisted. Gayatri's actual training/export is still pending. Open the current notebook with a freshly packaged ZIP; its default dry run is still free of model downloads and provider calls.
+
 For the full DistilBERT walkthrough, follow [the training instructions](../../docs/train_DistilBERT.md): review data, freeze the split, upload to Colab, train, inspect validation results and save the model.
 
 Aishani adds `01_agents.ipynb` (baseline and Groq decisions); Ethan adds

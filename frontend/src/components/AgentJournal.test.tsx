@@ -14,6 +14,12 @@ const decision: DecisionRecord = { tick: 2, observation_revision: 1, planner_mod
 afterEach(cleanup);
 
 describe('resident journal', () => {
+  it('shows a completed trade once when both participants have source memories', () => {
+    const completed: TownEvent = {...memory,action:'accept_trade',interaction_id:'trade-completed',
+      agent_id:'rylee',target_agent_id:'ethan',interaction_label:'trade',confidence:.9,text:'Rylee accepted the trade.'};
+    const partner: TownEvent = {...completed,event_id:'partner',agent_id:'ethan',target_agent_id:'rylee',action:'trade_completed'};
+    expect(interactionsFor([completed,partner],'ethan')).toHaveLength(1);
+  });
   it('labels semantic retrieval consistently and exposes source IDs and query', () => {
     render(<AgentJournal agent={agent} decision={{ ...decision, planner_mode: 'live',
       memory: { ...decision.memory, mode: 'semantic' } }} events={[]}

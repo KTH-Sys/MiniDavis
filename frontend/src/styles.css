@@ -166,3 +166,9 @@ footer { display:flex; justify-content:space-between; gap:16px; margin:25px 0; p
   .journal-tabs { flex-wrap:wrap; row-gap:0; }
 }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; } }
+/* Run export, replay and operator controls use the town's existing terminal style. */
+.run-tools { margin-block: 12px; }
+.run-tools .controls { flex-wrap: wrap; }
+.run-tools input[type="file"] { max-width: 100%; width: min(100%, 290px); font: inherit; }
+.run-tools form { display: flex; flex-wrap: wrap; gap: 8px; margin-block: 8px; }
+.run-tools input[type="password"] { width: min(100%, 260px); }

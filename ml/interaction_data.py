@@ -146,7 +146,7 @@ def validate_dataset(data_dir, require_frozen=False):
     pending = sum(row["status"] != "approved" for row in reviews)
     if require_frozen or manifest["status"] == "frozen":
         require(manifest["status"] == "frozen", "Training blocked: dataset is draft; finish reviews and freeze")
-        require(pending == 0, "Training blocked: human reviews are incomplete")
+        require(pending == 0, "Training blocked: assigned reviews are incomplete")
         require(manifest.get("reviews_sha256") == fingerprint(data_dir / "review_queue.csv"),
                 "Frozen review file changed")
     return {
