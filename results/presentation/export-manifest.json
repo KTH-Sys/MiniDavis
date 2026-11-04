@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "model": "distilbert/distilbert-base-uncased",
+  "dataset_sha256": "82ccf456076109235a4bc1b0d5a53dfdcf8af5db056051e17c187396612ef71b",
+  "files": {
+    "classifier/model.safetensors": "e8d59c293252734b9e0644839884fd1ca369a249a7eb46cd638caed079199880",
+    "classifier/tokenizer_config.json": "77da830a265cab1c072a584dd889eca5f84c9ac98e163411e33ef81bd69612b8",
+    "classifier/special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+    "classifier/config.json": "6fb960b6d7e8fc1077869d8ec619a2627f424eb5f9ede7a8c43e794218a10240",
+    "classifier/tokenizer.json": "79ea220416a57ca8acdf069d71875d5d2ddadef66021aeb6c120a7c546c04344",
+    "classifier/vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3",
+    "results/classifier-validation.json": "35e2d59c0f7c681f3fd0c92d26876bcea9e3762082a36b71976cbd4a3300053e",
+    "results/classifier-test.json": "93cc202e6af9b8617925dfd48e29094f0535c754bcda0233152ddd897725c681"
+  }
+}

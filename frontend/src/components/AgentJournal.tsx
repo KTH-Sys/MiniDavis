@@ -4,14 +4,16 @@ import type { AgentRuntime, DecisionRecord, Resident, TownEvent, TradeOffer } fr
 const socialActions = new Set(['talk', 'offer_trade', 'accept_trade', 'reject_trade', 'trade', 'gift', 'trade_completed']);
 const retrievalNames = { semantic: 'MiniLM meaning search', lexical: 'Keyword search', 'recent-only': 'Recent history only' };
 export function interactionsFor(events: TownEvent[], agentId: string): TownEvent[] {
-  const seen = new Set<string>();
-  return events.filter((event) => socialActions.has(event.action)
-    && (event.agent_id === agentId || event.target_agent_id === agentId || event.participants?.includes(agentId)))
-    .slice().reverse().filter((event) => {
-      const id = event.interaction_id ?? event.event_id;
-      if (seen.has(id)) return false;
-      seen.add(id); return true;
-    }).slice(0, 20);
+  // The engine writes the actor's event before the listener's memory copy.
+  // Keep the original so its heading names the speaker, not the listener.
+  const unique = new Map<string, TownEvent>();
+  for (const event of events) {
+    if (!socialActions.has(event.action) || !(event.agent_id === agentId
+      || event.target_agent_id === agentId || event.participants?.includes(agentId))) continue;
+    const id = event.interaction_id ?? event.event_id;
+    if (!unique.has(id)) unique.set(id, event);
+  }
+  return [...unique.values()].reverse().slice(0, 20);
 }
 
 function MemoryCard({ event, name, relevant = false }: { event: TownEvent; name: string; relevant?: boolean }) {
@@ -102,6 +104,7 @@ export function AgentJournal({ agent, decision, events, agents = [agent], runtim
           {decision?.model_observation_revision != null && <small>Model observed revision {decision.model_observation_revision}</small>}
         </article>
         <div className="resident-summary"><h3>GOAL</h3><p>{agent.goal}</p><dl><div><dt>Food</dt><dd>{agent.food}</dd></div><div><dt>Wood</dt><dd>{agent.wood}</dd></div><div><dt>Coins</dt><dd>{agent.coins}</dd></div><div><dt>Energy</dt><dd>{agent.energy}/100</dd></div></dl></div>
+        <div className="resident-summary"><h3>RELATIONSHIPS</h3><p>{Object.entries(agent.relationships ?? {}).filter(([,score]) => score !== 0).map(([id,score]) => `${nameFor(id)}: ${score > 0 ? '+' : ''}${score}`).join(' · ') || 'No relationship changes yet.'}</p><small>Updated by completed exchanges, independently of the classifier.</small></div>
         <div className="section-label"><h3>LATEST MEMORY</h3><button className="text-button" onClick={() => setTab('memory')}>View all →</button></div>
         {recent.length ? <MemoryCard event={recent[recent.length - 1]} name={agent.name} /> : <p className="journal-empty">No memories in this run yet.</p>}
       </>}
@@ -128,9 +131,11 @@ export function AgentJournal({ agent, decision, events, agents = [agent], runtim
           </ul>
         </div>}
         {interactions.length ? interactions.map((event) => <EventEntry key={event.event_id} event={event} name={nameFor(event.agent_id)} />)
-          : !residentTrades.length ? <div className="terminal-empty"><span aria-hidden="true">&gt;_</span><h3>No interactions yet</h3><p>Conversations and trades between residents will appear here when the simulation records them.</p></div> : null}
+          : !residentTrades.length ? <div className="terminal-empty"><span aria-hidden="true">&gt;_</span><h3>No interactions yet</h3><p>{runtime?.status === 'baseline'
+            ? 'Baseline residents only move, gather, eat and rest. Start a live AI town for possible conversations, or load the labelled sample run to inspect a trade.'
+            : 'Residents must be nearby and choose to interact. Conversations are not guaranteed each turn. Load the labelled sample run to inspect a trade.'}</p></div> : null}
       </>}
     </div>
-    <p className="journal-footnote"><span aria-hidden="true">●</span> {runtime?.status === 'live' ? 'Groq plan' : runtime?.status === 'waiting' ? 'Queued for Groq' : runtime?.status === 'fallback' ? 'Baseline fallback' : 'Baseline rules'} · {decision ? retrievalNames[decision.memory.mode] : 'No memory used yet'}</p>
+    <p className="journal-footnote"><span aria-hidden="true">●</span> {runtime?.status === 'replay' ? 'Recorded replay · No AI calls' : runtime?.status === 'live' ? 'Groq plan' : runtime?.status === 'waiting' ? 'Queued for Groq' : runtime?.status === 'fallback' ? 'Baseline fallback' : 'Baseline rules'} · {decision ? retrievalNames[decision.memory.mode] : 'No memory used yet'}</p>
   </section>;
 }

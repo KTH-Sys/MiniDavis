@@ -1,0 +1,325 @@
+{
+  "seed": 11,
+  "mode": "rag",
+  "scenario": "shortage",
+  "run_id": "f9857ff5-28a0-442c-8a93-4dc53076e995",
+  "ticks": 100,
+  "invariant_failures": 0,
+  "provider_calls": 5,
+  "usage": {
+    "calls_run": 5,
+    "calls_day": 65,
+    "tokens_day": 19385,
+    "reserved_tokens_day": 19385,
+    "cooldown_seconds": 0
+  },
+  "decisions": {
+    "baseline": 150,
+    "live": 5,
+    "cached": 221,
+    "fallback": 124
+  },
+  "actions": {
+    "move": 51,
+    "gather": 35,
+    "eat": 23,
+    "rest": 390,
+    "talk": 1
+  },
+  "engine_accepted": 500,
+  "engine_rejected": 0,
+  "completed_trades": 0,
+  "fallback_fraction": 0.248,
+  "proposal_valid": 5,
+  "proposal_attempts": 5,
+  "memory_sources_verified": true,
+  "before_planning": {
+    "tick": 30,
+    "revision": 31,
+    "agents": [
+      {
+        "id": "ethan",
+        "name": "Ethan",
+        "goal": "Gather supplies and grow wealth",
+        "x": 2,
+        "y": 2,
+        "food": 0,
+        "wood": 24,
+        "coins": 10,
+        "energy": 100,
+        "relationships": {
+          "gayatri": 0,
+          "aishani": 0,
+          "rylee": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "gayatri",
+        "name": "Gayatri",
+        "goal": "Collect supplies for shelter",
+        "x": 2,
+        "y": 2,
+        "food": 1,
+        "wood": 16,
+        "coins": 5,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "aishani": 0,
+          "rylee": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "aishani",
+        "name": "Aishani",
+        "goal": "Collect food for future trades",
+        "x": 7,
+        "y": 3,
+        "food": 15,
+        "wood": 0,
+        "coins": 15,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "gayatri": 0,
+          "rylee": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "rylee",
+        "name": "Rylee",
+        "goal": "Build cooperation in town",
+        "x": 7,
+        "y": 3,
+        "food": 14,
+        "wood": 0,
+        "coins": 8,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "gayatri": 0,
+          "aishani": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "saurya",
+        "name": "Saurya",
+        "goal": "Gather food to help neighbors",
+        "x": 7,
+        "y": 3,
+        "food": 7,
+        "wood": 0,
+        "coins": 6,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "gayatri": 0,
+          "aishani": 0,
+          "rylee": 0
+        }
+      }
+    ],
+    "resources": [
+      {
+        "id": "farm",
+        "kind": "food",
+        "x": 9,
+        "y": 3,
+        "stock": 0
+      },
+      {
+        "id": "forest",
+        "kind": "wood",
+        "x": 2,
+        "y": 2,
+        "stock": 0
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "agent_id": "ethan",
+      "memory_source_ids": [
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:14:ethan",
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:15:ethan"
+      ],
+      "proposal": {
+        "action": "move",
+        "target": "market",
+        "explanation": "Ethan trades surplus wood for coins at the market to directly grow wealth, aligning with his goal and remaining nearby for trade opportunities."
+      },
+      "tokens": 332,
+      "valid_proposal": true,
+      "latency_seconds": 0.23101691700003357
+    },
+    {
+      "agent_id": "gayatri",
+      "memory_source_ids": [
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:14:gayatri",
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:15:gayatri"
+      ],
+      "proposal": {
+        "action": "rest",
+        "target": null,
+        "explanation": "Resting is a permitted action that preserves resources. It is a valid passive step for the goal, avoiding unnecessary risk from moving or gathering."
+      },
+      "tokens": 329,
+      "valid_proposal": true,
+      "latency_seconds": 0.23424945800024943
+    },
+    {
+      "agent_id": "aishani",
+      "memory_source_ids": [
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:13:aishani",
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:10:aishani"
+      ],
+      "proposal": {
+        "action": "eat",
+        "target": null,
+        "explanation": "Resident consumes 1 food from 15 to stabilize energy and prepare for future resource gathering."
+      },
+      "tokens": 338,
+      "valid_proposal": true,
+      "latency_seconds": 0.2783101660002103
+    },
+    {
+      "agent_id": "rylee",
+      "memory_source_ids": [
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:11:rylee",
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:13:rylee"
+      ],
+      "proposal": {
+        "action": "talk",
+        "target": "saurya",
+        "explanation": "Rylee is at [7,3] and Saurya is at [7,0]. Talking aligns directly with Rylee's goal to build cooperation in town."
+      },
+      "tokens": 358,
+      "valid_proposal": true,
+      "latency_seconds": 0.26882708299990554
+    },
+    {
+      "agent_id": "saurya",
+      "memory_source_ids": [
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:30:saurya",
+        "f9857ff5-28a0-442c-8a93-4dc53076e995:13:saurya"
+      ],
+      "proposal": {
+        "action": "move",
+        "target": "forest",
+        "explanation": "Moving to the forest secures the gathering location needed to achieve the goal of helping neighbors."
+      },
+      "tokens": 337,
+      "valid_proposal": true,
+      "latency_seconds": 0.23938370799987752
+    }
+  ],
+  "final": {
+    "farm_stock": 0,
+    "agents": [
+      {
+        "id": "ethan",
+        "name": "Ethan",
+        "goal": "Gather supplies and grow wealth",
+        "x": 5,
+        "y": 5,
+        "food": 0,
+        "wood": 24,
+        "coins": 10,
+        "energy": 100,
+        "relationships": {
+          "gayatri": 0,
+          "aishani": 0,
+          "rylee": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "gayatri",
+        "name": "Gayatri",
+        "goal": "Collect supplies for shelter",
+        "x": 2,
+        "y": 2,
+        "food": 1,
+        "wood": 16,
+        "coins": 5,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "aishani": 0,
+          "rylee": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "aishani",
+        "name": "Aishani",
+        "goal": "Collect food for future trades",
+        "x": 7,
+        "y": 3,
+        "food": 0,
+        "wood": 0,
+        "coins": 15,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "gayatri": 0,
+          "rylee": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "rylee",
+        "name": "Rylee",
+        "goal": "Build cooperation in town",
+        "x": 7,
+        "y": 3,
+        "food": 14,
+        "wood": 0,
+        "coins": 8,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "gayatri": 0,
+          "aishani": 0,
+          "saurya": 0
+        }
+      },
+      {
+        "id": "saurya",
+        "name": "Saurya",
+        "goal": "Gather food to help neighbors",
+        "x": 2,
+        "y": 2,
+        "food": 7,
+        "wood": 0,
+        "coins": 6,
+        "energy": 100,
+        "relationships": {
+          "ethan": 0,
+          "gayatri": 0,
+          "aishani": 0,
+          "rylee": 0
+        }
+      }
+    ]
+  },
+  "scope": "One planning window after 30 actual baseline turns; max five calls; later turns use cached plans/fallback. No guaranteed social behavior or causal memory benefit.",
+  "memory_source_counts": [
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "shortage": {
+    "tick": 30,
+    "stock_before": 0,
+    "stock_after": 0,
+    "changed_stock": false,
+    "provenance": "Before stock reconstructed from the verified identical normal-condition warmup; no extra provider calls."
+  }
+}

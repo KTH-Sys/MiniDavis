@@ -1,0 +1,222 @@
+[
+  {
+    "seed": 11,
+    "mode": "baseline",
+    "scenario": "normal",
+    "run_id": "c7ed696d-e3a0-4395-b467-0cc833620c53",
+    "ticks": 100,
+    "invariant_failures": 0,
+    "provider_calls": 0,
+    "decisions": {
+      "baseline": 500
+    },
+    "actions": {
+      "move": 39,
+      "gather": 35,
+      "eat": 8,
+      "rest": 418
+    },
+    "engine_accepted": 500,
+    "engine_rejected": 0,
+    "completed_trades": 0,
+    "fallback_fraction": 0.0,
+    "proposal_valid": 0,
+    "proposal_attempts": 0,
+    "memory_sources_verified": true,
+    "memory_source_counts": [],
+    "shortage": null
+  },
+  {
+    "seed": 11,
+    "mode": "llm",
+    "scenario": "normal",
+    "run_id": "2016b181-38bb-440e-a881-d20ecc17b838",
+    "ticks": 100,
+    "invariant_failures": 0,
+    "provider_calls": 5,
+    "decisions": {
+      "baseline": 150,
+      "live": 5,
+      "fallback": 138,
+      "cached": 207
+    },
+    "actions": {
+      "move": 57,
+      "gather": 35,
+      "eat": 8,
+      "rest": 398,
+      "talk": 1,
+      "offer_trade": 1
+    },
+    "engine_accepted": 500,
+    "engine_rejected": 0,
+    "completed_trades": 0,
+    "fallback_fraction": 0.276,
+    "proposal_valid": 5,
+    "proposal_attempts": 5,
+    "memory_sources_verified": true,
+    "memory_source_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "shortage": null
+  },
+  {
+    "seed": 11,
+    "mode": "rag",
+    "scenario": "normal",
+    "run_id": "003561f0-14cd-4593-b11e-e98e50703abc",
+    "ticks": 100,
+    "invariant_failures": 0,
+    "provider_calls": 5,
+    "decisions": {
+      "baseline": 150,
+      "live": 5,
+      "fallback": 138,
+      "cached": 207
+    },
+    "actions": {
+      "move": 49,
+      "gather": 35,
+      "eat": 8,
+      "rest": 406,
+      "offer_trade": 1,
+      "talk": 1
+    },
+    "engine_accepted": 500,
+    "engine_rejected": 0,
+    "completed_trades": 0,
+    "fallback_fraction": 0.276,
+    "proposal_valid": 5,
+    "proposal_attempts": 5,
+    "memory_sources_verified": true,
+    "memory_source_counts": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "shortage": null
+  },
+  {
+    "seed": 11,
+    "mode": "baseline",
+    "scenario": "shortage",
+    "run_id": "69eb18d4-af86-47c6-bbbc-5c3b82c53fd0",
+    "ticks": 100,
+    "invariant_failures": 0,
+    "provider_calls": 0,
+    "decisions": {
+      "baseline": 500
+    },
+    "actions": {
+      "move": 39,
+      "gather": 35,
+      "eat": 8,
+      "rest": 418
+    },
+    "engine_accepted": 500,
+    "engine_rejected": 0,
+    "completed_trades": 0,
+    "fallback_fraction": 0.0,
+    "proposal_valid": 0,
+    "proposal_attempts": 0,
+    "memory_sources_verified": true,
+    "memory_source_counts": [],
+    "shortage": {
+      "tick": 30,
+      "stock_before": 0,
+      "stock_after": 0,
+      "changed_stock": false,
+      "provenance": "Before stock reconstructed from the verified identical normal-condition warmup; no extra provider calls."
+    }
+  },
+  {
+    "seed": 11,
+    "mode": "llm",
+    "scenario": "shortage",
+    "run_id": "1a744cfb-abc6-4611-a731-dfbf6c8f703e",
+    "ticks": 100,
+    "invariant_failures": 0,
+    "provider_calls": 5,
+    "decisions": {
+      "baseline": 150,
+      "live": 5,
+      "cached": 345
+    },
+    "actions": {
+      "move": 58,
+      "gather": 35,
+      "eat": 8,
+      "rest": 399
+    },
+    "engine_accepted": 500,
+    "engine_rejected": 0,
+    "completed_trades": 0,
+    "fallback_fraction": 0.0,
+    "proposal_valid": 5,
+    "proposal_attempts": 5,
+    "memory_sources_verified": true,
+    "memory_source_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "shortage": {
+      "tick": 30,
+      "stock_before": 0,
+      "stock_after": 0,
+      "changed_stock": false,
+      "provenance": "Before stock reconstructed from the verified identical normal-condition warmup; no extra provider calls."
+    }
+  },
+  {
+    "seed": 11,
+    "mode": "rag",
+    "scenario": "shortage",
+    "run_id": "f9857ff5-28a0-442c-8a93-4dc53076e995",
+    "ticks": 100,
+    "invariant_failures": 0,
+    "provider_calls": 5,
+    "decisions": {
+      "baseline": 150,
+      "live": 5,
+      "cached": 221,
+      "fallback": 124
+    },
+    "actions": {
+      "move": 51,
+      "gather": 35,
+      "eat": 23,
+      "rest": 390,
+      "talk": 1
+    },
+    "engine_accepted": 500,
+    "engine_rejected": 0,
+    "completed_trades": 0,
+    "fallback_fraction": 0.248,
+    "proposal_valid": 5,
+    "proposal_attempts": 5,
+    "memory_sources_verified": true,
+    "memory_source_counts": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "shortage": {
+      "tick": 30,
+      "stock_before": 0,
+      "stock_after": 0,
+      "changed_stock": false,
+      "provenance": "Before stock reconstructed from the verified identical normal-condition warmup; no extra provider calls."
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "seed": 11,
+    "mode": "baseline",
+    "scenario": "normal",
+    "run_id": "8fc06147-7483-410e-bc82-47847ee358df",
+    "ticks": 1000,
+    "invariant_failures": 0,
+    "provider_calls": 0,
+    "decisions": {
+      "baseline": 5000
+    },
+    "actions": {
+      "move": 39,
+      "gather": 35,
+      "eat": 8,
+      "rest": 4918
+    },
+    "engine_accepted": 5000,
+    "engine_rejected": 0,
+    "completed_trades": 0,
+    "fallback_fraction": 0.0,
+    "proposal_valid": 0,
+    "proposal_attempts": 0,
+    "memory_sources_verified": true,
+    "memory_source_counts": [],
+    "shortage": null
+  }
+]

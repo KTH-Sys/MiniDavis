@@ -1,3 +1,5 @@
+**November 4:** classifier training/export and local combined-model RAM checks are complete; see [the final audit](final-audit.md). No hosted service has been created. Host-specific RAM, persistent budget storage and deployed checks remain open. Older dated notes below are historical.
+
 # Hosting and budget status
 
 **November 3 current status:** [deployment.md](deployment.md) records a free baseline-preview blueprint and the full-ML blockers. A CPU MiniLM process peaked at 443.34 MiB locally; there is no combined-model measurement because Gayatri confirmed training is unfinished. No hosted URL or paid service was created. Current live-agent checks passed for five residents; the ignored server key is already configured. Earlier dated notes below are historical.

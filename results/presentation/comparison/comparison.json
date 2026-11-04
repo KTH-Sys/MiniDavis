@@ -1,0 +1,12 @@
+{
+  "matched_observations": true,
+  "model": "qwen/qwen3.8-27b",
+  "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "calls": 20,
+  "scope": "Exploratory matched-state comparison, not statistical proof of improved behavior.",
+  "live_checks_passed": true,
+  "shortage_limit": "Farm already empty by tick 30 in the fixed starter world. Shortage operations are valid but do not lower stock further, so these episodes do not measure a distinct shortage effect.",
+  "completed_trades": 0,
+  "autonomous_talks": 3,
+  "autonomous_offers": 2
+}

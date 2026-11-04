@@ -19,6 +19,7 @@ describe('resident journal', () => {
       agent_id:'rylee',target_agent_id:'ethan',interaction_label:'trade',confidence:.9,text:'Rylee accepted the trade.'};
     const partner: TownEvent = {...completed,event_id:'partner',agent_id:'ethan',target_agent_id:'rylee',action:'trade_completed'};
     expect(interactionsFor([completed,partner],'ethan')).toHaveLength(1);
+    expect(interactionsFor([completed,partner],'ethan')[0].agent_id).toBe('rylee');
   });
   it('labels semantic retrieval consistently and exposes source IDs and query', () => {
     render(<AgentJournal agent={agent} decision={{ ...decision, planner_mode: 'live',

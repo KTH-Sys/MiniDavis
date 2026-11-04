@@ -1,0 +1,16 @@
+{
+  "source_archive": "day5-v2-20261104T203724Z-1-001.zip",
+  "saved_checkpoint": "checkpoint-15",
+  "observed_epoch": 1.0,
+  "planned_epochs_in_source_state": 10,
+  "source_validation_macro_f1": 0.36290322580645157,
+  "source_weights_sha256": "468da0afb20720e6332d281d63065483b3c1de424f19dd870e805db01a70b468",
+  "download_matches_supplied_zip": true,
+  "original_dataset_fingerprint_available": false,
+  "final_classifier_export_present_in_source": false,
+  "empty_checkpoint_folders": [
+    "checkpoint-30",
+    "checkpoint-45"
+  ],
+  "completion": "Two additional epochs with a fresh optimizer on the current frozen training split; validation-selected export evaluated once."
+}

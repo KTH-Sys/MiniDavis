@@ -1,0 +1,8 @@
+{
+  "matched_observations": true,
+  "live_checks_passed": true,
+  "model": "qwen/qwen3.8-27b",
+  "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "calls": 0,
+  "scope": "Exploratory matched-state comparison, not statistical proof of improved behavior."
+}

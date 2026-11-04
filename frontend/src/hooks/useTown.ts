@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { townApi, type TownApi } from '../api';
-import type { RunTrace, WorldState } from '../types';
+import type { Readiness, RunTrace, WorldState } from '../types';
 
 /** Exactly one request at a time. Reset invalidates every earlier response. */
 export function useTown(api: TownApi = townApi, intervalMs = 700) {
@@ -9,6 +9,7 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
   const [busy, setBusy] = useState(false);
   const [replacing, setReplacing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [readiness, setReadiness] = useState<Readiness | null>(null);
   const snapshot = useRef<WorldState | null>(null);
   const active = useRef(false);
   const replacingRef = useRef(false);
@@ -26,7 +27,7 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
     setState(next);
   }, []);
 
-  const replace = useCallback(async (seed?: number, trace?: RunTrace) => {
+  const replace = useCallback(async (seed?: number, trace?: RunTrace, mode?: 'baseline' | 'llm') => {
     if (replacingRef.current) return;
     replacingRef.current = true;
     setReplacing(true);
@@ -43,8 +44,13 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
       if (trace) {
         if (!api.replay || !snapshot.current) throw new Error('Connect to the town before replaying.');
         next = await api.replay(snapshot.current, trace, crypto.randomUUID(), abort.signal);
-      } else next = seed === undefined ? await api.state(abort.signal) : await api.reset(seed, abort.signal);
+      } else next = seed === undefined ? await api.state(abort.signal)
+        : mode ? await api.reset(seed, abort.signal, mode) : await api.reset(seed, abort.signal);
       if (generation === epoch.current) apply(next);
+      if (api.ready) {
+        const ready = await api.ready(abort.signal).catch(() => null);
+        if (generation === epoch.current) setReadiness(ready);
+      }
     } catch (problem) {
       if (generation === epoch.current && !abort.signal.aborted) {
         setError(problem instanceof Error ? problem.message : 'Could not connect to the town.');
@@ -62,6 +68,8 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
   const step = useCallback(async (operation: 'step' | 'shortage' = 'step') => {
     const previous = snapshot.current;
     if (active.current || !previous) return;
+    if (operation === 'step' && previous.mode === 'llm'
+        && Object.values(previous.agent_runtime ?? {}).some((agent) => agent.pending)) return;
     active.current = true;
     setBusy(true);
     const generation = epoch.current;
@@ -96,7 +104,7 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
   }, [error]);
 
   const refreshPlanning = useCallback(async () => {
-    if (active.current || runningRef.current) return;
+    if (active.current) return;
     active.current = true;
     setBusy(true);
     const generation = epoch.current;
@@ -127,11 +135,17 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
   // Schedule the next turn only after the previous response has finished.
   useEffect(() => {
     if (!running || busy || error) return;
+    // Let an in-flight model reply arrive before changing its observed world.
+    // Baseline stays fast; live mode also respects the shared four/minute pace.
+    const pending = state?.mode === 'llm' && Object.values(state.agent_runtime ?? {}).some((agent) => agent.pending);
     const timer = window.setTimeout(() => {
-      if (runningRef.current) void step();
-    }, intervalMs);
+      if (runningRef.current) {
+        if (pending) void refreshPlanning();
+        else void step();
+      }
+    }, pending ? 1000 : state?.mode === 'llm' ? Math.max(intervalMs, 15_000) : intervalMs);
     return () => window.clearTimeout(timer);
-  }, [running, busy, error, state, step, intervalMs]);
+  }, [running, busy, error, state, step, intervalMs, refreshPlanning]);
 
   // Paused viewers follow the same server town without advancing it. Pending
   // plans refresh faster. GET /state never schedules a provider call.
@@ -143,9 +157,9 @@ export function useTown(api: TownApi = townApi, intervalMs = 700) {
   }, [running, busy, error, state, refreshPlanning]);
 
   return {
-    state, running, busy, replacing, error, play, pause,
+    state, readiness, running, busy, replacing, error, play, pause,
     next: () => { pause(); void step(); },
-    reset: (seed: number) => void replace(seed),
+    reset: (seed: number, mode?: 'baseline' | 'llm') => void replace(seed, undefined, mode),
     shortage: () => { pause(); void step('shortage'); },
     replay: (trace: RunTrace) => void replace(undefined, trace),
     reconnect: () => void replace(),

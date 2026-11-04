@@ -1,0 +1,192 @@
+{
+  "status": "training_completed",
+  "model": "distilbert/distilbert-base-uncased",
+  "model_revision": null,
+  "dataset_sha256": "82ccf456076109235a4bc1b0d5a53dfdcf8af5db056051e17c187396612ef71b",
+  "manifest_sha256": "ecc9cf5e35e4ea323617e7f12398e5f2bee40e068278c872450d501e65b926ab",
+  "label2id": {
+    "cooperation": 0,
+    "conflict": 1,
+    "trade": 2,
+    "neutral": 3
+  },
+  "seed": 20261029,
+  "max_length": 128,
+  "learning_rate": 2e-05,
+  "epochs": 2,
+  "batch_size": 4,
+  "device": "cpu",
+  "selection_metric": "validation_macro_f1",
+  "best_checkpoint": "checkpoints/checkpoint-60",
+  "baseline": {
+    "macro_f1": 0.6153641679957469,
+    "per_class": {
+      "cooperation": {
+        "precision": 0.6363636363636364,
+        "recall": 0.7,
+        "f1-score": 0.6666666666666666,
+        "support": 10.0
+      },
+      "conflict": {
+        "precision": 0.4444444444444444,
+        "recall": 0.4,
+        "f1-score": 0.42105263157894735,
+        "support": 10.0
+      },
+      "trade": {
+        "precision": 0.75,
+        "recall": 0.9,
+        "f1-score": 0.8181818181818182,
+        "support": 10.0
+      },
+      "neutral": {
+        "precision": 0.625,
+        "recall": 0.5,
+        "f1-score": 0.5555555555555556,
+        "support": 10.0
+      },
+      "accuracy": 0.625,
+      "macro avg": {
+        "precision": 0.6139520202020202,
+        "recall": 0.625,
+        "f1-score": 0.6153641679957469,
+        "support": 40.0
+      },
+      "weighted avg": {
+        "precision": 0.6139520202020202,
+        "recall": 0.625,
+        "f1-score": 0.615364167995747,
+        "support": 40.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        7,
+        3,
+        0,
+        0
+      ],
+      [
+        2,
+        4,
+        2,
+        2
+      ],
+      [
+        0,
+        0,
+        9,
+        1
+      ],
+      [
+        2,
+        2,
+        1,
+        5
+      ]
+    ],
+    "label_order": [
+      "cooperation",
+      "conflict",
+      "trade",
+      "neutral"
+    ],
+    "examples": 40,
+    "split": "validation"
+  },
+  "distilbert": {
+    "macro_f1": 0.6507803790412486,
+    "per_class": {
+      "cooperation": {
+        "precision": 1.0,
+        "recall": 0.3,
+        "f1-score": 0.46153846153846156,
+        "support": 10.0
+      },
+      "conflict": {
+        "precision": 0.6923076923076923,
+        "recall": 0.9,
+        "f1-score": 0.782608695652174,
+        "support": 10.0
+      },
+      "trade": {
+        "precision": 0.5625,
+        "recall": 0.9,
+        "f1-score": 0.6923076923076923,
+        "support": 10.0
+      },
+      "neutral": {
+        "precision": 0.75,
+        "recall": 0.6,
+        "f1-score": 0.6666666666666666,
+        "support": 10.0
+      },
+      "accuracy": 0.675,
+      "macro avg": {
+        "precision": 0.7512019230769231,
+        "recall": 0.675,
+        "f1-score": 0.6507803790412486,
+        "support": 40.0
+      },
+      "weighted avg": {
+        "precision": 0.7512019230769231,
+        "recall": 0.675,
+        "f1-score": 0.6507803790412486,
+        "support": 40.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        3,
+        1,
+        4,
+        2
+      ],
+      [
+        0,
+        9,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        9,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        6
+      ]
+    ],
+    "label_order": [
+      "cooperation",
+      "conflict",
+      "trade",
+      "neutral"
+    ],
+    "examples": 40,
+    "split": "validation"
+  },
+  "training_seconds": 14.269510582999828,
+  "test_evaluated": false,
+  "python": "3.12.14",
+  "packages": {
+    "torch": "2.14.1",
+    "transformers": "4.57.1",
+    "accelerate": "1.11.0",
+    "scikit-learn": "1.7.2",
+    "numpy": "2.5.4"
+  },
+  "limitations": "Small synthetic teaching dataset; held-out evaluation is reserved for Day 6.",
+  "continuation": {
+    "source_weights_sha256": "468da0afb20720e6332d281d63065483b3c1de424f19dd870e805db01a70b468",
+    "optimizer_resumed": false,
+    "note": "Continued local checkpoint weights with a fresh optimizer; only current frozen training rows used. Original checkpoint dataset fingerprint was not supplied."
+  },
+  "source_checkpoint_epoch": 1,
+  "total_weight_training_epochs": 3,
+  "source": "Gayatri shared day5-v2/checkpoints/checkpoint-15; completed locally for presentation"
+}

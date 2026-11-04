@@ -1,4 +1,4 @@
-import type { RunTrace, WorldState } from './types';
+import type { Readiness, RunTrace, WorldState } from './types';
 
 let operatorKey = '';
 export function setOperatorKey(value: string) { operatorKey = value; }
@@ -15,7 +15,9 @@ export class ApiError extends Error {
 export interface TownApi {
   state(signal: AbortSignal): Promise<WorldState>;
   step(state: WorldState, requestId: string, signal: AbortSignal): Promise<WorldState>;
-  reset(seed: number, signal: AbortSignal): Promise<WorldState>;
+  reset(seed: number, signal: AbortSignal, mode?: 'baseline' | 'llm'): Promise<WorldState>;
+  ready?(signal: AbortSignal): Promise<Readiness>;
+  classify?(text: string, signal: AbortSignal): Promise<{label: string; confidence: number}>;
   shortage?(state: WorldState, requestId: string, signal: AbortSignal): Promise<WorldState>;
   replay?(state: WorldState, trace: RunTrace, requestId: string, signal: AbortSignal): Promise<WorldState>;
   trace?(signal: AbortSignal): Promise<RunTrace>;
@@ -49,7 +51,9 @@ export const townApi: TownApi = {
     expected_revision: state.revision,
     request_id: requestId,
   }),
-  reset: (seed, signal) => request('/reset', signal, { seed }),
+  reset: (seed, signal, mode) => request('/reset', signal, { seed, ...(mode ? {mode} : {}) }),
+  ready: (signal) => request<Readiness>('/ready', signal),
+  classify: (text, signal) => request<{label: string; confidence: number}>('/classify', signal, {text}),
   shortage: (state, requestId, signal) => request('/scenario/shortage', signal, {
     run_id: state.run_id, expected_revision: state.revision, request_id: requestId,
   }),

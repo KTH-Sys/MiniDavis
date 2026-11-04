@@ -15,7 +15,7 @@ export default function App() {
   const selected = state?.agents.find((agent) => agent.id === selectedId);
   return <main>
     <header className="masthead"><a className="wordmark" href="/"><span aria-hidden="true">✳</span> MiniDavis</a>
-      <span className="edition">Five residents. One little world.</span>
+      <span className="edition">A tiny town for AI agents.</span>
       <div className="town-status"><span className={`status-dot ${town.running ? 'active' : ''}`} />
         <span>{town.running ? 'RUNNING' : 'PAUSED'}</span><span className="status-divider">/</span>
         <span>TURN <strong data-testid="tick">{state?.tick ?? '—'}</strong></span>
@@ -29,9 +29,11 @@ export default function App() {
         <div className="scene-frame">{state ? <TownMap state={state} selectedId={selectedId} onSelect={setSelectedId} running={town.running} showGrid={showGrid} />
           : <div className="map-loading">{town.error ? 'Your town is offline.' : 'Opening the gates…'}</div>}</div>
         <div className="scene-caption"><span>Click a resident to inspect their story.</span><div className="supply-chips">{state?.resources.map((resource) => <span key={resource.id} className={resource.stock <= 5 ? 'shortage' : ''}>{resource.kind === 'food' ? 'Farm' : 'Forest'} <strong>{resource.stock}</strong>{resource.stock <= 5 && <span className="shortage-badge"> LOW</span>}</span>)}</div></div>
-        <Controls {...town} ready={!!state && state.mode !== 'replay' && !town.error} seed={seed} setSeed={setSeed} />
+        <Controls {...town} ready={!!state && state.mode !== 'replay' && !town.error} seed={seed} setSeed={setSeed}
+          planning={state?.mode === 'llm' && Object.values(state.agent_runtime ?? {}).some((agent) => agent.pending)} />
         <RunTools disabled={!state || town.busy || town.running || !!town.error} replaying={state?.mode === 'replay'}
-          shortage={town.shortage} replay={town.replay} reconnect={town.reconnect} />
+          shortage={town.shortage} replay={town.replay} reconnect={town.reconnect}
+          mode={state?.mode} readiness={town.readiness} startMode={(mode) => town.reset(seed, mode)} />
         <p className="control-note">Pause finishes the current turn. Reset starts a new town.</p>
       </section>
       <aside className="story-panel" aria-label="Town residents">

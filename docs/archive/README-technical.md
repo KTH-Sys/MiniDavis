@@ -1,8 +1,10 @@
+> Archived planning document. For current setup and presentation status, use the [project README](../../README.md) and [presentation guide](../presentation.md). Historical checkboxes are not current readiness evidence.
+
 # MiniDavis — Technical Guide and Checklists
 
-Use [README.md](README.md) for who does what on each date. This guide defines the implementation and exact checks.
+Use [README.md](README-plan.md) for who does what on each date. This guide defines the implementation and exact checks.
 
-**Current verification (November 3):** The [Day 0–4 audit](docs/day0-day4-audit.md) verifies the earlier deliverables; Eric confirmed all Day 0 setup complete. The [Day 5–7 implementation report](docs/eric-aishani-day5-day7.md) records the frozen 200-example dataset, review provenance, executed social actions, shortage, replay, operator controls and failure/budget tests. Real Groq decisions pass for all five residents and CPU MiniLM retrieval checks pass. Actual classifier training, real classifier integration and full ML hosting remain pending Gayatri's export. Complete checkboxes only after observing results.
+**Current verification (November 3):** The [Day 0–4 audit](../day0-day4-audit.md) verifies the earlier deliverables; Eric confirmed all Day 0 setup complete. The [Day 5–7 implementation report](../eric-aishani-day5-day7.md) records the frozen 200-example dataset, review provenance, executed social actions, shortage, replay, operator controls and failure/budget tests. Real Groq decisions pass for all five residents and CPU MiniLM retrieval checks pass. Actual classifier training, real classifier integration and full ML hosting remain pending Gayatri's export. Complete checkboxes only after observing results.
 
 ## Model and hosting decision
 
@@ -332,7 +334,7 @@ python -m pytest backend/tests/test_memory.py -q
 
 ## 7. Day 5–6: fine-tuning checklist
 
-**November 3 status:** assigned reviews are recorded, including Aishani's AI-assisted review explicitly delegated by Eric. The manifest is frozen and source/split assignments are unchanged. Actual training remains pending. Use `python scripts/prepare_interactions.py --require-frozen`; do not refresh/refreeze this version. The [current implementation report](docs/eric-aishani-day5-day7.md) supersedes earlier draft-status notes below.
+**November 3 status:** assigned reviews are recorded, including Aishani's AI-assisted review explicitly delegated by Eric. The manifest is frozen and source/split assignments are unchanged. Actual training remains pending. Use `python scripts/prepare_interactions.py --require-frozen`; do not refresh/refreeze this version. The [current implementation report](../eric-aishani-day5-day7.md) supersedes earlier draft-status notes below.
 
 ### Dataset and model
 
@@ -340,7 +342,7 @@ Eric and Gayatri prepare 200 labelled synthetic town interactions, 50/class, wit
 
 Before training, correct labels and check duplicates. Ethan and Gayatri create a reproducible 60/20/20 grouped split: target 120 train, 40 validation, 40 test, with 10 test examples/class. Keep all paraphrases from the same scenario family in one split. If these constraints conflict, revise the example families before freezing the split; do not move test examples after viewing results.
 
-The frozen dataset now includes these counts with 40 scenario families and completed assigned review rows. Follow [the label policy and review provenance](ml/data/README.md); no training is claimed. Run `python scripts/prepare_interactions.py --require-frozen` and `python -m pytest ml/tests -q`. Preserve this version's hashes and split. A future revision needs a separate review/version decision; do not silently refresh it. Training verifies exact frozen hashes and review completion. Only text is used as model input; IDs/families/reviewers are excluded. `python scripts/check_day5_notebook.py` verifies the notebook's offline defaults. Training dependencies in `ml/requirements.txt` are separate from backend dependencies.
+The frozen dataset now includes these counts with 40 scenario families and completed assigned review rows. Follow [the label policy and review provenance](../../ml/data/README.md); no training is claimed. Run `python scripts/prepare_interactions.py --require-frozen` and `python -m pytest ml/tests -q`. Preserve this version's hashes and split. A future revision needs a separate review/version decision; do not silently refresh it. Training verifies exact frozen hashes and review completion. Only text is used as model input; IDs/families/reviewers are excluded. `python scripts/check_day5_notebook.py` verifies the notebook's offline defaults. Training dependencies in `ml/requirements.txt` are separate from backend dependencies.
 
 Train a small DistilBERT sequence classifier using `distilbert/distilbert-base-uncased`, four labels, maximum length 128, initial learning rate `2e-5`, batch size 8, and three epochs. Treat these as starting settings; choose a checkpoint using validation macro-F1 only. Compare with TF-IDF + logistic regression trained on the same training split. This follows the general workflow in [Hugging Face’s classification guide](https://github.com/huggingface/transformers/blob/main/docs/source/en/tasks/sequence_classification.md).
 
@@ -350,7 +352,7 @@ Open `ml/notebooks/03_finetune.ipynb`. Run cells in order: install pinned notebo
 
 Use a GPU runtime if available. Colab availability varies; save checkpoints/results to Drive rather than depending on runtime persistence. If unavailable, run on CPU with batch size 4 and record the configuration and training time. See [Colab’s resource FAQ](https://research.google.com/colaboratory/faq.html).
 
-- [ ] **Eric:** Dataset preparation, structural tests and offline notebook preflight are complete ([evidence](docs/eric-day5.md)); confirm team access and the actual shared Colab run after assigned reviews/freeze.
+- [ ] **Eric:** Dataset preparation, structural tests and offline notebook preflight are complete ([evidence](../eric-day5.md)); confirm team access and the actual shared Colab run after assigned reviews/freeze.
 - [x] **Saurya:** Check the classifier label field displays correctly using a supplied fixture.
 - [ ] **Rylee:** Run `test_trade.py`; offers transfer nothing until valid acceptance and cannot commit twice.
 - [x] **Aishani:** Reviewed 001–050 through Eric's explicit delegation; no label corrections needed. Review source and reasons are saved in `results/eric-aishani-day7/aishani-review.json`.
@@ -385,7 +387,7 @@ Require no invariant failures, an accepted bilateral trade demonstrated by a doc
 
 ### CPU deployment checklist — prepare Day 5, preview Day 6
 
-- [x] **Eric:** Recorded the free baseline-preview option and specific full-ML hosting blockers in [deployment.md](docs/deployment.md). MiniLM CPU peak measured; combined RAM cannot be measured until Gayatri supplies the classifier. No service/purchase was activated.
+- [x] **Eric:** Recorded the free baseline-preview option and specific full-ML hosting blockers in [deployment.md](../deployment.md). MiniLM CPU peak measured; combined RAM cannot be measured until Gayatri supplies the classifier. No service/purchase was activated.
 - [ ] **Rylee:** Package FastAPI, pinned dependencies and the exported classifier/tokenizer/config. Fetch model files during build or store them in an accessible artifact location. Load models once per process and measure peak memory; start with one backend worker and one shared town scheduler.
 - [ ] **Rylee:** Bind to `0.0.0.0` and the host-provided port. Configure readiness, frontend origins, Groq server secrets and classifier/database paths. Keep backend mutation controls restricted to the demo operator; viewers read the same town state.
 - [ ] **Saurya:** Build React with `VITE_API_BASE_URL` set to the HTTPS backend URL. Configure static hosting for `frontend/dist`; verify CORS and controls in the deployed build.

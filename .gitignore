@@ -21,4 +21,5 @@ ml/artifacts/*
 !ml/artifacts/.gitkeep
 .DS_Store
 results/**/baseline-*.json
+!results/presentation/comparison/baseline-*.json
 data/model-cache/

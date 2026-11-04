@@ -1,14 +1,24 @@
-# MiniDavis — Team Plan
+# MiniDavis
 
-A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saurya. They move, gather food and wood, trade, talk, and remember interactions.
+**A tiny town for AI agents.** Five residents gather supplies, make decisions, remember events, talk and trade in a 2D pixel town. Watch the town on the left and inspect decisions, memories and interactions in the terminal feed on the right.
+
+![MiniDavis presentation view](docs/assets/presentation.jpg)
+
+Built by **Eric, Gayatri, Aishani, Rylee, Saurya and Ethan** for a machine learning club project.
+
+## What the project demonstrates
+
+- **Agents:** one hosted Qwen model serves five residents with separate goals and observations. No teammate runs the town LLM locally.
+- **Memory and RAG:** SQLite stores executed events. Recent history and optional MiniLM semantic search supply private, source-backed memories before an agent decides.
+- **Fine-tuning:** a small DistilBERT classifier labels completed social interactions as cooperation, conflict, trade or neutral. It does not control world rules or train the hosted Qwen model.
+- **Simulation:** the Python engine validates movement, resources, nearby trades, gifts, offer expiry and relationship updates. Model text cannot directly change state.
+- **Evaluation:** fixed data splits, a simple classifier baseline, held-out metrics, source-isolation tests and bounded baseline/LLM/RAG comparisons.
+
+This is a small teaching simulation. Live agents are not guaranteed to converse or cooperate. The supplied sample run is explicitly scripted and uses no AI calls.
 
 ## Run MiniDavis
 
-**November 3 update:** Eric/Aishani's [Day 5–7 implementation report](docs/eric-aishani-day5-day7.md) covers recorded social actions, safe nearby trades, shortage, validated replay, operator controls and failure/budget tests. The dataset is now reviewed/frozen and ready for Gayatri. Actual classifier training and full ML hosting remain pending; see [deployment status](docs/deployment.md).
-
-The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a black hacker-terminal interface with green pixel text and yellow agent names beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events, including executed conversations and trades. Groq decisions have been verified for all five residents, and real CPU MiniLM retrieval checks pass. Keyword retrieval remains the default until semantic mode is enabled. The reviewed dataset is frozen; actual classifier training remains pending. See [the current implementation report](docs/eric-aishani-day5-day7.md), [Day 0–4 audit and setup](docs/day0-day4-audit.md) and [town artwork and animation notes](frontend/public/art/README.md).
-
-Use Python 3.12 and Node 24 LTS. From the repository root:
+Use **Python 3.12** and **Node 24**. Run all Python commands from the repository root.
 
 ```bash
 python3.12 -m venv .venv
@@ -25,159 +35,162 @@ npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:5173**. Backend API docs: **http://127.0.0.1:8000/docs**. Windows activation is in [the technical guide](README-TECHNICAL.md). No environment file is required for baseline defaults.
+Open **http://127.0.0.1:5173**. The baseline needs no API key or downloaded model. For Windows activation, use `.venv\Scripts\activate`.
 
-See [Eric’s implementation notes](docs/eric-day1-day2.md) for checks and team handoffs, and [hosting/budget status](docs/hosting-budget.md) before choosing a cloud service.
+### Enable live AI
 
-Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP recording, source-evidence contract and verification results.
+Create `backend/.env` from [backend/.env.example](backend/.env.example), then set these values in that private file:
 
-**Team:** Eric, Ethan, Gayatri, Aishani, Rylee, and Saurya.
+```dotenv
+MINIDAVIS_MODE=llm
+LLM_API_KEY=your_private_groq_key
+```
 
-**Model plan:** Use Groq’s hosted Qwen for agent decisions. No teammate needs to run the town LLM locally. Build our own RAG and fine-tune a small DistilBERT interaction classifier in Colab; run embeddings and the classifier on a CPU backend.
+Restart the backend after changing `.env`. Alternatively, with a server key already configured, choose **Live AI (Groq) → Start new town** in the UI. Starting a new town clears the current run; use **Save run** first.
 
-**Deployment plan:** Host React as a static website and FastAPI on a CPU server. Share one town across viewers. Eric selects hosting after checking backend memory use and the available budget; no paid service is assumed. Prepare a hosted preview by Day 6 when resources permit, and keep baseline/replay available for the demo.
+The `.env` file is ignored by Git. Each separately hosted backend needs its own server configuration. Connecting several viewers to one backend does not require putting the Groq key on their computers or in the frontend.
 
-**Free quota:** All five residents use one request queue. Start at four model calls per minute across the town, with cached plans between calls. Movement continues without new LLM requests. Development, notebooks, evaluations and demos all consume the provider quota; reserve calls before a session.
+Check **http://127.0.0.1:8000/health** for mode/key configuration and **http://127.0.0.1:8000/ready** for classifier and retrieval setup. A configured key is not proof of a successful provider response; look for a live/cached decision. Missing keys, invalid replies, timeouts and exhausted budgets produce labelled baseline fallback.
 
-**Meetings:** Tuesdays and Thursdays, October 13–November 12, 2026. Each Day below is a meeting checkpoint. Complete its tasks by that meeting where possible; do the shared workshop together. Meeting times are TBD.
+**Play** advances live AI slowly and waits for pending replies. Baseline playback is faster. Requests share limits of four/minute, twenty/run and the configured daily budgets. **Next Turn** is disabled while a model reply is pending. Conversations require nearby residents and a social decision.
 
-## Who does what
+### Enable semantic RAG and the classifier
 
-| Person | Responsibility |
+```bash
+python -m pip install -r backend/requirements-ml.txt
+python -m pip install -r backend/requirements-classifier.txt
+```
+
+Add to `backend/.env` and restart:
+
+```dotenv
+MEMORY_RETRIEVAL_MODE=semantic
+CLASSIFIER_MODEL_PATH=ml/artifacts/classifier
+CLASSIFIER_REQUIRED=true
+```
+
+Install the presentation model package supplied separately from Git:
+
+```bash
+python scripts/install_classifier.py --archive /path/to/minidavis-classifier.zip
+```
+
+Model weights are intentionally excluded from Git. With no model installed, leave `CLASSIFIER_REQUIRED=false`: the town still works and social events say **unclassified**. The UI reports whether the classifier loaded. Semantic retrieval requires its pinned MiniLM weights; if it falls back, inspect the actual retrieval mode in **Memories**.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    UI[React pixel town and terminal feed] -->|step / reset / shortage| API[FastAPI · one shared town]
+    API --> W[Python world engine]
+    W --> O[Resident observation + goal]
+    DB[(SQLite private event memory)] --> R[Recent history + MiniLM retrieval]
+    R --> O
+    O --> Q[Groq-hosted Qwen]
+    Q --> V[Typed proposal + legality checks]
+    V --> W
+    W --> E[Executed factual event]
+    E --> C[CPU DistilBERT social label]
+    C --> DB
+    E --> DB
+    API -->|read-only state and sources| UI
+    T[Saved action trace] -->|validated replay · no AI calls| W
+```
+
+The LLM proposes; the engine decides what is legal. The classifier adds an observable label after execution. Relationship changes follow fixed world rules, independently of classifier predictions. Retrieved memories are filtered by resident, run and time before ranking.
+
+## Project structure
+
+```text
+MiniDavis/
+├── backend/
+│   ├── app/                # World, Groq planner, budgets, memory, classifier, API
+│   ├── tests/              # State safety, privacy, provider failures and replay
+│   ├── .env.example        # Server settings; actual .env is private
+│   └── requirements*.txt   # Core, semantic retrieval and classifier dependencies
+├── frontend/
+│   ├── src/                # React town, controls, terminal journal and tests
+│   └── public/             # Pixel artwork, font and labelled sample trace
+├── ml/
+│   ├── data/               # 200 reviewed examples and immutable grouped split
+│   ├── notebooks/          # Agent, RAG and fine-tuning learning notebooks
+│   ├── train_classifier.py # Training and validation-selected export
+│   └── evaluate_classifier.py # One-time frozen test evaluation
+├── scripts/                # Checks, comparisons, packaging and model installation
+├── results/                # Recorded evidence; dated reports preserve history
+├── docs/
+│   ├── presentation.md     # Five-minute demo, checklist and recovery steps
+│   ├── final-audit.md      # Current verification and remaining limitations
+│   ├── model-card.md       # Training provenance and classifier results
+│   └── archive/            # Original project plan and technical READMEs
+└── render.yaml             # Optional baseline preview blueprint; not deployed
+```
+
+## Presentation results
+
+The frozen synthetic dataset contains **120 training, 40 validation and 40 test examples**, grouped by scenario family. Only interaction text is a model input.
+
+| Classifier | Validation macro-F1 | Test macro-F1 | Test accuracy |
+| --- | ---: | ---: | ---: |
+| TF-IDF + logistic regression | 0.615 | 0.709 | 72.5% |
+| Fine-tuned DistilBERT | 0.651 | 0.850 | 85.0% |
+
+These scores describe **40 synthetic test examples**, not unrestricted real-world conversations. The presentation export continues Gayatri's available epoch-1 checkpoint for two additional epochs with a fresh optimizer. Its original training-data fingerprint was absent; the continuation uses the repository's exact frozen training split. The export was selected on validation before the final test evaluation. See the [model card](docs/model-card.md) and [recorded metrics](results/presentation/classifier-test.json).
+
+The saved town comparison produced three talks and two offers, with no completed autonomous trade. Its tick-30 shortage found an already-empty farm, so it does not measure a distinct shortage effect.
+
+The [final audit](docs/final-audit.md) records current test counts, real CPU inference, RAM, live API results, browser checks and limits. Older reports are historical evidence and may describe features that have since changed.
+
+## Five-minute demo
+
+1. Show the town, select a resident and explain its goal.
+2. In live mode, advance a turn and inspect the actual decision and its execution status.
+3. Open **Memories** and show the event IDs used as evidence. Distinguish semantic search from keyword fallback.
+4. Use **Load sample run** to reliably show a recorded trade, conversation and shortage. Say clearly that this is a scripted mechanics demonstration. Select Ethan or Saurya and inspect interactions and relationships.
+5. Open **Try the trained classifier** for a real CPU prediction and show the saved evaluation results; the replay intentionally makes no classifier calls.
+
+See [presentation.md](docs/presentation.md) for the speaking script, operator checklist and failure recovery.
+
+## Verification
+
+```bash
+python -m pytest backend/tests ml/tests -q
+python scripts/prepare_interactions.py --require-frozen
+python scripts/check_day5_notebook.py
+python scripts/verify_notebooks.py
+python scripts/run_eval.py --mode baseline --seeds 11 --ticks 1000 --out /tmp/minidavis-stress
+```
+
+From `frontend/`, run `npm test` and `npm run build`.
+
+Optional live comparison, **up to twenty Groq calls** across six exploratory runs:
+
+```bash
+python scripts/run_eval.py --mode all --scenarios normal shortage --seeds 11 --ticks 100 --live --out /tmp/minidavis-comparison
+```
+
+The comparison uses matched baseline history and one five-resident planning window per live episode. Report the measured fallback/cached proportions; it does not establish a causal benefit from RAG or guarantee emergent behavior. Reuse the saved presentation evidence instead of spending quota repeatedly.
+
+## API and deployment
+
+| Route | Purpose |
 | --- | --- |
-| Eric | Lead and integration; help Saurya with frontend and Rylee with backend |
-| Saurya | Frontend: build and check the town screen |
-| Rylee | Backend: build and check the simulation/API |
-| Aishani | Agents: build and check LLM decisions |
-| Ethan | RAG: build and check memory retrieval |
-| Gayatri | Fine-tuning and evaluation: prepare training and record results |
+| `GET /health`, `GET /ready` | Safe setup/readiness information |
+| `GET /state`, `GET /agents/{id}` | Shared town and source-backed resident inspection |
+| `POST /step`, `POST /reset` | Advance or create a run |
+| `POST /scenario/shortage` | Reduce farm stock without inventing a turn |
+| `GET /trace`, `POST /replay` | Export or validate/replay recorded actions |
+| `POST /classify` | Test real classifier inference without changing the town |
 
-**Build the assigned feature, run its checks, and share the result.** Use the fixed map, rules, and interfaces in the technical guide. When something fails, record the exact error and fix it with the responsible teammate.
+A local presentation is supported. **No hosted URL is claimed.** The optional Render blueprint defaults to baseline mode. Full ML hosting needs measured RAM, persistent daily-budget storage and verification on the actual host. A backend restart starts a new town; old SQLite events stay isolated by run where disk persists.
 
-**Everyone learns agents, RAG, and fine-tuning together.** Owners run the relevant checks between meetings. Exact commands and technical checklists are in [README-TECHNICAL.md](README-TECHNICAL.md).
+For protected shared previews, the host sets a separate `OPERATOR_TOKEN`. Enter that password in **Shared preview access** to control the town. It is not the Groq key. The password form stays hidden for ordinary unprotected local runs. See [deployment.md](docs/deployment.md).
 
-## Day 0 — Tuesday, 10/13: Accounts and access only
+## Documentation and credits
 
-- [x] **Eric:** Create the MiniDavis GitHub repository and invite the five teammates.
-- [x] **Saurya:** Sign in to GitHub, accept repo access, and open the shared Notion project.
-- [x] **Rylee:** Repository write access and shared Drive editor access are verified. This checks granted access, not a personal workshop attendance claim.
-- [x] **Aishani:** Set up Groq access with Eric; record the Qwen model, free quota and credential owner without posting keys.
-- [x] **Ethan:** Create the shared MiniDavis Google Drive folder and give the team access.
-- [x] **Gayatri:** Create an empty shared Colab notebook in that folder and confirm everyone can open it.
+- [Presentation guide](docs/presentation.md) · [Final audit](docs/final-audit.md) · [Model card](docs/model-card.md)
+- [Training walkthrough](docs/train_DistilBERT.md) · [Dataset and label policy](ml/data/README.md)
+- [Archived day-by-day plan](docs/archive/README-plan.md) · [Archived technical checklist](docs/archive/README-technical.md)
+- [Artwork provenance](frontend/public/art/README.md) · [Font license](frontend/public/fonts/README.md)
 
-**Confirmed by Eric on October 27, 2026:** all Day 0 tasks are complete.
-
-**Finish:** Everyone can open GitHub, Notion, Drive, and Colab. No coding, design, dataset preparation, or training today.
-
-## Day 1 — Thursday, 10/15: Run the starter
-
-- [x] **Eric:** Create the project folders and shared Groq configuration; connect frontend/backend and record the hosting budget.
-- [x] **Saurya:** Set up React and render the 12×12 map with five residents.
-- [x] **Rylee:** Set up FastAPI and implement `/health`, `/state`, and `/reset`.
-- [x] **Aishani:** Create the baseline-agent notebook and a Groq connection check; return valid baseline decisions without local LLM weights.
-- [x] **Ethan:** Create the event store and memory notebook; save/read one sample event.
-- [x] **Gayatri:** Add starter tests, run them, and save the pass/fail output.
-
-**Finish:** Everyone can run their assigned part of the starter project.
-
-## Day 2 — Tuesday, 10/20: Run the simulation
-
-- [x] **Eric:** Connect the simulation loop and frontend controls to backend ticks.
-- [x] **Saurya:** Add Play, Pause, Next Turn, and Reset using the real backend.
-- [x] **Rylee:** Implement movement, gathering, eating, and resting; run 100 baseline ticks.
-- [x] **Aishani:** Add baseline action selection and destination-following for all five residents.
-- [x] **Ethan:** Store completed actions as memories and mark rejected actions as rejected.
-- [x] **Gayatri:** Add invalid-move and resource tests; report any negative inventory or crash.
-
-**Finish:** Five residents move and gather safely through the UI.
-
-## Day 3 — Thursday, 10/22: MVP + agents together
-
-**Shared session:** Run the agent notebook, send a short observation to Groq Qwen, and inspect its validated JSON action. Keep credentials in Colab Secrets or backend environment settings.
-
-- [x] **Eric:** Complete the MVP integration and record a two-minute working run.
-- [x] **Saurya:** Add the inspector and event log; show live, waiting, baseline and fallback states for every resident.
-- [x] **Rylee:** Add model-action validation and run the MVP safety tests.
-- [x] **Aishani:** Groq JSON adapter, shared queue and cached plans are implemented and tested. [Five actual live decisions](results/day0-day4/live-final/live-decisions.json) are verified; the local server key stays ignored.
-- [x] **Ethan:** Pass recent memories with real event IDs into the agent input.
-- [x] **Gayatri:** Run three seeded 100-tick MVP checks and save the report.
-
-**MVP gate:** Town, five residents, controls, inspector, and log work. Baseline mode remains usable while live AI develops.
-
-## Day 4 — Tuesday, 10/27: RAG together
-
-**Shared session:** Save an interaction, retrieve it, and use it in an agent decision.
-
-- [x] **Eric:** Connect RAG to the backend and inspector; help Saurya and Rylee test it.
-- [x] **Saurya:** Display retrieved text/source IDs and the actual semantic/keyword mode; UI tests pass.
-- [x] **Rylee:** Cross-resident, cross-run and future-event isolation tests pass; real semantic API evidence is saved.
-- [x] **Aishani:** All five actual live requests include their own retrieved memories, bounded by the prompt limit; model-free requests exclude them.
-- [x] **Ethan:** MiniLM CPU recent + relevant retrieval passes 10/10 frozen checks and 10/10 paraphrase checks; caches track source text and model revision.
-- [x] **Gayatri:** Saved five matched memory-on/off pairs and an accepted live example of each. Four of five proposals per condition were accepted, with safe fallback for the others; no ML improvement is claimed. See [audit evidence](docs/day0-day4-audit.md).
-
-**Finish:** Agents retrieve actual past events without leaking another resident’s private memory.
-
-## Day 5 — Thursday, 10/29: Fine-tuning together
-
-**Shared session:** Run the fine-tuning notebook to train a small interaction classifier: cooperation, conflict, trade, or neutral.
-
-- [ ] **Eric:** Dataset preparation, recorded reviews, frozen split and notebook dry run are done. Gayatri's actual training/shared Colab session remains pending; [reviewed data](ml/data/README.md), [Colab notebook](ml/notebooks/03_finetune.ipynb), [current handoff](docs/eric-aishani-day5-day7.md).
-- [x] **Saurya:** Add an interaction-label field to the UI.
-- [ ] **Rylee:** Implement trade offers and acceptance; run duplicate-acceptance tests.
-- [x] **Aishani:** Examples 001–050 checked against the label policy on Eric's explicit delegation. All labels matched; AI-assisted review provenance is recorded, without claiming personal human sign-off.
-- [x] **Ethan:** Review examples 051–100 and check that scenario families stay in one data split.
-- [ ] **Gayatri:** Prepare the Colab training notebook, review examples 101–200, train DistilBERT, and export weights/tokenizer/config and validation results.
-
-**Finish:** Train on the fixed training split, choose using validation, and save a trained classifier. Keep test data untouched until Day 6. Fine-tune the classifier, not the main LLM.
-
-## Day 6 — Tuesday, 11/03: Integrate and freeze features
-
-- [ ] **Eric:** Local integration and a free baseline-preview blueprint are ready; hosting blockers are recorded. The full trained-classifier integration gate remains pending Gayatri's export and combined RAM measurement. See [deployment](docs/deployment.md).
-- [x] **Saurya:** Connect the frontend to the deployed API when available; check shortage, trades, memories, classifier labels and waiting states.
-- [ ] **Rylee:** Finish trading, shortage, reset and replay; package the CPU backend, load the classifier and measure RAM before deployment.
-- [x] **Aishani:** Timeout, malformed JSON, invalid plans, missing-key, HTTP quota and recovery checks pass; all five current live decisions verified after constraining legal choices. Shared caps and labelled fallback remain enforced.
-- [x] **Ethan:** Update memories/relationships from completed interactions; verify persistent storage or document reset-on-restart preview behavior.
-- [ ] **Gayatri:** Evaluate the frozen classifier on held-out test data and run the integration checklist.
-
-**Integration gate:** Groq agents, our RAG, trades, shortage, CPU classifier and frontend work together. Check queue/budget limits and hosting readiness. Keep fixed relationship rules; the classifier supplies an observable label. Freeze new features after this meeting. A hosting blocker must be recorded and must not delay core integration.
-
-## Day 7 — Thursday, 11/05: Stabilize and compare
-
-- [x] **Eric:** Integration bugs reproduced/fixed, backend/frontend checks rerun, 1,000 baseline ticks verified, and remaining external gates documented. Performed early on November 3; rerun affected checks after later teammate changes.
-- [ ] **Saurya:** Run a 30-minute session with two viewers; confirm both see one town and do not multiply model calls.
-- [ ] **Rylee:** Run 1,000 baseline ticks and confirm no corrupted resources or positions.
-- [x] **Aishani:** Mocked failure/recovery, finite Retry-After, stale results, cached movement/social actions and an actual shared 20-call run cap pass. Performed early on November 3.
-- [ ] **Ethan:** Rerun retrieval and memory-isolation checks.
-- [ ] **Gayatri:** Run six matched comparison runs within the reserved Groq quota; save calls/tokens, latency, behavior and classifier metrics.
-
-**Finish:** Tested runs have no crashes or invariant failures; evaluation results are saved.
-
-## Day 8 — Tuesday, 11/10: Rehearse
-
-- [ ] **Eric:** Prepare the five-minute script and lead two rehearsals.
-- [ ] **Saurya:** Operate the town and check projector readability.
-- [ ] **Rylee:** Check the deployed API or local CPU startup, restart behavior and known-good replay; confirm no local LLM is needed.
-- [ ] **Aishani:** Reserve the demo Groq quota, check the configured Qwen model and demonstrate labelled fallback.
-- [ ] **Ethan:** Prepare one real remembered-interaction example for the demo.
-- [ ] **Gayatri:** Check presentation numbers and record a local backup demo.
-
-**Finish:** Two five-minute rehearsals pass, including recovery from a provider failure.
-
-## Day 9 — Thursday, 11/12: Demo and submit
-
-- [ ] **Eric:** Present MiniDavis and submit source, notebooks, model, reports, recording and hosted URL or hosting status.
-- [ ] **Saurya:** Run the frontend during the demo and save the final build.
-- [ ] **Rylee:** Run the backend smoke checks and support reset/replay.
-- [ ] **Aishani:** Explain agent decisions and fallback behavior.
-- [ ] **Ethan:** Explain RAG using stored events and retrieved evidence.
-- [ ] **Gayatri:** Explain fine-tuning results and submit the evaluation report/model.
-
-**Finish:** Submit code, startup instructions, notebooks, model, evaluation report, and demo recording.
-
-## Every meeting
-
-1. Each person shows the assigned result or exact error.
-2. Everyone runs the shared ML topic together when scheduled.
-3. Eric assigns bug fixes to the responsible teammate and checks the next handoffs.
-
-If behind, cut extra artwork, house building, elections and permanent hosting. Protect the core town, cloud model adapter, shared ML sessions, testing and demo practice. A local CPU app can still call Groq for live decisions.
+Eric coordinates and integrates; Saurya owns frontend work; Rylee owns the world/API; Aishani owns agent/failure checks; Ethan owns memory/RAG; Gayatri owns classifier training/evaluation. Agents, RAG and fine-tuning are shared learning topics.

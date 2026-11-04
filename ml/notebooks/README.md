@@ -1,18 +1,11 @@
-# Shared notebooks
+# MiniDavis learning notebooks
 
-**November 3:** the dataset is now frozen after recorded assigned reviews. Aishani's 001–050 review was delegated by Eric and is explicitly attributed as AI-assisted. Gayatri's actual training/export is still pending. Open the current notebook with a freshly packaged ZIP; its default dry run is still free of model downloads and provider calls.
+- `01_agents.ipynb`: world decisions and opt-in hosted Groq planning.
+- `02_rag.ipynb`: stored events, private memories and semantic retrieval.
+- `03_finetune.ipynb`: data checks, opt-in DistilBERT training, validation and export.
 
-For the full DistilBERT walkthrough, follow [the training instructions](../../docs/train_DistilBERT.md): review data, freeze the split, upload to Colab, train, inspect validation results and save the model.
+All notebook defaults remain offline-safe. Run `python scripts/verify_notebooks.py` and `python scripts/check_day5_notebook.py` from the repository root to check them. Live agent cells need a server/Colab Groq key; the classifier training notebook does not.
 
-Aishani adds `01_agents.ipynb` (baseline and Groq decisions); Ethan adds
-`02_rag.ipynb` (event storage and retrieval); Gayatri adds `03_finetune.ipynb`
-(reviewed data, grouped splits, training and export). Start from the technical guide.
-Keep credentials in Colab Secrets and save checkpoints outside the runtime.
+**November 4:** the data is reviewed/frozen. The completed presentation classifier continues Gayatri's saved epoch-1 checkpoint for two additional epochs; its selected export and held-out results are recorded separately. See the [model card](../../docs/model-card.md) and [training walkthrough](../../docs/train_DistilBERT.md). The default notebook itself does not run final held-out evaluation; `ml/evaluate_classifier.py` provides that separate, explicit step.
 
-`01_agents.ipynb` and `02_rag.ipynb` now run the Day 1–3 baseline checks locally or in Colab. Verify their default cells with `python scripts/verify_notebooks.py` from the repository root. The live agent cell is off by default and needs the server/Colab `LLM_API_KEY`; it makes up to five calls and saves genuine per-resident results. Run it once for the team after reserving the allowance.
-
-The baseline notebook execution report is in `results/day1-day3/notebooks.json`. Real provider verification remains pending until a key is configured.
-
-`03_finetune.ipynb` now provides Eric's Day 5 handoff: offline data checks, explicit training switches, TF-IDF/logistic-regression baseline, DistilBERT training selected by validation macro-F1, export, and CPU reload smoke check. **Only its six default dry-run cells have been executed.** No ML dependencies/model files were downloaded, and no Colab/GPU training or fine-tuned weights are claimed. Both switches default to False. The training path requires approved reviews and an exact frozen split; it never evaluates test examples.
-
-Run `python scripts/check_day5_notebook.py` and see `results/day5/notebook-check.json`. Read [the data policy](../data/README.md) before approving examples. Package a self-contained Colab upload with `python scripts/package_day5.py --out /tmp/minidavis-day5-colab.zip`. Upload that ZIP in Colab and open the notebook; no provider API key is needed. Rebuild the ZIP after reviews/freeze so Colab receives the reviewed version. Save artifacts to Drive. See [Eric's handoff](../../docs/eric-day5.md) for exact remaining actions.
+For a fresh Colab training run, package the frozen data with `scripts/package_day5.py`, upload that ZIP, and change training switches only in your Colab copy. Keep test data out of model selection, save artifacts outside the temporary runtime, and preserve the original report after final evaluation. Weights are shared separately from Git.

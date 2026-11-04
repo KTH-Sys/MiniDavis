@@ -173,3 +173,12 @@ class RunTrace(Contract):
 
 class ReplayRequest(StepRequest):
     trace: RunTrace
+
+
+class ClassifyRequest(BaseModel):
+    text: str = Field(min_length=1, max_length=700)
+
+
+class InteractionPrediction(BaseModel):
+    label: Literal['cooperation', 'conflict', 'trade', 'neutral']
+    confidence: float = Field(ge=0, le=1)

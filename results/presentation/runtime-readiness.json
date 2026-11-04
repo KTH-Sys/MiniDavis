@@ -1,0 +1,9 @@
+{
+  "status": "ok",
+  "classifier": "loaded",
+  "classifier_required": true,
+  "operator_protected": false,
+  "groq_configured": true,
+  "memory_requested": "semantic",
+  "restart_behavior": "new town; old SQLite events remain isolated by run"
+}

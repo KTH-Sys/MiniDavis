@@ -8,7 +8,7 @@ Expected label: `cooperation`.
 
 We start with `distilbert/distilbert-base-uncased` and adjust its weights using our examples. This produces an interaction classifier. The town's Qwen decision model stays separate. This is the standard [Hugging Face text-classification workflow](https://huggingface.co/docs/transformers/tasks/sequence_classification), adapted to our four labels.
 
-**Current status:** 200 synthetic draft examples and the notebook are prepared. Human reviews and actual training are still pending. The notebook's offline checks have passed; its training path has not yet been verified in Colab. No API key is needed for this public DistilBERT checkpoint. An internet connection is needed for installation and the initial model download.
+**November 4 status:** the dataset is reviewed/frozen. A presentation export has been completed from Gayatri's available checkpoint and evaluated; see the [model card](model-card.md). Preserve its frozen test result. The walkthrough below explains the original Colab workflow for a separate future run; do not refresh/refreeze the current dataset. No provider API key is needed for DistilBERT training.
 
 ## 1. Open the project on Eric's Mac
 

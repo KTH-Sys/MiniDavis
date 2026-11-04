@@ -10,7 +10,7 @@ from .config import Settings
 from .classifier import InteractionClassifier
 from .memory import EventStore, minilm_embedder
 from .groq_planner import LivePlanner
-from .schemas import AgentInspector, ReplayRequest, ResetRequest, RunTrace, StepRequest, WorldState
+from .schemas import AgentInspector, ClassifyRequest, InteractionPrediction, ReplayRequest, ResetRequest, RunTrace, StepRequest, WorldState
 from .world import Conflict, World
 
 
@@ -75,12 +75,24 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return {'status': 'ok', 'classifier': application.state.classifier_status,
                 'classifier_required': settings.classifier_required,
                 'operator_protected': bool(settings.operator_token.get_secret_value()),
+                'groq_configured': bool(settings.llm_api_key.get_secret_value()),
                 'memory_requested': settings.memory_retrieval_mode,
                 'restart_behavior': 'new town; old SQLite events remain isolated by run'}
 
     @application.get("/state", response_model=WorldState)
     def state():
         return application.state.world.snapshot()
+
+    @application.post('/classify', response_model=InteractionPrediction, dependencies=[Depends(operator_access)])
+    def classify(request: ClassifyRequest):
+        if application.state.classifier is None:
+            raise HTTPException(status_code=503, detail='The trained classifier is not loaded.')
+        if not request.text.strip():
+            raise HTTPException(status_code=422, detail='Enter an interaction to classify.')
+        try:
+            return InteractionPrediction.model_validate(application.state.classifier.predict(request.text))
+        except Exception:
+            raise HTTPException(status_code=503, detail='The classifier could not complete this prediction.') from None
 
     @application.get("/agents/{agent_id}", response_model=AgentInspector)
     def inspect(agent_id: str, run_id: str | None = None, revision: int | None = None):

@@ -2,7 +2,7 @@
 
 PR #1 (`saurya/frontend`) originally introduced a standalone React application under `minidavis-frontend/`. Main subsequently gained the shared TypeScript frontend, safe backend controls, memory inspector, animated town and black terminal theme under `frontend/`.
 
-The PR is reconciled into that shared application. Its original commits remain in the merge history. Use `frontend/` for all new frontend work; `minidavis-frontend/README.md` points existing checkouts to the current commands.
+The PR is reconciled into that shared application. Its original commits remain in the merge history. Use `frontend/` for all new frontend work; The legacy frontend README is preserved in `docs/archive/README-legacy-frontend.md`; the active application is `frontend/`.
 
 | Original contribution | Shared implementation |
 | --- | --- |

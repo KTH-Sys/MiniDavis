@@ -1,0 +1,112 @@
+{
+  "checked_on": "2026-11-04",
+  "readiness": "Ready for local presentation rehearsal; see explicit limits",
+  "backend_data_tests": {
+    "passed": 152,
+    "failed": 0
+  },
+  "frontend_tests": {
+    "passed": 39,
+    "failed": 0
+  },
+  "frontend_build": "passed",
+  "dataset": {
+    "status": "frozen",
+    "examples": 200,
+    "train": 120,
+    "validation": 40,
+    "test": 40,
+    "sha256": "82ccf456076109235a4bc1b0d5a53dfdcf8af5db056051e17c187396612ef71b",
+    "original_hashes_preserved": true
+  },
+  "training": {
+    "source_checkpoint_epoch": 1,
+    "additional_epochs_completed": 2,
+    "optimizer_resumed": false,
+    "original_checkpoint_data_fingerprint_available": false,
+    "selected_by": "validation macro-F1",
+    "test_evaluations": 1
+  },
+  "classifier": {
+    "sha256": "e8d59c293252734b9e0644839884fd1ca369a249a7eb46cd638caed079199880",
+    "validation_macro_f1": 0.6507803790412486,
+    "test_macro_f1": 0.8499373433583959,
+    "test_accuracy": 0.85,
+    "test_examples": 40,
+    "baseline_test_macro_f1": 0.7088726136040714,
+    "baseline_test_accuracy": 0.725,
+    "cpu_latency_ms": {
+      "mean": 13.053430200000093,
+      "p95": 15.022606549769078,
+      "samples": 40
+    }
+  },
+  "real_ml_integration": {
+    "passed": true,
+    "semantic_sources_verified": true,
+    "classifier_loaded": true,
+    "scripted_actions_explicit": true,
+    "real_classifier_api_does_not_mutate_town": true,
+    "both_models_peak_mib": 582.3125
+  },
+  "comparison": {
+    "matched_observations": true,
+    "model": "qwen/qwen3.8-27b",
+    "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "calls": 20,
+    "scope": "Exploratory matched-state comparison, not statistical proof of improved behavior.",
+    "live_checks_passed": true,
+    "shortage_limit": "Farm already empty by tick 30 in the fixed starter world. Shortage operations are valid but do not lower stock further, so these episodes do not measure a distinct shortage effect.",
+    "completed_trades": 0,
+    "autonomous_talks": 3,
+    "autonomous_offers": 2
+  },
+  "provider_calls_by_this_audit": {
+    "comparison": 20,
+    "browser": 2,
+    "total": 22,
+    "other_tests": 0
+  },
+  "model_package": {
+    "files": 8,
+    "safe_install_verified": true,
+    "weights_committed_to_git": false,
+    "model_sha256": "e8d59c293252734b9e0644839884fd1ca369a249a7eb46cd638caed079199880",
+    "archive_sha256": "0f776dbf8bc42bcb857b8ae91cff7b8232ff5cac39a02702015b443bfceb2608"
+  },
+  "browser": "browser.json",
+  "source_branch": "main",
+  "github_ci": "Check exact pushed commit; not inferred from local tests",
+  "remaining_human_checks": [
+    "Actual projector and venue network",
+    "Two team rehearsals; 30-minute two-viewer soak",
+    "Record a team video if required by submission"
+  ],
+  "limits": [
+    "40 synthetic classifier test examples; source checkpoint dataset fingerprint unavailable",
+    "One matched planning window per live episode; no statistical RAG-benefit claim",
+    "No completed autonomous trade observed; accepted trade demo is scripted",
+    "Farm already depleted at tick 30, so comparison shortage has no additional stock effect",
+    "No hosted deployment, production durability or Linux-host memory verification"
+  ],
+  "retrieval": {
+    "frozen_hits": 10,
+    "frozen_queries": 10,
+    "paraphrase_hits": 10,
+    "paraphrase_queries": 10,
+    "semantic_verified": true
+  },
+  "baseline_stress": {
+    "ticks": 1000,
+    "invariant_failures": 0,
+    "provider_calls": 0
+  },
+  "notebooks": {
+    "offline_defaults": "passed",
+    "fine_tuning_code_cells": 6,
+    "agent_code_cells": 6,
+    "rag_code_cells": 6,
+    "provider_calls": 0,
+    "training_executed_by_notebook_check": false
+  }
+}

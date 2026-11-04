@@ -179,3 +179,22 @@ describe('town controls', () => {
     expect(api.step).not.toHaveBeenCalled();
   });
 });
+
+it('waits for a pending live reply and paces subsequent turns without making stale requests', async () => {
+  vi.useFakeTimers();
+  try {
+    const api=apiMock();
+    const pending={...initial(),mode:'llm' as const,agent_runtime:{ethan:{status:'waiting' as const,detail:'Waiting',pending:true}}};
+    const ready={...pending,agent_runtime:{ethan:{status:'live' as const,detail:'Cached Groq plan',pending:false}}};
+    vi.mocked(api.state).mockResolvedValueOnce(pending).mockResolvedValue(ready);
+    vi.mocked(api.step).mockResolvedValue({...ready,tick:1,revision:1});
+    const {result}=renderHook(()=>useTown(api,20));await flush();
+    act(()=>result.current.next());await flush();expect(api.step).not.toHaveBeenCalled();
+    act(()=>result.current.play());await advance(1000);
+    expect(result.current.state?.agent_runtime?.ethan.pending).toBe(false);
+    expect(api.step).not.toHaveBeenCalled();
+    await advance(14999);expect(api.step).not.toHaveBeenCalled();
+    await advance(1);expect(api.step).toHaveBeenCalledTimes(1);
+    cleanup();
+  } finally {vi.useRealTimers();}
+});

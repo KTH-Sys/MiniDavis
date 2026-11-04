@@ -11,6 +11,13 @@ export interface Resident {
   relationships: Record<string, number>;
 }
 
+export interface Readiness {
+  classifier: 'loaded' | 'not_available' | 'unavailable';
+  groq_configured: boolean;
+  operator_protected: boolean;
+  memory_requested: 'lexical' | 'semantic';
+}
+
 export interface WorldState {
   run_id: string;
   tick: number;

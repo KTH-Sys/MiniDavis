@@ -11,8 +11,10 @@ from ml.interaction_data import LABEL2ID, LABELS, SEED, fingerprint, training_ro
 MODEL = "distilbert/distilbert-base-uncased"
 
 
-def run_training(data_dir, output_dir):
+def run_training(data_dir, output_dir, *, initial_model=None, epochs=3):
     # Run before importing/downloading models or creating an output directory.
+    if type(epochs) is not int or not 1 <= epochs <= 10:
+        raise ValueError('Use between one and ten training epochs')
     splits = training_rows(data_dir)
     output_dir = Path(output_dir)
     if output_dir.exists() and any(output_dir.iterdir()):
@@ -55,12 +57,14 @@ def run_training(data_dir, output_dir):
     joblib.dump(baseline, output_dir / "baseline.joblib")
     (output_dir / "baseline-validation.json").write_text(json.dumps(baseline_metrics, indent=2) + "\n")
 
+    source = str(initial_model) if initial_model else MODEL
     model = AutoModelForSequenceClassification.from_pretrained(
-        MODEL, num_labels=len(LABELS), label2id=LABEL2ID,
+        source, num_labels=len(LABELS), label2id=LABEL2ID,
         id2label={index: name for name, index in LABEL2ID.items()},
+        local_files_only=bool(initial_model),
     )
     revision = getattr(model.config, "_commit_hash", None)
-    tokenizer = AutoTokenizer.from_pretrained(MODEL, revision=revision)
+    tokenizer = AutoTokenizer.from_pretrained(source, revision=revision, local_files_only=bool(initial_model))
 
     class Interactions(torch.utils.data.Dataset):
         def __init__(self, rows):
@@ -79,7 +83,7 @@ def run_training(data_dir, output_dir):
     args = TrainingArguments(
         output_dir=str(output_dir / "checkpoints"), learning_rate=2e-5,
         per_device_train_batch_size=batch_size, per_device_eval_batch_size=batch_size,
-        num_train_epochs=3, eval_strategy="epoch", save_strategy="epoch",
+        num_train_epochs=epochs, eval_strategy="epoch", save_strategy="epoch",
         save_total_limit=2, load_best_model_at_end=True, metric_for_best_model="macro_f1",
         greater_is_better=True, seed=SEED, data_seed=SEED, report_to=[],
         use_cpu=not use_gpu, fp16=False, bf16=False,
@@ -110,7 +114,7 @@ def run_training(data_dir, output_dir):
         "status": "training_completed", "model": MODEL, "model_revision": revision,
         "dataset_sha256": manifest["dataset_sha256"], "manifest_sha256": fingerprint(manifest_path),
         "label2id": LABEL2ID, "seed": SEED, "max_length": 128, "learning_rate": 2e-5,
-        "epochs": 3, "batch_size": batch_size, "device": "cuda" if use_gpu else "cpu",
+        "epochs": epochs, "batch_size": batch_size, "device": "cuda" if use_gpu else "cpu",
         "selection_metric": "validation_macro_f1", "best_checkpoint": trainer.state.best_model_checkpoint,
         "baseline": baseline_metrics, "distilbert": classifier_metrics,
         "training_seconds": time.perf_counter() - started, "test_evaluated": False,
@@ -119,6 +123,12 @@ def run_training(data_dir, output_dir):
                      ("torch", "transformers", "accelerate", "scikit-learn", "numpy")},
         "limitations": "Small synthetic teaching dataset; held-out evaluation is reserved for Day 6.",
     }
+    if initial_model:
+        report['continuation'] = {
+            'source_weights_sha256': fingerprint(Path(initial_model) / 'model.safetensors'),
+            'optimizer_resumed': False,
+            'note': 'Continued local checkpoint weights with a fresh optimizer; only current frozen training rows used. Original checkpoint dataset fingerprint was not supplied.',
+        }
     (output_dir / "metrics.json").write_text(json.dumps(report, indent=2) + "\n")
     (output_dir / "split_manifest.json").write_text(manifest_path.read_text())
     return report

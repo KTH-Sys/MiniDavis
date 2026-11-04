@@ -1,0 +1,53 @@
+{
+  "checked_on": "2026-11-04",
+  "url": "http://127.0.0.1:5173",
+  "viewport_width": 1280,
+  "document_width": 1265,
+  "horizontal_overflow": false,
+  "live_ai": {
+    "actual_browser_requests": 2,
+    "executed_mode": "live",
+    "displayed_status": "Cached Groq plan",
+    "semantic_memory_displayed": true
+  },
+  "real_classifier_probe": {
+    "text": "Ethan offers Saurya two food in exchange for one coin.",
+    "label": "trade",
+    "confidence_percent_displayed": 57.4,
+    "town_mutated": false
+  },
+  "known_classifier_error": {
+    "text": "Ethan gives Saurya spare food without asking for payment.",
+    "intended_label": "cooperation",
+    "predicted_label": "trade",
+    "confidence_percent_displayed": 34.1
+  },
+  "sample": {
+    "labelled_scripted": true,
+    "tick": 10,
+    "accepted_trade": true,
+    "conversation": true,
+    "interaction_actor_headings_correct": true,
+    "relationship": "Saurya: +2",
+    "replay_play_disabled": true
+  },
+  "two_viewers": {
+    "operator_turn": 1,
+    "viewer_turn": 1,
+    "automatic_read_only_refresh": true
+  },
+  "controls": {
+    "baseline_play_advanced": true,
+    "pause_stopped_at_tick": 44,
+    "manual_next_turn": true,
+    "early_shortage_before": 30,
+    "early_shortage_after": 5,
+    "shortage_did_not_increment_tick": true
+  },
+  "evidence": [
+    "docs/assets/presentation.jpg",
+    "docs/assets/live-decision.jpg",
+    "docs/assets/classifier-probe.jpg"
+  ],
+  "scope": "Desktop functional smoke checks, not a thirty-minute soak or two team rehearsals. Mobile/projector/venue network not tested."
+}

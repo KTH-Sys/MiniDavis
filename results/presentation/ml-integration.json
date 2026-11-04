@@ -1,0 +1,77 @@
+{
+  "checked_on": "2026-11-04",
+  "passed": true,
+  "fixture": true,
+  "provider_calls": 0,
+  "fixture_description": "Scripted movement/trade/speech/shortage executed through real world rules and real classifier; not autonomous AI behavior",
+  "model_sha256": "e8d59c293252734b9e0644839884fd1ca369a249a7eb46cd638caed079199880",
+  "classifier_loaded": true,
+  "semantic_retrieval_verified": true,
+  "sources_verified": true,
+  "reset_isolation_verified": true,
+  "strict_api_readiness": {
+    "status": "ok",
+    "classifier": "loaded",
+    "classifier_required": true,
+    "operator_protected": false,
+    "groq_configured": false,
+    "memory_requested": "semantic",
+    "restart_behavior": "new town; old SQLite events remain isolated by run"
+  },
+  "two_readers_same_run_no_turns": true,
+  "final_factual_digest": "0f87ad91e06065be071719c229c73df9d268b3321298a44fc72f9da32d8bed83",
+  "real_cpu_api_prediction": {
+    "label": "trade",
+    "confidence": 0.3405
+  },
+  "classification_does_not_mutate_town": true,
+  "labelled_events": [
+    {
+      "event_id": "a77216d9-e8e4-420c-a858-2c062dc6110f:8:ethan",
+      "run_id": "a77216d9-e8e4-420c-a858-2c062dc6110f",
+      "tick": 8,
+      "agent_id": "ethan",
+      "action": "offer_trade",
+      "outcome": "accepted",
+      "text": "Ethan offered 1 food for 1 coins to Saurya.",
+      "target_agent_id": "saurya",
+      "interaction_id": "a77216d9-e8e4-420c-a858-2c062dc6110f:8:ethan",
+      "interaction_label": "trade",
+      "confidence": 0.5001
+    },
+    {
+      "event_id": "a77216d9-e8e4-420c-a858-2c062dc6110f:8:saurya",
+      "run_id": "a77216d9-e8e4-420c-a858-2c062dc6110f",
+      "tick": 8,
+      "agent_id": "saurya",
+      "action": "accept_trade",
+      "outcome": "accepted",
+      "text": "Saurya accepted trade fixture-trade: Ethan gave 1 food, Saurya gave 1 coins.",
+      "target_agent_id": "ethan",
+      "interaction_id": "a77216d9-e8e4-420c-a858-2c062dc6110f:8:saurya",
+      "interaction_label": "trade",
+      "confidence": 0.4581
+    },
+    {
+      "event_id": "a77216d9-e8e4-420c-a858-2c062dc6110f:9:ethan",
+      "run_id": "a77216d9-e8e4-420c-a858-2c062dc6110f",
+      "tick": 9,
+      "agent_id": "ethan",
+      "action": "talk",
+      "outcome": "accepted",
+      "text": "Ethan told Saurya: Thank you for the exchange.",
+      "target_agent_id": "saurya",
+      "interaction_id": "a77216d9-e8e4-420c-a858-2c062dc6110f:9:ethan",
+      "interaction_label": "trade",
+      "confidence": 0.3582
+    }
+  ],
+  "local_cpu_memory": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "unit": "MiB process peak RSS",
+    "before_models": 57.453125,
+    "with_both_models": 582.3125,
+    "peak_after_api_check": 1050.953125
+  },
+  "limits": "Local Mac CPU only; no hosted deployment or Linux RAM measurement claimed. Classifier labels may be wrong."
+}

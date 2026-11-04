@@ -3,7 +3,7 @@
 * { box-sizing:border-box; }
 body { margin:0; }
 main { max-width:1480px; margin:auto; padding:0 36px; }
-button,input { font:inherit; }
+button,input,select { font:inherit; }
 button { border:1px solid #24532e; background:transparent; color:#80d76a; padding:11px 14px; border-radius:0; cursor:pointer; font-size:10px; font-weight:600; }
 button:hover:not(:disabled) { background:#0b2510; }
 button:disabled { opacity:.4; cursor:default; }
@@ -172,3 +172,13 @@ footer { display:flex; justify-content:space-between; gap:16px; margin:25px 0; p
 .run-tools input[type="file"] { max-width: 100%; width: min(100%, 290px); font: inherit; }
 .run-tools form { display: flex; flex-wrap: wrap; gap: 8px; margin-block: 8px; }
 .run-tools input[type="password"] { width: min(100%, 260px); }
+.run-tools { font-size:9px; line-height:1.9; }
+.setup-status { padding:12px; border:1px solid var(--line); margin-bottom:14px; color:var(--dim); }
+.setup-status p { margin:0 0 10px; overflow-wrap:anywhere; }
+.setup-status strong { color:var(--gold); }
+.mode-controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.mode-controls select { margin-left:8px; max-width:100%; background:#071009; color:var(--green); border:1px solid #24532e; padding:8px; font-size:9px; }
+.run-tools summary { cursor:pointer; color:var(--gold); margin-top:12px; }
+.status-expired { color:#a6aca2; border:1px solid #4a5548; background:#20251f; }
+.classifier-probe textarea { display:block; width:100%; min-height:85px; background:#071009; color:var(--green); border:1px solid #24532e; padding:10px; margin:8px 0; font:inherit; line-height:1.8; resize:vertical; }
+.classifier-probe form,.classifier-probe label { width:100%; }
