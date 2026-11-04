@@ -20,7 +20,7 @@ def freeze_dataset(data_dir):
     require(manifest.get("status") == "draft", "Refusing to overwrite an already frozen split")
     validate_dataset(data_dir)
     reviews = read_reviews(data_dir / "review_queue.csv", read_examples(data_dir / "interactions.jsonl"))
-    require(all(row["status"] == "approved" for row in reviews), "Finish every assigned human review before freezing")
+    require(all(row["status"] == "approved" for row in reviews), "Finish every assigned review before freezing")
     manifest["status"] = "frozen"
     manifest["reviews_sha256"] = fingerprint(data_dir / "review_queue.csv")
     path.write_text(json.dumps(manifest, indent=2) + "\n")

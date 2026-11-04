@@ -30,6 +30,8 @@ class Budget:
         return datetime.fromtimestamp(now, timezone.utc).date().isoformat()
 
     def reserve(self, run_id: str, agent_id: str, tokens: int) -> tuple[int | None, str]:
+        if type(tokens) is not int or tokens <= 0:
+            raise ValueError('Token reservations must be positive integers')
         now, s = self.clock(), self.settings
         with self.lock:
             self.db.execute('BEGIN IMMEDIATE')
@@ -67,6 +69,10 @@ class Budget:
                 raise
 
     def finish(self, call_id: int, tokens: int | None, status: str, retry_after: float = 0):
+        if tokens is not None and (type(tokens) is not int or tokens < 0):
+            tokens = None
+        if not math.isfinite(retry_after) or retry_after < 0:
+            retry_after = 60
         with self.lock, self.db:
             # Unknown usage keeps its full reservation. Failed/retried calls still count.
             if tokens is None:

@@ -29,6 +29,9 @@ class InteractionClassifier:
         )
         self.model.to("cpu")
         self.model.eval()
+        expected = {0: 'cooperation', 1: 'conflict', 2: 'trade', 3: 'neutral'}
+        if {int(k): v for k, v in self.model.config.id2label.items()} != expected:
+            raise ValueError('Classifier label mapping does not match the reviewed MiniDavis dataset')
         return self
 
     def predict(self, text):

@@ -1,6 +1,6 @@
 # Interaction data — Day 5
 
-`interactions.jsonl` contains **200 assistant-authored synthetic examples**, not recorded town events or human-reviewed ground truth. There are 50 examples per label and 40 scenario families, each with five related examples. These describe planned social interactions; they do not establish that talk/trade is implemented.
+`interactions.jsonl` contains **200 assistant-authored synthetic examples**, not recorded town events. There are 50 examples per label and 40 scenario families, each with five related examples. Ethan's and Gayatri's reviews are recorded in the queue. On November 3, Eric explicitly delegated Aishani's 001–050 review; those rows were checked by the assistant and are attributed accordingly, without claiming Aishani personally signed off. The data remain a small synthetic teaching set, not verified real-world ground truth.
 
 Only `text` is model input. Never include `label`, example IDs, reviewer names, scenario families or split names in model features. Class IDs are fixed: cooperation=0, conflict=1, trade=2, neutral=3.
 
@@ -21,7 +21,7 @@ Label the observable interaction, not imagined intentions, positive/negative sen
 4. After review edits, run `python scripts/prepare_interactions.py --refresh-draft` to update the candidate fingerprint and check all constraints. Once all 200 rows are approved, run `python scripts/prepare_interactions.py --freeze`. This binds the fixed split to the exact data, label mapping and review-file hashes. Commit the reviewed files together. The script refuses to replace an existing frozen split.
 5. Open `ml/notebooks/03_finetune.ipynb`. Dry-run checks need no key, model download or ML dependencies. Training refuses draft, changed or unreviewed data. Gayatri enables training after reviews finish; use validation only for checkpoint selection.
 
-The reproducible candidate split uses seed 20261029, assigns entire families, and has 30/10/10 examples per class in train/validation/test. The manifest is **not yet frozen**. Test metrics stay reserved for Day 6. Do not change assignments after inspecting model results. A substantive post-freeze change requires an explicitly versioned new dataset and manifest, rather than silently overwriting the old one.
+The reproducible split uses seed 20261029, assigns entire families, and has 30/10/10 examples per class in train/validation/test. The manifest was **frozen November 3 after the assigned reviews were recorded**. Training and held-out evaluation have not run. Do not rerun `--refresh-draft` or `--freeze` on this frozen version; use `--require-frozen` to check it. Do not change assignments after inspecting model results. A substantive post-freeze change requires an explicitly versioned new dataset and manifest, rather than silently overwriting the old one.
 
 Example: `python scripts/prepare_interactions.py --out results/day5/data-check.json` saves a metadata-only check report. `--require-frozen` checks the training gate without training. No command here calls Groq.
 

@@ -4,7 +4,9 @@ A 2D town with five AI residents named Ethan, Gayatri, Aishani, Rylee, and Saury
 
 ## Run MiniDavis
 
-The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a black hacker-terminal interface with green pixel text and yellow agent names beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events. Conversations and trades will appear once the backend records those actions. Groq decisions have now been verified for all five residents, and CPU MiniLM retrieval passes the Day 4 checks. Keyword retrieval remains the default until semantic mode is enabled. Classifier training remains Day 5 work. See [the Day 0–4 audit and setup](docs/day0-day4-audit.md) and [town artwork and animation notes](frontend/public/art/README.md).
+**November 3 update:** Eric/Aishani's [Day 5–7 implementation report](docs/eric-aishani-day5-day7.md) covers recorded social actions, safe nearby trades, shortage, validated replay, operator controls and failure/budget tests. The dataset is now reviewed/frozen and ready for Gayatri. Actual classifier training and full ML hosting remain pending; see [deployment status](docs/deployment.md).
+
+The runnable baseline connects React to FastAPI and supports Play, Pause, Next Turn and Reset without an API key or local model. The animated pixel-art town has five selectable residents and a black hacker-terminal interface with green pixel text and yellow agent names beside it. All activity shows recorded town actions plus the selected resident's latest memory. Decision, Memories and Interactions tabs show that resident's actual decision text and retrieved source events, including executed conversations and trades. Groq decisions have been verified for all five residents, and real CPU MiniLM retrieval checks pass. Keyword retrieval remains the default until semantic mode is enabled. The reviewed dataset is frozen; actual classifier training remains pending. See [the current implementation report](docs/eric-aishani-day5-day7.md), [Day 0–4 audit and setup](docs/day0-day4-audit.md) and [town artwork and animation notes](frontend/public/art/README.md).
 
 Use Python 3.12 and Node 24 LTS. From the repository root:
 
@@ -119,32 +121,32 @@ Eric’s [Day 3–4 integration notes](docs/eric-day3-day4.md) include the MVP r
 
 **Shared session:** Run the fine-tuning notebook to train a small interaction classifier: cooperation, conflict, trade, or neutral.
 
-- [ ] **Eric:** Data preparation and offline notebook checks are done: [200 draft examples and review instructions](ml/data/README.md), [Colab notebook](ml/notebooks/03_finetune.ipynb), [test evidence and handoff](docs/eric-day5.md). Finish the shared Colab run after the assigned reviews and freeze; team access/training are not yet verified.
+- [ ] **Eric:** Dataset preparation, recorded reviews, frozen split and notebook dry run are done. Gayatri's actual training/shared Colab session remains pending; [reviewed data](ml/data/README.md), [Colab notebook](ml/notebooks/03_finetune.ipynb), [current handoff](docs/eric-aishani-day5-day7.md).
 - [x] **Saurya:** Add an interaction-label field to the UI.
 - [ ] **Rylee:** Implement trade offers and acceptance; run duplicate-acceptance tests.
-- [ ] **Aishani:** Review examples 001–050 and correct wrong labels.
-- [ ] **Ethan:** Review examples 051–100 and check that scenario families stay in one data split.
+- [x] **Aishani:** Examples 001–050 checked against the label policy on Eric's explicit delegation. All labels matched; AI-assisted review provenance is recorded, without claiming personal human sign-off.
+- [x] **Ethan:** Review examples 051–100 and check that scenario families stay in one data split.
 - [ ] **Gayatri:** Prepare the Colab training notebook, review examples 101–200, train DistilBERT, and export weights/tokenizer/config and validation results.
 
 **Finish:** Train on the fixed training split, choose using validation, and save a trained classifier. Keep test data untouched until Day 6. Fine-tune the classifier, not the main LLM.
 
 ## Day 6 — Tuesday, 11/03: Integrate and freeze features
 
-- [ ] **Eric:** Finish integration; help deploy the static frontend and CPU backend preview within the agreed budget, or record the hosting blocker.
+- [ ] **Eric:** Local integration and a free baseline-preview blueprint are ready; hosting blockers are recorded. The full trained-classifier integration gate remains pending Gayatri's export and combined RAM measurement. See [deployment](docs/deployment.md).
 - [x] **Saurya:** Connect the frontend to the deployed API when available; check shortage, trades, memories, classifier labels and waiting states.
 - [ ] **Rylee:** Finish trading, shortage, reset and replay; package the CPU backend, load the classifier and measure RAM before deployment.
-- [ ] **Aishani:** Test Groq timeout, invalid output, missing key and quota errors; enforce shared request/token budgets and safe fallback.
-- [ ] **Ethan:** Update memories/relationships from completed interactions; verify persistent storage or document reset-on-restart preview behavior.
+- [x] **Aishani:** Timeout, malformed JSON, invalid plans, missing-key, HTTP quota and recovery checks pass; all five current live decisions verified after constraining legal choices. Shared caps and labelled fallback remain enforced.
+- [x] **Ethan:** Update memories/relationships from completed interactions; verify persistent storage or document reset-on-restart preview behavior.
 - [ ] **Gayatri:** Evaluate the frozen classifier on held-out test data and run the integration checklist.
 
 **Integration gate:** Groq agents, our RAG, trades, shortage, CPU classifier and frontend work together. Check queue/budget limits and hosting readiness. Keep fixed relationship rules; the classifier supplies an observable label. Freeze new features after this meeting. A hosting blocker must be recorded and must not delay core integration.
 
 ## Day 7 — Thursday, 11/05: Stabilize and compare
 
-- [ ] **Eric:** Reproduce and fix bugs with the responsible teammate; help backend/frontend owners rerun checks.
+- [x] **Eric:** Integration bugs reproduced/fixed, backend/frontend checks rerun, 1,000 baseline ticks verified, and remaining external gates documented. Performed early on November 3; rerun affected checks after later teammate changes.
 - [ ] **Saurya:** Run a 30-minute session with two viewers; confirm both see one town and do not multiply model calls.
 - [ ] **Rylee:** Run 1,000 baseline ticks and confirm no corrupted resources or positions.
-- [ ] **Aishani:** Run mocked Groq failure/quota checks; verify cached plans, stale-result rejection and aggregate call/token caps.
+- [x] **Aishani:** Mocked failure/recovery, finite Retry-After, stale results, cached movement/social actions and an actual shared 20-call run cap pass. Performed early on November 3.
 - [ ] **Ethan:** Rerun retrieval and memory-isolation checks.
 - [ ] **Gayatri:** Run six matched comparison runs within the reserved Groq quota; save calls/tokens, latency, behavior and classifier metrics.
 

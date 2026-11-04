@@ -51,6 +51,10 @@ class Event(Contract):
     action: str
     outcome: Literal["accepted", "rejected"]
     text: str
+    target_agent_id: str | None = None
+    interaction_id: str | None = None
+    interaction_label: Literal['cooperation', 'conflict', 'trade', 'neutral'] | None = None
+    confidence: float | None = Field(default=None, ge=0, le=1)
 
 
 class MemoryContext(Contract):
@@ -64,7 +68,7 @@ class MemoryContext(Contract):
 class DecisionRecord(Contract):
     tick: int
     observation_revision: int
-    planner_mode: Literal["baseline", "custom", "live", "cached", "waiting", "fallback"]
+    planner_mode: Literal["baseline", "custom", "live", "cached", "waiting", "fallback", "replay"]
     action: str
     explanation: str
     memory: MemoryContext
@@ -74,7 +78,7 @@ class DecisionRecord(Contract):
 
 
 class AgentRuntime(Contract):
-    status: Literal["baseline", "live", "waiting", "fallback"] = "baseline"
+    status: Literal["baseline", "live", "waiting", "fallback", "replay"] = "baseline"
     detail: str = "Baseline rules"
     pending: bool = False
     plan_target: str | None = None
@@ -94,15 +98,17 @@ class TradeOffer(Contract):
     give_resource: Literal["food", "wood", "coins"]
     give_amount: int = Field(gt=0)
     receive_resource: Literal["food", "wood", "coins"]
-    receive_amount: int = Field(gt=0)
-    status: Literal["pending", "accepted", "rejected"] = "pending"
+    receive_amount: int = Field(ge=0)
+    created_tick: int = 0
+    expires_tick: int = 5
+    status: Literal["pending", "accepted", "rejected", "expired"] = "pending"
 
 class WorldState(Contract):
     run_id: str
     tick: int = 0
     revision: int = 0
     seed: int
-    mode: Literal["baseline", "llm"] = "baseline"
+    mode: Literal["baseline", "llm", "replay"] = "baseline"
     map: TownMap
     agents: list[Resident]
     resources: list[Resource]
@@ -114,15 +120,16 @@ class WorldState(Contract):
 
 
 class Action(Contract):
-    action: Literal["move", "gather", "eat", "rest", "offer_trade", "accept_trade"]
-    x: int | None = None
-    y: int | None = None
+    action: Literal["move", "gather", "eat", "rest", "talk", "offer_trade", "accept_trade", "reject_trade"]
+    x: int | None = Field(default=None, strict=True)
+    y: int | None = Field(default=None, strict=True)
     offer_id: str | None = None
     recipient_id: str | None = None
     give_resource: Literal["food", "wood", "coins"] | None = None
-    give_amount: int | None = None
+    give_amount: int | None = Field(default=None, strict=True)
     receive_resource: Literal["food", "wood", "coins"] | None = None
-    receive_amount: int | None = None
+    receive_amount: int | None = Field(default=None, strict=True)
+    message: str | None = Field(default=None, max_length=240)
 
 
 class StepRequest(Contract):
@@ -143,3 +150,26 @@ class AgentInspector(Contract):
     agent: Resident
     decision: DecisionRecord | None
     retrieval: MemoryContext
+
+
+class RecordedAction(Contract):
+    agent_id: str
+    action: Action
+    outcome: Literal['accepted', 'rejected']
+
+
+class TraceOperation(Contract):
+    kind: Literal['step', 'shortage']
+    actions: list[RecordedAction] = Field(default_factory=list, max_length=5)
+    digest: str = Field(min_length=64, max_length=64)
+
+
+class RunTrace(Contract):
+    version: Literal[1] = 1
+    seed: int = Field(ge=0, le=2**31 - 1, strict=True)
+    source_run_id: str
+    operations: list[TraceOperation] = Field(default_factory=list, max_length=2000)
+
+
+class ReplayRequest(StepRequest):
+    trace: RunTrace

@@ -31,6 +31,33 @@ describe('town controls', () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => { cleanup(); vi.useRealTimers(); });
 
+  it('applies shortage without inventing a tick and labels loaded replay as non-running', async () => {
+    const api=apiMock();
+    api.shortage=vi.fn().mockResolvedValue({...initial(),revision:1,resources:[{id:'farm',kind:'food',x:9,y:3,stock:5}]});
+    api.replay=vi.fn().mockResolvedValue({...initial('replayed',10),mode:'replay'});
+    const {result}=renderHook(()=>useTown(api,20));
+    await flush();
+    act(()=>result.current.shortage());await flush();
+    expect(result.current.state?.tick).toBe(0);
+    expect(result.current.state?.revision).toBe(1);
+    expect(result.current.state?.resources[0].stock).toBe(5);
+    act(()=>result.current.replay({version:1,seed:11,source_run_id:'r',operations:[]}));await flush();
+    expect(result.current.state?.mode).toBe('replay');
+    act(()=>result.current.play());await advance(100);
+    expect(result.current.running).toBe(false);
+    expect(api.step).not.toHaveBeenCalled();
+  });
+
+  it('a paused viewer follows operator changes using reads only', async () => {
+    const api=apiMock();
+    const {result}=renderHook(()=>useTown(api,20));await flush();
+    vi.mocked(api.state).mockResolvedValue(initial('operator-run',42));
+    await advance(2000);
+    expect(result.current.state?.tick).toBe(42);
+    expect(result.current.state?.run_id).toBe('operator-run');
+    expect(api.step).not.toHaveBeenCalled();
+  });
+
   it('Next Turn advances once; Play schedules more turns and Pause stops scheduling', async () => {
     const api = apiMock();
     const { result } = renderHook(() => useTown(api, 20));
@@ -148,6 +175,7 @@ describe('town controls', () => {
     expect(result.current.state?.agent_runtime?.ethan.status).toBe('live');
     expect(api.step).not.toHaveBeenCalled();
     await advance(5000);
-    expect(api.state).toHaveBeenCalledTimes(2);
+    expect(vi.mocked(api.state).mock.calls.length).toBeGreaterThan(2);
+    expect(api.step).not.toHaveBeenCalled();
   });
 });

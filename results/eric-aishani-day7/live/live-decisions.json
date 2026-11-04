@@ -1,0 +1,181 @@
+{
+  "model": "qwen/qwen3.8-27b",
+  "api_key_configured": true,
+  "baseline_agents_validated": 5,
+  "live_requested": true,
+  "live_verified": false,
+  "run_id": "1c81c399-9ac2-4a59-a0a1-92279373c881",
+  "usage": {
+    "calls_run": 5,
+    "calls_day": 5,
+    "tokens_day": 1166,
+    "reserved_tokens_day": 1166,
+    "cooldown_seconds": 0
+  },
+  "decisions": {
+    "ethan": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Ethan moved to (2, 1).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather supplies and grow wealth food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "1c81c399-9ac2-4a59-a0a1-92279373c881:1:ethan",
+      "model_explanation": "Proceed to the forest to gather wood, increasing raw material stock to help achieve the goal of growing wealth through trades.",
+      "model_observation_revision": 0
+    },
+    "gayatri": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Gayatri moved to (7, 3).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect supplies for shelter food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "1c81c399-9ac2-4a59-a0a1-92279373c881:1:gayatri",
+      "model_explanation": "Move from (8,3) to forest at (2,2) to gather necessary wood for the shelter.",
+      "model_observation_revision": 0
+    },
+    "aishani": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "fallback",
+      "action": "move",
+      "explanation": "Aishani moved to (6, 4).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Collect food for future trades food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "1c81c399-9ac2-4a59-a0a1-92279373c881:1:aishani",
+      "model_explanation": null,
+      "model_observation_revision": null
+    },
+    "rylee": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Rylee moved to (7, 9).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Build cooperation in town food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "1c81c399-9ac2-4a59-a0a1-92279373c881:1:rylee",
+      "model_explanation": "Move toward the town hall to begin social interactions and build cooperation as required by the goal.",
+      "model_observation_revision": 0
+    },
+    "saurya": {
+      "tick": 1,
+      "observation_revision": 0,
+      "planner_mode": "live",
+      "action": "move",
+      "explanation": "Saurya moved to (3, 8).",
+      "memory": {
+        "mode": "recent-only",
+        "query": "Gather food to help neighbors food wood energy gather rejected",
+        "as_of_tick": 0,
+        "recent": [],
+        "relevant": []
+      },
+      "event_id": "1c81c399-9ac2-4a59-a0a1-92279373c881:1:saurya",
+      "model_explanation": "Move toward the farm to gather food to help neighbors, as required by your goal.",
+      "model_observation_revision": 0
+    }
+  },
+  "status": {
+    "ethan": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    },
+    "gayatri": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "forest"
+    },
+    "aishani": {
+      "status": "fallback",
+      "detail": "Invalid Groq plan; using baseline",
+      "pending": false,
+      "plan_target": null
+    },
+    "rylee": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "town-hall"
+    },
+    "saurya": {
+      "status": "live",
+      "detail": "Cached Groq plan",
+      "pending": false,
+      "plan_target": "farm"
+    }
+  },
+  "attempts": [
+    {
+      "agent_id": "ethan",
+      "proposal": {
+        "action": "move",
+        "explanation": "Proceed to the forest to gather wood, increasing raw material stock to help achieve the goal of growing wealth through trades.",
+        "target": "forest"
+      },
+      "validation": "accepted"
+    },
+    {
+      "agent_id": "gayatri",
+      "proposal": {
+        "action": "move",
+        "explanation": "Move from (8,3) to forest at (2,2) to gather necessary wood for the shelter.",
+        "target": "forest"
+      },
+      "validation": "accepted"
+    },
+    {
+      "agent_id": "aishani",
+      "proposal": {
+        "action": "move",
+        "explanation": "Move from [5,4] to farm [9,3] to gather food as per goal.",
+        "target": null
+      },
+      "validation": "InvalidModelAction"
+    },
+    {
+      "agent_id": "rylee",
+      "proposal": {
+        "action": "move",
+        "explanation": "Move toward the town hall to begin social interactions and build cooperation as required by the goal.",
+        "target": "town-hall"
+      },
+      "validation": "accepted"
+    },
+    {
+      "agent_id": "saurya",
+      "proposal": {
+        "action": "move",
+        "explanation": "Move toward the farm to gather food to help neighbors, as required by your goal.",
+        "target": "farm"
+      },
+      "validation": "accepted"
+    }
+  ]
+}

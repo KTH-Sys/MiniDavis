@@ -18,4 +18,19 @@ describe('frontend API configuration compatibility', () => {
     await townApi.state(new AbortController().signal);
     expect(fetch).toHaveBeenCalledWith(`${expected}/state`, expect.objectContaining({ method: 'GET' }));
   });
+
+  it('sends an operator key only on mutations and uses the real shortage route', async () => {
+    const { townApi, setOperatorKey } = await import('./api');
+    setOperatorKey('operator-test-key');
+    const signal = new AbortController().signal;
+    await townApi.state(signal);
+    expect(fetch).toHaveBeenLastCalledWith(expect.stringContaining('/state'),expect.objectContaining({headers:undefined}));
+    const state = {run_id:'r',revision:3} as import('./types').WorldState;
+    await townApi.shortage!(state,'unique-id',signal);
+    expect(fetch).toHaveBeenLastCalledWith(expect.stringContaining('/scenario/shortage'),expect.objectContaining({
+      method:'POST',headers:{'Content-Type':'application/json','X-Operator-Token':'operator-test-key'},
+      body:JSON.stringify({run_id:'r',expected_revision:3,request_id:'unique-id'}),
+    }));
+    setOperatorKey('');
+  });
 });

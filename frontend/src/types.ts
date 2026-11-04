@@ -16,7 +16,7 @@ export interface WorldState {
   tick: number;
   revision: number;
   seed: number;
-  mode: 'baseline' | 'llm';
+  mode: 'baseline' | 'llm' | 'replay';
   decisions?: Record<string, DecisionRecord>;
   agent_runtime?: Record<string, AgentRuntime>;
   provider_usage?: { calls_run: number; calls_day: number; tokens_day: number; reserved_tokens_day: number; cooldown_seconds: number };
@@ -33,13 +33,14 @@ export interface WorldState {
     run_id: string;
     tick: number;
     agent_id: string;
-    target_agent_id?: string;
+    target_agent_id?: string | null;
+    interaction_id?: string | null;
     participants?: string[];
     action: string;
     outcome: 'accepted' | 'rejected';
     text: string;
-    interaction_label?: 'cooperation' | 'conflict' | 'trade' | 'neutral' | string;
-    confidence?: number;
+    interaction_label?: 'cooperation' | 'conflict' | 'trade' | 'neutral' | string | null;
+    confidence?: number | null;
     label?: 'cooperation' | 'conflict' | 'trade' | 'neutral' | string;
     classification?: {
       label: 'cooperation' | 'conflict' | 'trade' | 'neutral' | string;
@@ -61,7 +62,7 @@ export interface MemoryContext {
 export interface DecisionRecord {
   tick: number;
   observation_revision: number;
-  planner_mode: 'baseline' | 'custom' | 'live' | 'cached' | 'waiting' | 'fallback';
+  planner_mode: 'baseline' | 'custom' | 'live' | 'cached' | 'waiting' | 'fallback' | 'replay';
   action: string;
   explanation: string;
   memory: MemoryContext;
@@ -71,7 +72,7 @@ export interface DecisionRecord {
 }
 
 export interface AgentRuntime {
-  status: 'baseline' | 'live' | 'waiting' | 'fallback';
+  status: 'baseline' | 'live' | 'waiting' | 'fallback' | 'replay';
   detail: string;
   pending: boolean;
   plan_target?: string | null;
@@ -85,5 +86,12 @@ export interface TradeOffer {
   give_amount: number;
   receive_resource: 'food' | 'wood' | 'coins';
   receive_amount: number;
-  status: 'pending' | 'accepted' | 'rejected';
+  status: 'pending' | 'accepted' | 'rejected' | 'expired';
+}
+
+export interface RunTrace {
+  version: 1;
+  seed: number;
+  source_run_id: string;
+  operations: unknown[];
 }

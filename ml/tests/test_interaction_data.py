@@ -123,7 +123,7 @@ def test_draft_cannot_train_or_freeze_with_pending_reviews(data):
     before = (data / "split_manifest.json").read_bytes()
     with pytest.raises(ValueError, match="dataset is draft"):
         training_rows(data)
-    with pytest.raises(ValueError, match="human review"):
+    with pytest.raises(ValueError, match="assigned review"):
         freeze_dataset(data)
     assert (data / "split_manifest.json").read_bytes() == before
 

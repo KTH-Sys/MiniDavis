@@ -31,6 +31,9 @@ class Settings(BaseSettings):
     memory_retrieval_mode: Literal["lexical", "semantic"] = "lexical"
     embedding_cache_path: str = "data/model-cache"
     classifier_model_path: str = "ml/artifacts/classifier"
+    classifier_required: bool = False
+    operator_token: SecretStr = SecretStr('')
+    require_operator_token: bool = False
     memory_db_path: str = "data/minidavis.sqlite"
     frontend_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 

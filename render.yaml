@@ -1,0 +1,33 @@
+# Optional $0 baseline preview only. Importing this file does not deploy anything.
+# The full ML preview remains blocked until trained artifacts/RAM/storage are verified.
+services:
+  - type: web
+    name: minidavis-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: sh scripts/start_backend.sh
+    healthCheckPath: /ready
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.14
+      - key: MINIDAVIS_MODE
+        value: baseline
+      - key: MEMORY_RETRIEVAL_MODE
+        value: lexical
+      - key: REQUIRE_OPERATOR_TOKEN
+        value: "true"
+      - key: OPERATOR_TOKEN
+        generateValue: true
+      - key: FRONTEND_ORIGINS
+        sync: false
+  - type: web
+    name: minidavis-web
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: VITE_API_BASE_URL
+        sync: false

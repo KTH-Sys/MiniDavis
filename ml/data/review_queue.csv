@@ -1,54 +1,54 @@
 example_id,reviewer,status,notes
-001,Aishani,pending,
-002,Aishani,pending,
-003,Aishani,pending,
-004,Aishani,pending,
-005,Aishani,pending,
-006,Aishani,pending,
-007,Aishani,pending,
-008,Aishani,pending,
-009,Aishani,pending,
-010,Aishani,pending,
-011,Aishani,pending,
-012,Aishani,pending,
-013,Aishani,pending,
-014,Aishani,pending,
-015,Aishani,pending,
-016,Aishani,pending,
-017,Aishani,pending,
-018,Aishani,pending,
-019,Aishani,pending,
-020,Aishani,pending,
-021,Aishani,pending,
-022,Aishani,pending,
-023,Aishani,pending,
-024,Aishani,pending,
-025,Aishani,pending,
-026,Aishani,pending,
-027,Aishani,pending,
-028,Aishani,pending,
-029,Aishani,pending,
-030,Aishani,pending,
-031,Aishani,pending,
-032,Aishani,pending,
-033,Aishani,pending,
-034,Aishani,pending,
-035,Aishani,pending,
-036,Aishani,pending,
-037,Aishani,pending,
-038,Aishani,pending,
-039,Aishani,pending,
-040,Aishani,pending,
-041,Aishani,pending,
-042,Aishani,pending,
-043,Aishani,pending,
-044,Aishani,pending,
-045,Aishani,pending,
-046,Aishani,pending,
-047,Aishani,pending,
-048,Aishani,pending,
-049,Aishani,pending,
-050,Aishani,pending,
+001,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unpaid food gift is cooperation. No personal human sign-off claimed.
+002,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unpaid food gift is cooperation. No personal human sign-off claimed.
+003,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unpaid food gift is cooperation. No personal human sign-off claimed.
+004,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unpaid food gift is cooperation. No personal human sign-off claimed.
+005,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unpaid food gift is cooperation. No personal human sign-off claimed.
+006,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Explicit resource-access threat is conflict. No personal human sign-off claimed.
+007,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Explicit resource-access threat is conflict. No personal human sign-off claimed.
+008,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Explicit resource-access threat is conflict. No personal human sign-off claimed.
+009,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Explicit resource-access threat is conflict. No personal human sign-off claimed.
+010,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Explicit resource-access threat is conflict. No personal human sign-off claimed.
+011,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food-for-coins offer is trade. No personal human sign-off claimed.
+012,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food-for-coins offer is trade. No personal human sign-off claimed.
+013,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food-for-coins offer is trade. No personal human sign-off claimed.
+014,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food-for-coins offer is trade. No personal human sign-off claimed.
+015,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food-for-coins offer is trade. No personal human sign-off claimed.
+016,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Ordinary greeting is neutral. No personal human sign-off claimed.
+017,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Ordinary greeting is neutral. No personal human sign-off claimed.
+018,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Ordinary greeting is neutral. No personal human sign-off claimed.
+019,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Ordinary greeting is neutral. No personal human sign-off claimed.
+020,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Ordinary greeting is neutral. No personal human sign-off claimed.
+021,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Guiding a neighbor is cooperation. No personal human sign-off claimed.
+022,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Guiding a neighbor is cooperation. No personal human sign-off claimed.
+023,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Guiding a neighbor is cooperation. No personal human sign-off claimed.
+024,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Guiding a neighbor is cooperation. No personal human sign-off claimed.
+025,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Guiding a neighbor is cooperation. No personal human sign-off claimed.
+026,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Direct insult is conflict. No personal human sign-off claimed.
+027,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Direct insult is conflict. No personal human sign-off claimed.
+028,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Direct insult is conflict. No personal human sign-off claimed.
+029,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Direct insult is conflict. No personal human sign-off claimed.
+030,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Direct insult is conflict. No personal human sign-off claimed.
+031,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food/wood barter is trade. No personal human sign-off claimed.
+032,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food/wood barter is trade. No personal human sign-off claimed.
+033,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food/wood barter is trade. No personal human sign-off claimed.
+034,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food/wood barter is trade. No personal human sign-off claimed.
+035,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Food/wood barter is trade. No personal human sign-off claimed.
+036,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Weather observation is neutral. No personal human sign-off claimed.
+037,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Weather observation is neutral. No personal human sign-off claimed.
+038,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Weather observation is neutral. No personal human sign-off claimed.
+039,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Weather observation is neutral. No personal human sign-off claimed.
+040,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Weather observation is neutral. No personal human sign-off claimed.
+041,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Agreed gathering schedule is cooperation. No personal human sign-off claimed.
+042,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Agreed gathering schedule is cooperation. No personal human sign-off claimed.
+043,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Agreed gathering schedule is cooperation. No personal human sign-off claimed.
+044,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Agreed gathering schedule is cooperation. No personal human sign-off claimed.
+045,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Agreed gathering schedule is cooperation. No personal human sign-off claimed.
+046,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unresolved theft accusation is conflict. No personal human sign-off claimed.
+047,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unresolved theft accusation is conflict. No personal human sign-off claimed.
+048,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unresolved theft accusation is conflict. No personal human sign-off claimed.
+049,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unresolved theft accusation is conflict. No personal human sign-off claimed.
+050,Aishani,approved,AI-assisted review delegated by Eric on 2026-11-03; Unresolved theft accusation is conflict. No personal human sign-off claimed.
 051,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
 052,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"
 053,Ethan,approved,"Label correct; AI-assisted check, approved by Ethan"

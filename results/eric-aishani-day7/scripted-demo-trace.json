@@ -1,0 +1,872 @@
+{
+  "version": 1,
+  "seed": 11,
+  "source_run_id": "3624e9ea-8d11-4a29-92bf-e9876012c810",
+  "operations": [
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "move",
+            "x": 2,
+            "y": 1,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "ae575592283fab94f975d5ee85fc84f7fab011299cd3a3b7c1d9a6e3eb89ece0"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "move",
+            "x": 2,
+            "y": 2,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "682b95644df090aabf209cc5a9abc9bd0709207d04d05368b745bbf5ba86104b"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "move",
+            "x": 2,
+            "y": 3,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "eccdf3feabe57dc0740a59223373fb834cc8481dcf08fa111729fcecbb9c407d"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "move",
+            "x": 2,
+            "y": 4,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "398c79f879ebe2c3ec9e4d3409df7da484f11ab327da652dcbb9d05e4f4d1423"
+    },
+    {
+      "kind": "shortage",
+      "actions": [],
+      "digest": "88badbc603cbf3cc8339e46f0649834c1d7ad396d9f9f89176e3ddec883b0d78"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "move",
+            "x": 2,
+            "y": 5,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "aff9a41be3ec0b86dd054b649e0dc3b55e0bd139752466aebc11f9dc6304716d"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "move",
+            "x": 2,
+            "y": 6,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "84cf7ec27fe89184298f583c61c71d289dd8364f3c76e708d9fe58cc9bf7611d"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "move",
+            "x": 2,
+            "y": 7,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "70ce72ab80944bcaf6223d091c1a55aac1aa1c350b5f73a6e84838360aac955b"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "offer_trade",
+            "x": null,
+            "y": null,
+            "offer_id": "fixture-trade",
+            "recipient_id": "saurya",
+            "give_resource": "food",
+            "give_amount": 1,
+            "receive_resource": "coins",
+            "receive_amount": 1,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "accept_trade",
+            "x": null,
+            "y": null,
+            "offer_id": "fixture-trade",
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "c27485cac038d762e2332a880ec286d8d89935bfa9b9de96a6ef6dc12836eb54"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "talk",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": "saurya",
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": "Thank you for the exchange."
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "74453195e502170770792c0d077294bbd2be9020ecf5df19867718b0d5906b65"
+    },
+    {
+      "kind": "step",
+      "actions": [
+        {
+          "agent_id": "ethan",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "gayatri",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "aishani",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "rylee",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        },
+        {
+          "agent_id": "saurya",
+          "action": {
+            "action": "rest",
+            "x": null,
+            "y": null,
+            "offer_id": null,
+            "recipient_id": null,
+            "give_resource": null,
+            "give_amount": null,
+            "receive_resource": null,
+            "receive_amount": null,
+            "message": null
+          },
+          "outcome": "accepted"
+        }
+      ],
+      "digest": "0f87ad91e06065be071719c229c73df9d268b3321298a44fc72f9da32d8bed83"
+    }
+  ]
+}
